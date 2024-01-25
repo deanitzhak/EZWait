@@ -1,8 +1,11 @@
-const express = require('express');
+const express = require('express'); //import Node.js
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://ezwaitport:EZWaitport3000@cluster0.nf5xuf0.mongodb.net/?retryWrites=true&w=majority";
-const app = express();
-const port  = 3000;
+const uri = "mongodb+srv://ezwaitport:EZWaitport3000@cluster0.nf5xuf0.mongodb.net/?retryWrites=true&w=majority";//connect to Mongo
+const app = express();//create and app
+const port  = 3000;//listing in port 3000
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({extended:true}));
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
@@ -11,6 +14,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 });
+//connect to mongo async!
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
@@ -24,4 +28,14 @@ async function run() {
   }
 }
 run().catch(console.dir);
-
+//****************/
+//static files
+app.use(express.static('Fronted'));
+app.use('js/',express.static(__dirname+'public/js'));
+app.use('css/',express.static(__dirname+'public/css'));
+app.use('images/',express.static(__dirname+'public/images'));
+app.use(express.urlencoded({extended:false}))
+app.get('',(req,res)=>{
+  res.sendFile(__dirname+'/Frontend/index.html');
+})
+app.listen(port, ()=> console.log('Listening on port',port));
