@@ -1,11 +1,12 @@
 const express = require('express'); //import Node.js
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://ezwaitport:EZWaitport3000@cluster0.nf5xuf0.mongodb.net/?retryWrites=true&w=majority";//connect to Mongo
-const app = express();//create and app
-const port  = 3000;//listing in port 3000
 const bodyParser = require("body-parser");
+// private confic to mongo
+const privateConfig = require('./Integrations/privateConfig.js');
+const uri = privateConfig.getUri();
+const app = privateConfig.getApp();
+const port = privateConfig.getPort();
 app.use(bodyParser.urlencoded({extended:true}));
-
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
