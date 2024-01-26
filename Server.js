@@ -1,49 +1,31 @@
-const express = require('express'); //import Node.js
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const bodyParser = require("body-parser");
-// private confic to mongo
+// expressServer.js
+const express = require('express');
+const bodyParser = require('body-parser');
 const privateConfig = require('./Integrations/privateConfig.js');
-const uri = privateConfig.getUri();
+const { connectToMongoDB, closeMongoDBConnection } = require('./mongoDBConnector');
 const app = privateConfig.getApp();
 const port = privateConfig.getPort();
-app.use(bodyParser.urlencoded({extended:true}));
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('Fronted'));
+app.use('/js', express.static(__dirname + 'public/js'));
+app.use('/css', express.static(__dirname + 'public/css'));
+app.use('/images', express.static(__dirname + 'public/images'));
+app.use(express.urlencoded({ extended: false }));
+
+app.get('', (req, res) => {
+  res.sendFile(__dirname + '/Frontend/index.html');
 });
-//connect to mongo async!
+
+module.exports = app;
+///******main******////
 async function run() {
+  let mongoClient;
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-    const database = client.db('sample_mflix');
-    // Access the comments collection
-    const commentsCollection = database.collection('comments');
-    // Query to retrieve all documents in the comments collection
-    const comments = await commentsCollection.find({}).toArray();
-    // Log the retrieved comments
-    console.log(comments);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    mongoClient = await connectToMongoDB();
+  } catch(error){
+    mongoClient = await closeMongoDBConnection();
   }
 }
+app.listen(port, () => console.log('Listening on port', port));
 run().catch(console.dir);
-//****************/
-//static files
-app.use(express.static('Fronted'));
-app.use('js/',express.static(__dirname+'public/js'));
-app.use('css/',express.static(__dirname+'public/css'));
-app.use('images/',express.static(__dirname+'public/images'));
-app.use(express.urlencoded({extended:false}))
-app.get('',(req,res)=>{
-  res.sendFile(__dirname+'/Frontend/index.html');
-})
-app.listen(port, ()=> console.log('Listening on port',port));

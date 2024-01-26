@@ -1,1 +1,1 @@
-    await client.close();
+app.connectToMongoDB();
