@@ -1,4 +1,3 @@
-// mongoDBConnector.js
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const privateConfig = require('./Integrations/privateConfig.js');
 
