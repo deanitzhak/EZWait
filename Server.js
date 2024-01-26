@@ -23,6 +23,13 @@ async function run() {
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    const database = client.db('sample_mflix');
+    // Access the comments collection
+    const commentsCollection = database.collection('comments');
+    // Query to retrieve all documents in the comments collection
+    const comments = await commentsCollection.find({}).toArray();
+    // Log the retrieved comments
+    console.log(comments);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
