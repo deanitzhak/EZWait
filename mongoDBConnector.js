@@ -9,7 +9,7 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
-
+// connect
 async function connectToMongoDB() {
   try {
     await client.connect();
@@ -21,7 +21,7 @@ async function connectToMongoDB() {
     throw error;
   }
 }
-
+// close connect
 async function closeMongoDBConnection() {
   try {
     await client.close();
