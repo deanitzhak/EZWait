@@ -26,5 +26,4 @@ async function run() {
   }
 }
 app.listen(port, () => console.log('Listening on port', port));
-
 run().catch(console.dir);

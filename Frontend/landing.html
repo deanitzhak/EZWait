@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML and CSS Example</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-    <header>
-        <h1>HTML and CSS Example</h1>
-    </header>
-
-    <section>
-        <h2>Welcome to our example webpage!</h2>
-        <p>This is a simple example demonstrating the use of HTML and CSS to create a styled webpage. Feel free to modify and expand upon it!</p>
-    </section>
-
+    <div class="app-container">
+        <!-- Left Side -->
+        <div class="left-side">
+          <h1>EZWait</h1>
+          <h2>Now it's easy</h2>
+          <img src="path/to/your/icon.png" alt="EZWait Logo" />
+        </div>
+        <!-- Right Side -->
+        <div class="right-side">
+          <h1>Sign In</h1>
+          <label>
+            Enter username or email:
+            <input type="text" placeholder="Enter username or email" />
+          </label>
+          <label>
+            Password:
+            <input type="password" placeholder="Password" />
+          </label>
+        </div>
+      </div>
 </body>
 </html>
