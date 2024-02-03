@@ -12,9 +12,8 @@ module.exports = class MongoStorage {
         ));
         this.connect();
     }
-
     connect() {
-        const connectionUrl = `mongodb+srv://dcs_growth:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.x4zjwvd.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+        const connectionUrl = `mongodb+srv://ezwaitport:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.x4zjwvd.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
         mongoose
             .connect(connectionUrl)
             .then(() => console.log(`connected to ${this.entityName} collection`))

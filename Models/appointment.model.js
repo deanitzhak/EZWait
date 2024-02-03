@@ -1,4 +1,5 @@
 const {Schema, model, ObjectId, isValidObjectId} = require("mongoose");
+const {v4: uuidv4} = require('uuid');
 
 const attributeSchema = new Schema({
     value: String,
@@ -49,41 +50,7 @@ const appointmentSchema = new Schema(
                 message: "Start time should be prior to end time",
             },
         },
-        variantsAB: {
-            type: Object,
-            properties: {
-                A: String,
-                B: String,
-                C: String,
-            },
-            required: function () {
-                return this.type === "a-b";
-            }
-        },
-        variantsFF: {
-            type: Object,
-            properties: {
-                ON: {
-                    type: Boolean,
-                    default: true,
-                    validate: {
-                        validator: (ON) => ON,
-                        message: "Feature flag variant ON must be true",
-                    },
-                },
-                OFF: {
-                    type: Boolean,
-                    default: false,
-                    validate: {
-                        validator: (OFF) => !OFF,
-                        message: "Feature flag variant OFF must be false",
-                    },
-                },
-            },
-            required: function () {
-                return this.type === "f-f";
-            },
-        },
+
         goals: {
             type: [ObjectId],
             validate: {
@@ -97,22 +64,5 @@ const appointmentSchema = new Schema(
         collection: "Appointment"
     }
 );
-
-function deviceValidator(devices) {
-    const devicesSet = new Set([
-        "console",
-        "mobile",
-        "tablet",
-        "smarttv",
-        "wearable",
-        "embedded",
-        "desktop",
-    ]);
-    return devices.every((device) => devicesSet.has(device.value.toLowerCase()));
-}
-
-function countryValidator(countries) {
-    return countries.every((country) => !!iso.whereAlpha2(country.value));
-}
 
 module.exports = model("Appointment", appointmentSchema);

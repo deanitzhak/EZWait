@@ -21,11 +21,11 @@ class BadRequest extends Error {
     }
   }
   
-  class ExperimentNotActive extends BadRequest {
+  class UserNotActive extends BadRequest {
     constructor(experimentId) {
-      super(`Experiment with id=${experimentId} is not active`);
+      super(`User with id=${userId} is not active`);
       this.name = this.constructor.name;
     }
   }
   
-  module.exports = { PropertyExist, BodyNotSent, ExperimentNotActive };
+  module.exports = { PropertyExist, BodyNotSent, UsertNotActive };
