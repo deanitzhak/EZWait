@@ -39,7 +39,7 @@ const appointmentSchema = new Schema(
     },
     timeStamp: {
       type: Date,
-      default: Date.now, // Use Date.now() as the default value for the current date and time
+      default: Date.now, // Use Date.now() as the default value for th current date and time
     },
   },
   {
