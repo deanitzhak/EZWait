@@ -4,7 +4,7 @@ mongoose.set("strictQuery", false);
 const Path = require("path");
 const { ObjectId } = require("mongodb");
 const ErrorsHandler = require("../errors/BadRequest.errors");
-// this is a singleTone Class to get a reference to mongoStorege use MongoStorage.instance() 
+// this is a singleton Class to get a reference to mongoStorege use MongoStorage.instance() 
 class MongoStorage {
     constructor() {
         

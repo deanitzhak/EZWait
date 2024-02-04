@@ -1,5 +1,5 @@
 const mongoStorage = require('./MongoStorage'); 
-class AppointmentRepository extends mongoStorage {
+class appointmentRepository extends mongoStorage {
     constructor() {
         super("appointment");
         this.updateAppointmentStatus = this.updateAppointmentStatus.bind(this);
@@ -14,4 +14,4 @@ class AppointmentRepository extends mongoStorage {
         return this.findByAttribute("uuid", uuid);
     }
 }
-module.exports = new AppointmentRepository();
+module.exports = new appointmentRepository();
