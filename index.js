@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoStorage = require('./db/mongo.storage');
+const MongoStorage = require('./db/mongo.storage');  // Note: Use 'MongoStorage' instead of 'mongoStorage'
 require('dotenv').config();
 const port = process.env.PORT ;
 const app = express();
@@ -16,7 +16,9 @@ app.get('', (req, res) => {
   res.sendFile(__dirname + '/Frontend/landing.html');
 });
 //***testing***/
-const mongoClient = new mongoStorage();
+const mongoClient = new MongoStorage();
+const mongoClient2 = MongoStorage.getInstance();
+
 
 app.listen(port, () => console.log('Listening on port', port));
 

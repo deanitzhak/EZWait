@@ -3,13 +3,27 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const Path = require("path");
 const { ObjectId } = require("mongodb");
-
-module.exports = class MongoStorage {
-
+const ErrorsHandler = require("../errors/BadRequest.errors");
+// this is a singleTone Class to get a reference to mongoStorege use MongoStorage.instance() 
+class MongoStorage {
     constructor() {
-       
-        this.connect();
+        
+        if (!MongoStorage.instance) {
+            this.connect();
+            MongoStorage.instance = this;
+            console.log(" create MongoStorage.instance ");
+        } else {
+            console.log("MongoStorage allready Exist ");
+        }
+        return MongoStorage.instance;
     }
+    static getInstance() {
+        if (!MongoStorage.instance) {
+            MongoStorage.instance = new MongoStorage();
+        }
+        return MongoStorage.instance;
+    }
+
     connect() {
         const connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.nf5xuf0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
         mongoose
@@ -17,7 +31,6 @@ module.exports = class MongoStorage {
             .then(() => console.log(`connected to ${process.env.DB_CLUSTER} ${process.env.DB_NAME} collection and `))
             .catch((err) => console.log(`connection error: ${err}`));
     }
-
     find() {
         return this.Model.find({});
     }
@@ -47,7 +60,7 @@ module.exports = class MongoStorage {
     }
 
     createMany(data) {
-        return this.Model.create(data)
+        return this.Model.create(data);
     }
 
     delete(id) {
@@ -61,8 +74,9 @@ module.exports = class MongoStorage {
         });
     }
 
-    updateMany(filter,update,options) {
-        return this.Model.updateMany(filter, update, options)
+    updateMany(filter, update, options) {
+        return this.Model.updateMany(filter, update, options);
     }
-};
+}
 
+module.exports = MongoStorage;

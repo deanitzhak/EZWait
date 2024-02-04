@@ -1,11 +1,17 @@
-/*module.exports = new (class AppointmentRepository extends MongoStorage {
+const mongoStorage = require('./MongoStorage'); 
+class AppointmentRepository extends mongoStorage {
     constructor() {
-        super("Appointment");
-        this.incAttributeReqCount = this.incAttributeReqCount.bind(this);
+        super("appointment");
+        this.updateAppointmentStatus = this.updateAppointmentStatus.bind(this);
+        this.retrieveByUuid = this.retrieveByUuid.bind(this);
     }
+
     async updateAppointmentStatus(id, newStatus) {
-        return await this.update(id, {status: newStatus}).populate({path: 'appointment'});
+        return await this.update(id, { state: newStatus }).populate({ path: 'appointment' });
     }
-    retrieveByUuid(uuid) {
+
+    async retrieveByUuid(uuid) {
         return this.findByAttribute("uuid", uuid);
-      }*/
+    }
+}
+module.exports = new AppointmentRepository();
