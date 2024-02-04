@@ -1,23 +1,20 @@
+const { log } = require("console");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const Path = require("path");
+const { ObjectId } = require("mongodb");
 
 module.exports = class MongoStorage {
-    constructor(entity) {
 
-        this.entityName = entity.charAt(0).toUpperCase() + entity.slice(1);
-        this.Model = require(Path.join(
-            __dirname,
-            `../models/${this.entityName}.model.js`
-        ));
+    constructor() {
+       
         this.connect();
     }
-
     connect() {
-        const connectionUrl = `mongodb+srv://dcs_growth:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.x4zjwvd.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+        const connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.nf5xuf0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
         mongoose
             .connect(connectionUrl)
-            .then(() => console.log(`connected to ${this.entityName} collection`))
+            .then(() => console.log(`connected to ${process.env.DB_CLUSTER} ${process.env.DB_NAME} collection and `))
             .catch((err) => console.log(`connection error: ${err}`));
     }
 
@@ -67,5 +64,5 @@ module.exports = class MongoStorage {
     updateMany(filter,update,options) {
         return this.Model.updateMany(filter, update, options)
     }
-
 };
+
