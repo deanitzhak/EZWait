@@ -1,17 +1,12 @@
-const { log } = require("console");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const Path = require("path");
-const { ObjectId } = require("mongodb");
-const ErrorsHandler = require("../errors/BadRequest.errors");
 // this is a singleton Class to get a reference to mongoStorege use MongoStorage.instance() 
 class MongoStorage {
     constructor() {
-        
         if (!MongoStorage.instance) {
             this.connect();
             MongoStorage.instance = this;
-            console.log(" create MongoStorage.instance ");
+            console.log("create MongoStorage.instance");
         } else {
             console.log("MongoStorage allready Exist ");
         }
@@ -28,7 +23,9 @@ class MongoStorage {
         const connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.nf5xuf0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
         mongoose
             .connect(connectionUrl)
-            .then(() => console.log(`connected to ${process.env.DB_CLUSTER} ${process.env.DB_NAME} collection and `))
+            .then(() => {
+                console.log(`connected to ${process.env.DB_CLUSTER} ${process.env.DB_NAME} collection and `);
+            })
             .catch((err) => console.log(`connection error: ${err}`));
     }
     find() {

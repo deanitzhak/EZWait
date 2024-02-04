@@ -1,10 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const MongoStorage = require('./db/mongo.storage');  // Note: Use 'MongoStorage' instead of 'mongoStorage'
-require('dotenv').config();
+//const AppointmentRepository = require('./reposetory/appointment.repository');
+
+require('dotenv').config({ path: './.env' });
 const port = process.env.PORT ;
 const app = express();
+// init file 
+const mongoStorageInstance = MongoStorage.getInstance();
 
+
+//const appointmentRepositoryInstance = new AppointmentRepository();
+
+//
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('Frontend'));
 app.use('/js', express.static(__dirname + 'public/js'));
@@ -16,8 +24,6 @@ app.get('', (req, res) => {
   res.sendFile(__dirname + '/Frontend/landing.html');
 });
 //***testing***/
-const mongoClient = new MongoStorage();
-const mongoClient2 = MongoStorage.getInstance();
 
 
 app.listen(port, () => console.log('Listening on port', port));
