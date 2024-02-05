@@ -32,10 +32,11 @@ body {
 }
 
 .logo {
+
 }
 .humanIcon{
   transform: translate(-70%,35%);
-  height: 550px ;
+  height: 550px;
 }
 .title {
   color: #4D47C3;
