@@ -7,8 +7,7 @@ require('dotenv').config({ path: './.env' });
 const port = process.env.PORT ;
 const app = express();
 // init file 
-const mongoStorageInstance = MongoStorage.getInstance();
-mongoStorageInstance.connect();
+const mongoStorageInstance = new MongoStorage;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('Frontend'));
 app.use('/js', express.static(__dirname + 'public/js'));

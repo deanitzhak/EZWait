@@ -1,29 +1,22 @@
-const { Schema, model, ObjectId, isValidObjectId } = require("mongoose");
+const {Schema, model} = require("mongoose");
+const {validate} = require("uuid");
 
-const scheduleSchema = new Schema(
-  {
-    day: {
-      type: Date,
-      default: Date.now.day,
-      
+const futureEmailSchema = new Schema(
+    {
+        id: {type: String, index: 1},
+        to: [{type: String}],
+        cc: {type: String},
+        bcc: {type: String},
+        subject: {type: String},
+        html: {type: String},
+        from: {type: String},
+        timeToSend: {type: String},
     },
-    month: {
-      type: Date,
-      default: Date.now.month,
-    },
-    year: {
-      type: Date.now,
-      default: Date.year,
-    },
-    time: {
-      type: Date,
-      default: Date.now,
+    {
+        collection: "emailsToSend",
     }
-  },
-  {
-    collection: "Schedule",
-  }
 );
+futureEmailSchema.path("id").validate((id) => validate(id));
 
-const scheduleSchemaModel = model("scheduleSchema",scheduleSchema);
-module.exports = scheduleSchemaModel;
+const FutureEmail = model("emailToSend", futureEmailSchema);
+module.exports = {FutureEmail};

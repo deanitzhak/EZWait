@@ -1,44 +1,22 @@
-const { ObjectId } = require("mongodb");
-const { Schema, model, ObjectId, isValidObjectId } = require("mongoose");
+const {Schema, model} = require("mongoose");
+const {validate} = require("uuid");
 
-const messegeReplay = new Schema(
-  {
-    messegeReplayId: {
-      type: ObjectId,
-      required: true,
-      validate: [isValidObjectId, "Not valid messege Sent Id must be a valid id"],
+const futureEmailSchema = new Schema(
+    {
+        id: {type: String, index: 1},
+        to: [{type: String}],
+        cc: {type: String},
+        bcc: {type: String},
+        subject: {type: String},
+        html: {type: String},
+        from: {type: String},
+        timeToSend: {type: String},
     },
-    userId: {
-        type: ObjectId,
-        required: true,
-        validate: [isValidObjectId, "Not valid user Id must be a valid id"],
-    },
-    cilentId: {
-        type: ObjectId,
-        required: true,
-        validate: [isValidObjectId, "Not valid client Id must be a valid id"],
-    },
-    userName: {
-      type: String,
-      default: null,
-    },
-    subject: {
-      type: String,
-      default: null, // Use Date.now() as the default value for the current date and time
-    },
-    description: {
-      type: String,
-      default: null, // Use Date.now() as the default value for the current date and time
-    },
-    sendTime: {
-      type: Date,
-      required: Date.now,
-    },
-  },
-  {
-    collection: "MessegeReplay",
-  }
+    {
+        collection: "emailsToSend",
+    }
 );
+futureEmailSchema.path("id").validate((id) => validate(id));
 
-const MessegeReplayModel = model("MessegeSent", messegeReplay);
-module.exports = MessegeReplayModel;
+const FutureEmail = model("emailToSend", futureEmailSchema);
+module.exports = {FutureEmail};

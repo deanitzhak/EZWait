@@ -1,40 +1,22 @@
+const { log } = require("console");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-// this is a singleton Class to get a reference to mongoStorege use MongoStorage.instance() 
-class MongoStorage {
+const Path = require("path");
+const { ObjectId } = require("mongodb");
+
+module.exports = class MongoStorage {
+
     constructor() {
-        if (!MongoStorage.instance) {
-            //this.connect();
-            MongoStorage.instance = this;
-            console.log("create MongoStorage.instance");
-        } else {
-            console.log("MongoStorage allready Exist ");
-        }
-        return MongoStorage.instance;
+        this.connect();
     }
-    static getInstance() {
-        if (!MongoStorage.instance) {
-            MongoStorage.instance = new MongoStorage();
-        }
-        return MongoStorage.instance;
+    connect() {
+        const connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.nf5xuf0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
+        mongoose
+            .connect(connectionUrl)
+            .then(() => console.log(`connected to ${process.env.DB_CLUSTER} ${process.env.DB_NAME} collection and `))
+            .catch((err) => console.log(`connection error: ${err}`));
     }
 
-    async connect(callback) {
-        const connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.nf5xuf0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-        try {
-            await mongoose.connect(connectionUrl);
-            console.log(`connected to ${process.env.DB_CLUSTER} ${process.env.DB_NAME} collection`);
-            if (callback && typeof callback === 'function') {
-                callback(null);  // Pass null as the first parameter to indicate success
-            }
-        } catch (error) {
-            console.log(`connection error: ${error}`);
-            if (callback && typeof callback === 'function') {
-                callback(error);  // Pass the error as the first parameter
-            }
-        }
-    }
-    
     find() {
         return this.Model.find({});
     }
@@ -64,7 +46,7 @@ class MongoStorage {
     }
 
     createMany(data) {
-        return this.Model.create(data);
+        return this.Model.create(data)
     }
 
     delete(id) {
@@ -78,9 +60,7 @@ class MongoStorage {
         });
     }
 
-    updateMany(filter, update, options) {
-        return this.Model.updateMany(filter, update, options);
+    updateMany(filter,update,options) {
+        return this.Model.updateMany(filter, update, options)
     }
-}
-
-module.exports = MongoStorage;
+};
