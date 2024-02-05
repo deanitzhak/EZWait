@@ -92,12 +92,12 @@ label {
   height: 30px;
   margin-top: 10%;
 }
-submitButton:hover {
+.submitButton:hover {
   background-color: none;
   background: none;
   border: none; /* Remove border */
 }
-input {
+.input {
   width: 100%;
   height: 100%;
   padding: 10px;
@@ -107,3 +107,15 @@ input {
   border: none; /* Remove border */
   margin-top: 4%;
 }
+.logoProfile {
+  width: 552px;
+  height: 104.97px;
+}
+/* prifile */
+.bg {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+
+}
+/* profile page */

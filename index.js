@@ -13,7 +13,7 @@ app.use('/images', express.static(__dirname + 'public/images'));
 app.use(express.urlencoded({ extended: false }));
 
 app.get('', (req, res) => {
-  res.sendFile(__dirname + '/Frontend/singup.html');
+  res.sendFile(__dirname + '/Frontend/profile.html');
 });
 //***testing***/
 const mongoClient = new mongoStorage();
