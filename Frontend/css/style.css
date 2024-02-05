@@ -24,7 +24,7 @@ body {
 }
 
 .logoContainer {
-  transform: translate(25%, 5%);
+  transform: tranate(25%, 5%);
   border-radius: 8px;
   height: fit-content;
   width: fit-content;
@@ -85,7 +85,7 @@ label {
 .submitButton {
   width: 100%;
   border: none;
-  background: #A7A3FF;
+  background: #4D47C3;
   height: 30px;
   margin-top: 10%;
 }
