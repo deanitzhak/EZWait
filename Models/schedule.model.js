@@ -5,6 +5,7 @@ const scheduleSchema = new Schema(
     day: {
       type: Date,
       default: Date.now.day,
+      
     },
     month: {
       type: Date,
@@ -24,5 +25,5 @@ const scheduleSchema = new Schema(
   }
 );
 
-const scheduleSchemaModel = model("scheduleSchemaModel",scheduleSchema);
+const scheduleSchemaModel = model("scheduleSchema",scheduleSchema);
 module.exports = scheduleSchemaModel;

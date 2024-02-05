@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const { Schema, model, ObjectId, isValidObjectId } = require("mongoose");
 
 const appointmentSchema = new Schema(
