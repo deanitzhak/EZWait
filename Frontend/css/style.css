@@ -32,7 +32,10 @@ body {
 }
 
 .logo {
-
+  width: 674px;
+  height: 187px;
+  top: 173px;
+  left: 65px;
 }
 .humanIcon{
   transform: translate(-70%,35%);
