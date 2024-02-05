@@ -1,22 +1,24 @@
+const { ObjectId } = require("mongodb");
 const {Schema, model} = require("mongoose");
 const {validate} = require("uuid");
 
-const futureEmailSchema = new Schema(
+const profileSchema = new Schema(
     {
-        id: {type: String, index: 1},
-        to: [{type: String}],
-        cc: {type: String},
-        bcc: {type: String},
-        subject: {type: String},
-        html: {type: String},
-        from: {type: String},
-        timeToSend: {type: String},
+        userId: {type: ObjectId, index: 1},
+        userName: [{type: String}],
+        firstName: {type: String},
+        lastName: {type: String},
+        emait: {type: String},
+        password: {type: String},
+        status: {type: Boolean},
+        createAt: {type: Date},
+        canceleCount: {type: int}
     },
     {
-        collection: "emailsToSend",
+        Collection: "profile",
     }
 );
-futureEmailSchema.path("id").validate((id) => validate(id));
+profileSchema.path("id").validate((id) => validate(id));
 
-const FutureEmail = model("emailToSend", futureEmailSchema);
-module.exports = {FutureEmail};
+const profile = model("emailToSend", profileSchema);
+module.exports = {profile};

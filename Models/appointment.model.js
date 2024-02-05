@@ -15,10 +15,10 @@ const appointmentSchema = new Schema(
         timeStamp:{ type: Date}
     },
     {
-        collection: "emailsToSend",
+        collection: "Appointment",
     }
 );
 appointmentSchema.path("id").validate((id) => validate(id));
 
-const appointment = model("emailToSend", appointment);
+const appointment = model("appointment", appointmentSchema);
 module.exports = {appointment};
