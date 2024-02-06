@@ -1,20 +1,26 @@
-const { log } = require("console");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const Path = require("path");
-const { ObjectId } = require("mongodb");
+const { Schema, model } = require('mongoose');
 
 module.exports = class MongoStorage {
 
     constructor() {
-        this.connect();
+
     }
     connect() {
         const connectionUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.nf5xuf0.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
-        mongoose
-            .connect(connectionUrl)
-            .then(() => console.log(`connected to ${process.env.DB_CLUSTER} ${process.env.DB_NAME} collection and `))
-            .catch((err) => console.log(`connection error: ${err}`));
+        return new Promise((resolve, reject) => {
+            mongoose.connect(connectionUrl)
+                .then(() => {
+                    console.log(`Connected to ${process.env.DB_CLUSTER} ${process.env.DB_NAME} collection`);
+                    resolve(); // Resolve the promise when connected
+                })
+                .catch((err) => {
+                    console.error(`Connection error: ${err}`);
+                    reject(err); // Reject the promise if there's an error
+                });
+        });
     }
 
     find() {
@@ -41,8 +47,9 @@ module.exports = class MongoStorage {
     }
 
     create(data) {
-        const entity = new this.Model(data);
-        return entity.save();
+        
+        //const entity = new this.Model(data);
+        return data.save();
     }
 
     createMany(data) {
