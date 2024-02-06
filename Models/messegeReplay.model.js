@@ -1,22 +1,22 @@
+const { ObjectId } = require("mongodb");
 const {Schema, model} = require("mongoose");
 const {validate} = require("uuid");
 
-const futureEmailSchema = new Schema(
+const messegeReplaySchema = new Schema(
     {
-        id: {type: String, index: 1},
-        to: [{type: String}],
-        cc: {type: String},
-        bcc: {type: String},
+        replayMessegId: {type: ObjectId, index: 1},
+        userId: {type: ObjectId, index: 1},
+        clientId: {type: ObjectId, index: 1},
+        username: {type: String},
         subject: {type: String},
-        html: {type: String},
-        from: {type: String},
-        timeToSend: {type: String},
+        description: {type: String},
+        sendTime: { type: Date}
     },
     {
-        collection: "emailsToSend",
+        collection: "ReplayMesseg",
     }
 );
-futureEmailSchema.path("id").validate((id) => validate(id));
+messegeReplaySchema.path("id").validate((id) => validate(id));
 
-const FutureEmail = model("emailToSend", futureEmailSchema);
-module.exports = {FutureEmail};
+const messegeReplayModel = model("ReplayMesseg", messegeReplaySchema);
+module.exports = {messegeReplayModel};

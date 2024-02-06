@@ -15,10 +15,10 @@ const profileSchema = new Schema(
         canceleCount: {type: int}
     },
     {
-        Collection: "profile",
+        Collection: "Profile",
     }
 );
 profileSchema.path("id").validate((id) => validate(id));
 
-const profile = model("emailToSend", profileSchema);
-module.exports = {profile};
+const profileModel = model("Profile", profileSchema);
+module.exports = {profileModel};

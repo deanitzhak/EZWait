@@ -20,5 +20,5 @@ const appointmentSchema = new Schema(
 );
 appointmentSchema.path("id").validate((id) => validate(id));
 
-const appointment = model("appointment", appointmentSchema);
-module.exports = {appointment};
+const appointmentModel = model("Appointment", appointmentSchema);
+module.exports = {appointmentModel};
