@@ -1,19 +1,19 @@
-const { ObjectId } = require("mongodb");
+//const { ObjectId } = require("mongodb");
 const {Schema, model} = require("mongoose");
-const {validate} = require("uuid");
+//const {validate} = require("uuid");
 
 const scheduleSchema = new Schema(
     {
-        day: {type: date, index: 1},
-        month: {type: date, index: 1},
-        years: {type: date, index: 1},
-        time: {type: date, index: 1}
+        day: { type: Number, index: 1 }, // Use 'Number' instead of 'Date'
+        month: { type: Number, index: 1 },
+        year: { type: Number, index: 1 },
+        time: { type: Date, index: 1 }    
     },
     {
         collection: "Schedule",
     }
 );
-scheduleSchema.path("id").validate((id) => validate(id));
+//scheduleSchema.path("id").validate((id) => validate(id));
 
-const ScheduleModel = model("Schedule", scheduleSchema);
-module.exports = {ScheduleModel};
+const scheduleModel = model("Schedule", scheduleSchema);
+module.exports = {scheduleModel};

@@ -5,11 +5,11 @@ const {validate} = require("uuid");
 const appointmentSchema = new Schema(
     {
         id: {type: ObjectId, index: 1},
-        userName: [{type: String}],
+        userName: {type: String},
         firstName: {type: String},
         lastName: {type: String},
         startTime: {type: Date},
-        endTime: {type: String},
+        endTime: {type: Date},
         type: { type: String, enum: ['value1', 'value2', 'value3'] },
         status: { type: String, enum: ['value1', 'value2', 'value3'] },
         timeStamp:{ type: Date}

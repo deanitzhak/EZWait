@@ -13,10 +13,10 @@ const messegeSentSchema = new Schema(
         sendTime: {type: Date}
     },
     {
-        collection: "SendMesseg",
+        collection: "MessegeSent",
     }
 );
-messegeSentSchema.path("id").validate((id) => validate(id));
+//messegeSentSchema.path("id").validate((id) => validate(id));
 
-const messegeReplayModel = model("SendMesseg", messegeSentSchema);
-module.exports = {messegeReplayModel};
+const messegeSentModel = model("SendMesseg", messegeSentSchema);
+module.exports = {messegeSentModel};
