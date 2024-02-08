@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const MongoStorage = require('./db/mongo.storage');  // Note: Use 'MongoStorage' instead of 'mongoStorage'
 require('dotenv').config({ path: './.env' });
 /*----Testing-----*/
+const { appointmentModel } = require("./models/appointment.model");
 const { profileModel } = require("./models/profile.model");
 const { scheduleModel} = require("./models/schedule.model");
 const { messegeReplayModel} = require("./models/messegeReplay.model");
 const { messegeSentModel} = require("./models/messegeSent.model");
-
 const { ObjectId } = require("mongodb");
-const { appointmentModel } = require('./Models/appointment.model');
+const AppointmentRepository = require('./reposetory/appointment.repository');
 /*----Testing-----*/
 const port = process.env.PORT ;
 const app = express();
@@ -24,6 +24,8 @@ mongoStorageInstance.connect()
         //mongoStorageInstance.create(createMessegeReplay());
         //mongoStorageInstance.create(createMessegeSent());
         //mongoStorageInstance.create(createNewAppointment());
+        //testFindAllAppRepo();
+        //testFindByUserIdAppRepo("NaveM");
         /*----Testing-----*/
     })
     .catch((err) => {
@@ -148,4 +150,26 @@ function createNewAppointment(){
 });
   console.log(newAppointment);
   return newAppointment;
+}
+async function testFindAllAppRepo() {
+  const appointmentRepo = new AppointmentRepository();
+  // Example usage: Retrieve all appointments
+  appointmentRepo.findAll()
+  .then(appointments => {
+      console.log('Appointments:', appointments);
+  })
+  .catch(error => {
+      console.error('Error retrieving appointments:', error);
+  });
+}
+
+function testFindByUserIdAppRepo(userName){
+  const appointmentRepo = new AppointmentRepository(); 
+  appointmentRepo.findByUserId(userName)
+    .then(appointments => {
+      console.log(appointments);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 }

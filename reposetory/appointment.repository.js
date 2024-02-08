@@ -1,131 +1,33 @@
-
 const MongoStorage = require('../db/mongo.storage');
-const mongoose = require("mongoose");
+const { appointmentModel } = require('../models/appointment.model');
 
-module.exports = new (class AppointmentRepository extends MongoStorage {
+class AppointmentRepository extends MongoStorage {
     constructor() {
-        super("Appointment");
-        this.updateAppointmentStatus = this.updateAppointmentStatus.bind(this);
-    }
+        super(); // Call the super constructor before accessing `this`
 
-    find() {
-        return this.Model.find({}).populate({ path: 'schedual' });
+        // Assign the appointmentModel to the Model property
+        this.Model = appointmentModel;
     }
-
-    findByTwoAttributes(key, value, key2, value2) {
-        const obj = {};
-        obj[key] = value;
-        if (key2 && value2) {
-            obj[key2] = value2;
+    async findByUserId(userName) {
+        try {
+            // Use the find method inherited from MongoStorage to fetch appointments by userId
+            const appointments = await this.findByAttribute('userName', userName);
+            return appointments;
+        } catch (error) {
+            throw new Error(`Error retrieving appointments by userId: ${error.message}`);
         }
-        return this.Model.find(obj).populate({ path: 'schedual' });
     }
 
-    findByAttribute(key, value, key2, value2) {
-        const obj = {};
-        obj[key] = value;
-        if (key2 && value2) {
-            obj[key2] = value2;
+    async findAll() {
+        try {
+            // Use the find method inherited from MongoStorage to fetch all appointments
+            const appointments = await this.find();
+            return appointments;
+        } catch (error) {
+            throw new Error(`Error retrieving appointments: ${error.message}`);
         }
-        return this.Model.find(obj).populate({ path: 'schedual' });
     }
+    // Other repository methods...
+}
 
-    retrieve(id) {
-        return this.Model.findById(id).populate({ path: 'schedual' });
-    }
-
-    async findByDate(year, month, day) {
-        const pipeline = [
-            {
-                $match: {
-                    'duration.startTime': {
-                        $gte: new Date(year, month - 1, day, 1),
-                        $lt: new Date(year, month - 1, day, 1),
-                    },
-                },
-            },
-            {
-                $group: {
-                    _id: '$status',
-                },
-            },
-        ];
-        const results = await this.Model.aggregate(pipeline);
-        return results;
-    }
-})();
-
-
-
-
-/*
-const MongoStorage = require('../db/mongo.storage');
-const { mongoose } = require("mongoose");
-
-
-module.exports = new (class AppointmentRepository extends MongoStorage {
-  constructor() {
-    super("Appointment");
-    this.updateAppointmentStatus = this.updateAppointmentStatus.bind(this);
-  }
-
-  find() {
-    return this.Model.find({}).populate({ path: 'schedual' })
-  }
-
-  findByTwoAttributes(key, value, key2, value2) {
-    const obj = {}
-    obj[key] = value;
-    if (key2 && value2) {
-      obj[key2] = value2;
-    }
-    return this.Model.find(obj).populate({ path: 'schedual' });
-  }
-
-  findByAttribute(key, value) {
-    const obj = {}
-    obj[key] = value;
-    if (key2 && value2) {
-      obj[key2] = value2;
-      return this.Model.find(obj).populate({ path: 'schedual' });
-    }
-
-    retrieve(id) {
-      return this.Model.findById(id).populate({ path: 'schedual' });
-    }
-  }
-  async findByDate(year, month, day) {
-    const pipeline = [
-      {
-        $match: {
-          'duration.startTime': {
-            $gte: new Date(year, month - 1, day, 1),
-            $ltw: new Date(year, month - 1, day, 1),
-
-          },
-        },
-      },
-      {
-        $group: {
-          _id: '$status',
-        },
-      },
-    ];
-    const results = await this.Model.aggregate(pipline);
-    return results;
-  }
-
-
-*/
-//   async retrieveByUuid(uuid) {
-//     try {
-//       let attribute = await this.findByAttribute("appointmentId", uuid);
-//       console.log(attribute);
-//       return attribute;
-//     } catch (error) {
-//       console.error("Error retrieving attribute by UUID:", error);
-//       throw error;
-//     }
-//   }
-// }
-// module.exports = new AppointmentRepository();
+module.exports = AppointmentRepository;
