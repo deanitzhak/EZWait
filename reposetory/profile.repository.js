@@ -1,11 +1,10 @@
 const MongoStorage = require('../db/mongo.storage');
-const { appointmentModel } = require('../models/appointment.model');
+const { profileModel } = require('../models/profile.model');
 
-class AppointmentRepository extends MongoStorage {
+class ProfileRepository extends MongoStorage {
     constructor() {
         super(); // Call the super constructor before accessing `this`
-        // Assign the appointmentModel to the Model property
-        this.Model = appointmentModel;
+        this.Model = profileModel;
 
         // Bind methods to ensure proper context
         this.updateAppointmentValue = this.updateAppointmentValue.bind(this);
@@ -13,20 +12,20 @@ class AppointmentRepository extends MongoStorage {
         this.findAll = this.findAll.bind(this);
     }
 
-    async updateAppointmentValue(appointmentId, key, value) {
+    async updateAppointmentValue(profileId, key, value) {
         try {
             // Find the appointment by ID
-            const appointment = await this.Model.findById(appointmentId);
+            const profile = await this.Model.findById(profileId);
 
-            if (!appointment) {
+            if (!profile) {
                 throw new Error('Appointment not found');
             }
 
             // Update the value of the specified key
-            appointment[key] = value;
+            profile[key] = value;
 
             // Save the updated appointment
-            const updatedAppointment = await appointment.save();
+            const updatedAppointment = await profile.save();
             return updatedAppointment;
         } catch (error) {
             throw new Error(`Error updating appointment value: ${error.message}`);

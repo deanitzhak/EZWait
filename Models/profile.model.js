@@ -1,22 +1,23 @@
 const { ObjectId } = require("mongodb");
 const {Schema, model} = require("mongoose");
-const {validate} = require("uuid");
 
-const messegeSentSchema = new Schema(
+const profileSchema = new Schema(
     {
-        sendMessegId: {type: ObjectId, index: 1},
-        userId: {type: ObjectId, index: 1},
-        clientId: {type: ObjectId, index: 1},
-        username: {type: String},
-        subject: {type: String},
-        description: {type: String},
-        sendTime: {type: Date}
+        userId: { type: ObjectId, index: 1 },
+        userName: { type: String },
+        firstName: { type: String },
+        lastName: { type: String },
+        email: { type: String },
+        password: { type: String },
+        status: { type: Boolean },
+        createdAt: { type: Date }, // Ensure createdAt is defined in your schema
+        cancelCount: { type: Number } // Ensure cancelCount is defined in your schema    
     },
     {
-        collection: "sendMesseg",
+        Collection: "Profile",
     }
 );
-messegeSentSchema.path("id").validate((id) => validate(id));
+//profileSchema.path("id").validate((id) => validate(id));
 
-const messegeReplay = model("rmessegeSent", messegeSentSchema);
-module.exports = {messegeSent};
+const profileModel = model("Profile", profileSchema);
+module.exports = {profileModel};
