@@ -26,7 +26,7 @@ mongoStorageInstance.connect()
         //mongoStorageInstance.create(createNewAppointment());
         //testFindAllAppRepo();
         //testFindByUserIdAppRepo("NaveM");
-        /*----Testing-----*/
+        //testUpdateAppointmentValue("65c3bbba9a1094dc8d3f54ab","userName","Shirrrrr");        /*----Testing-----*/
     })
     .catch((err) => {
         console.error("Failed to connect to MongoDB:", err);
@@ -162,7 +162,6 @@ async function testFindAllAppRepo() {
       console.error('Error retrieving appointments:', error);
   });
 }
-
 function testFindByUserIdAppRepo(userName){
   const appointmentRepo = new AppointmentRepository(); 
   appointmentRepo.findByUserId(userName)
@@ -172,4 +171,13 @@ function testFindByUserIdAppRepo(userName){
     .catch(error => {
       console.error('Error:', error);
     });
+}
+async function testUpdateAppointmentValue(appointmentId, key, value) {
+  try {
+    const appointmentRepo = new AppointmentRepository();
+    const updatedAppointment = await appointmentRepo.updateAppointmentValue(appointmentId, key, value);
+    console.log('Updated Appointment:', updatedAppointment);
+  } catch (error) {
+    console.error('Error updating appointment value:', error.message);
+  }
 }
