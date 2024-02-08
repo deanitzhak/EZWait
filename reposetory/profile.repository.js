@@ -3,55 +3,45 @@ const { profileModel } = require('../models/profile.model');
 
 class ProfileRepository extends MongoStorage {
     constructor() {
-        super(); // Call the super constructor before accessing `this`
+        super(); 
         this.Model = profileModel;
-
-        // Bind methods to ensure proper context
-        this.updateAppointmentValue = this.updateAppointmentValue.bind(this);
-        this.findByUserId = this.findByUserId.bind(this);
+        this.updateProfileValue = this.updateProfileValue.bind(this);
+        this.findByUserId = this.findByUserName.bind(this);
         this.findAll = this.findAll.bind(this);
     }
 
-    async updateAppointmentValue(profileId, key, value) {
+    async updateProfileValue(profileId, key, value) {
         try {
-            // Find the appointment by ID
             const profile = await this.Model.findById(profileId);
-
             if (!profile) {
-                throw new Error('Appointment not found');
+                throw new Error('Profile not found');
             }
-
-            // Update the value of the specified key
             profile[key] = value;
-
-            // Save the updated appointment
-            const updatedAppointment = await profile.save();
-            return updatedAppointment;
+            const updatedProfile = await profile.save();
+            return updatedProfile;
         } catch (error) {
-            throw new Error(`Error updating appointment value: ${error.message}`);
+            throw new Error(`Error updating profile value: ${error.message}`);
         }
     }
 
-    async findByUserId(userName) {
+    async findByUserName(userName) {
         try {
-            // Use the find method inherited from MongoStorage to fetch appointments by userId
-            const appointments = await this.findByAttribute('userName', userName);
-            return appointments;
+            const profile = await this.findByAttribute('userName', userName);
+            return profile;
         } catch (error) {
-            throw new Error(`Error retrieving appointments by userId: ${error.message}`);
+            throw new Error(`Error retrieving profiles by userId: ${error.message}`);
         }
     }
 
     async findAll() {
         try {
-            // Use the find method inherited from MongoStorage to fetch all appointments
-            const appointments = await this.find();
-            return appointments;
+            const profiles = await this.find();
+            console.log(profiles);
+            return profiles;
         } catch (error) {
-            throw new Error(`Error retrieving appointments: ${error.message}`);
+            throw new Error(`Error retrieving profiles: ${error.message}`);
         }
     }
-    // Other repository methods...
 }
 
-module.exports = AppointmentRepository;
+module.exports = ProfileRepository;

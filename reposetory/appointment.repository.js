@@ -1,5 +1,5 @@
 const MongoStorage = require('../db/mongo.storage');
-const { appointmentModel } = require('../models/appointment.model');
+const { appointmentModel } = require("../Models/appointment.model");
 
 class AppointmentRepository extends MongoStorage {
     constructor() {
@@ -9,23 +9,17 @@ class AppointmentRepository extends MongoStorage {
 
         // Bind methods to ensure proper context
         this.updateAppointmentValue = this.updateAppointmentValue.bind(this);
-        this.findByUserId = this.findByUserId.bind(this);
+        this.findByUserId = this.findByUserName.bind(this);
         this.findAll = this.findAll.bind(this);
     }
 
-    async updateAppointmentValue(appointmentId, key, value) {
+    async updateAppointmentValue(appointmentValue, key, value) {
         try {
-            // Find the appointment by ID
-            const appointment = await this.Model.findById(appointmentId);
-
+            const appointment = await this.Model.findById(appointmentValue);
             if (!appointment) {
                 throw new Error('Appointment not found');
             }
-
-            // Update the value of the specified key
             appointment[key] = value;
-
-            // Save the updated appointment
             const updatedAppointment = await appointment.save();
             return updatedAppointment;
         } catch (error) {
@@ -33,7 +27,7 @@ class AppointmentRepository extends MongoStorage {
         }
     }
 
-    async findByUserId(userName) {
+    async findByUserName(userName) {
         try {
             // Use the find method inherited from MongoStorage to fetch appointments by userId
             const appointments = await this.findByAttribute('userName', userName);
