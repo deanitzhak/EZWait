@@ -1,48 +1,48 @@
 const MongoStorage = require('../db/mongo.storage');
-const { profileModel } = require('../models/profile.model');
+const { messageReplayModel } = require('../models/messageReplay.model');
 
-class ProfileRepository extends MongoStorage {
+class messageReplayRepository extends MongoStorage {
     constructor() {
         super(); 
-        this.Model = profileModel;
-        this.updateProfileValue = this.updateProfileValue.bind(this);
+        this.Model = messageReplayModel;
+        this.updateMessageReplayValue = this.updateMessageReplayValue.bind(this);
         this.findByUserId = this.findByUserName.bind(this);
         this.findAll = this.findAll.bind(this);
     }
 
-    async updateProfileValue(profileId, key, value) {
+    async updateMessageReplayValue(messageReplayId, key, value) {
         try {
-            const profile = await this.Model.findById(profileId);
-            if (!profile) {
-                throw new Error('Profile not found');
+            const messageReplay = await this.Model.findById(messageReplayId);
+            if (!messageReplay) {
+                throw new Error('Message replay not found');
             }
-            profile[key] = value;
-            const updatedProfile = await profile.save();
-            return updatedProfile;
+            messageReplay[key] = value;
+            const updatedMessageReplay = await messageReplay.save();
+            return updatedMessageReplay;
         } catch (error) {
-            throw new Error(`Error updating profile value: ${error.message}`);
+            throw new Error(`Error updating message replay value: ${error.message}`);
         }
     }
 
     async findByUserName(userName) {
         try {
-            const profile = await this.findByAttribute('userName', userName);
-            return profile;
+            const messageReplay = await this.findByAttribute('userName', userName);
+            return messageReplay;
         } catch (error) {
-            throw new Error(`Error retrieving profiles by userId: ${error.message}`);
+            throw new Error(`Error retrieving messages replay by userId: ${error.message}`);
         }
     }
 
     async findAll() {
         try {
-            const profiles = await this.find();
-            console.log(profiles);
-            return profiles;
+            const messageReplays = await this.find();
+            console.log(messageReplays);
+            return messageReplays;
         } catch (error) {
-            throw new Error(`Error retrieving profiles: ${error.message}`);
+            throw new Error(`Error retrieving message replay: ${error.message}`);
         }
     }
 }
 
-module.exports = ProfileRepository;
+module.exports = messageReplayRepository;
 
