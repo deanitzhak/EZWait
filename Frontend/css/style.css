@@ -18,7 +18,7 @@ body {
 }
 
 .leftSection {
-  background-color: #F3D074;
+  background-color: #F3D37E;
   flex: 2;
   display: flex;
 }
@@ -32,11 +32,13 @@ body {
 }
 
 .logo {
-
+  margin-left: 40%;
+  margin-top: 20%;
 }
 .humanIcon{
-  transform: translate(-70%,35%);
   height: 550px;
+  margin-top: 100%;
+ 
 }
 .title {
   color: #4D47C3;
@@ -44,16 +46,17 @@ body {
   font-size: 70px; /* Adjust the font size as needed */
 }
 
+
 /* ------- right ------- */
 .rightSection {
-  background-color: #F3D074;
+  background-color: #F3D37E;
   flex: 1; /* Takes up 1/3 of the width */
   position: relative;
 }
 
 .logInContainer {
   position: relative;
-  transform: translate(20%, 20%);
+  transform: translate(-70%, 40%);
   padding: 20px;
   color: #fff;
   border-radius: 8px;
@@ -63,6 +66,7 @@ body {
 .formTitle {
   text-align: center;
   color: black;
+  font-size: 30px;
 }
 
 form {
@@ -86,21 +90,26 @@ label {
   width: 100%;
   border: none;
   background: #4D47C3;
-  height: 30px;
+  height: 49px;
   margin-top: 10%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  border-radius: 8px;
+  color: #fff;
 }
 submitButton:hover {
   background-color: none;
   background: none;
-  border: none; /* Remove border */
+  border: none; 
+  
 }
 input {
   width: 100%;
-  height: 100%;
+  height: 50px;
   padding: 10px;
   margin-bottom: 15px;
   box-sizing: border-box;
-  color: #A7A3FF; /* Set text color for input fields */
-  border: none; /* Remove border */
+  color: #A7A3FF; 
+  border: none; 
   margin-top: 4%;
+  border-radius: 8px;
 }
