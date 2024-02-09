@@ -1,15 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const MongoStorage = require('./db/mongo.storage');  // Note: Use 'MongoStorage' instead of 'mongoStorage'
+const MongoStorage = require('./db/mongo.storage');
 require('dotenv').config({ path: './.env' });
 /*----Testing-----*/
-const { appointmentModel } = require("./models/appointment.model");
 const { profileModel } = require("./models/profile.model");
-const { scheduleModel} = require("./models/schedule.model");
-const { messegeReplayModel} = require("./models/messegeReplay.model");
-const { messegeSentModel} = require("./models/messegeSent.model");
+const { scheduleModel } = require("./models/schedule.model");
+const { messegeReplayModel } = require("./Models/messegeReplay.model");
+const { messegeSentModel } = require("./models/messegeSent.model");
 const { ObjectId } = require("mongodb");
 const AppointmentRepository = require('./reposetory/appointment.repository');
+const ProfileRepository = require('./reposetory/profile.repository');
 /*----Testing-----*/
 const port = process.env.PORT ;
 const app = express();
@@ -27,6 +27,9 @@ mongoStorageInstance.connect()
         //testFindAllAppRepo();
         //testFindByUserIdAppRepo("NaveM");
         //testUpdateAppointmentValue("65c3bbba9a1094dc8d3f54ab","userName","Shirrrrr");        /*----Testing-----*/
+        //testFindAllprofileRepo();
+        testFindByUserNameProfileRepo("NaveM");
+        //testPofileValueRepo("65c3b8dba13edfb95c8ad3df", "userName", "maymonave");
     })
     .catch((err) => {
         console.error("Failed to connect to MongoDB:", err);
@@ -111,11 +114,11 @@ function createMessegeSent(){
   console.log(newMessegeSent);
   return newMessegeSent;
 }
-/*Pfofile*/
+/*Pofile*/
 function createDeanProfoile(){
   const newProfile = new profileModel({
     userId: new ObjectId(),
-    userName: "ShirA",
+    userName: "hghjgjhgjh",
     firstName: "Shir",
     lastName: "Amar",
     email: "ezwaitport@gmail.com",
@@ -125,6 +128,36 @@ function createDeanProfoile(){
     cancelCount: 0 // Ensure cancelCount is properly initialized
 });
   return newProfile;
+}
+async function testFindAllprofileRepo() {
+  const profileRepo = new ProfileRepository();
+  // Example usage: Retrieve all profile
+  profileRepo.findAll()
+  .then(profiles => {
+      console.log('Profiles:', profiles);
+  })
+  .catch(error => {
+      console.error('Error retrieving profiles:', error);
+  });
+}
+function testFindByUserNameProfileRepo(userName){
+  const profileRepo = new ProfileRepository(); 
+  profileRepo.findByUserName(userName)
+    .then(profiles => {
+      console.log(profiles);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+async function testPofileValueRepo(profileRepo, key, value) {
+  try {
+    const profiletRepo = new ProfileRepository();
+    const updatedProfile = await profiletRepo.updateProfileValue(profileRepo, key, value);
+    console.log('Updated Profile:', updatedProfile);
+  } catch (error) {
+    console.error('Error updating profile value:', error.message);
+  }
 }
 /*appointment*/
 function createNewAppointment(){
@@ -162,9 +195,9 @@ async function testFindAllAppRepo() {
       console.error('Error retrieving appointments:', error);
   });
 }
-function testFindByUserIdAppRepo(userName){
+function testFindByUserNameAppRepo(userName){
   const appointmentRepo = new AppointmentRepository(); 
-  appointmentRepo.findByUserId(userName)
+  appointmentRepo.findByUserName(userName)
     .then(appointments => {
       console.log(appointments);
     })
@@ -172,10 +205,10 @@ function testFindByUserIdAppRepo(userName){
       console.error('Error:', error);
     });
 }
-async function testUpdateAppointmentValue(appointmentId, key, value) {
+async function testUpdateAppointmentValueRepo(appointmentValue, key, value) {
   try {
     const appointmentRepo = new AppointmentRepository();
-    const updatedAppointment = await appointmentRepo.updateAppointmentValue(appointmentId, key, value);
+    const updatedAppointment = await appointmentRepo.updateAppointmentValue(appointmentValue, key, value);
     console.log('Updated Appointment:', updatedAppointment);
   } catch (error) {
     console.error('Error updating appointment value:', error.message);

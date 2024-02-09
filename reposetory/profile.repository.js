@@ -32,7 +32,7 @@ class ProfileRepository extends MongoStorage {
         }
     }
 
-    async findByUserId(userName) {
+    async findByUserName(userName) {
         try {
             // Use the find method inherited from MongoStorage to fetch appointments by userId
             const appointments = await this.findByAttribute('userName', userName);
@@ -54,4 +54,4 @@ class ProfileRepository extends MongoStorage {
     // Other repository methods...
 }
 
-module.exports = AppointmentRepository;
+module.exports = ProfileRepository;
