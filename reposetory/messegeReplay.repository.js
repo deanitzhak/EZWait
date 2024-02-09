@@ -45,3 +45,4 @@ class ProfileRepository extends MongoStorage {
 }
 
 module.exports = ProfileRepository;
+
