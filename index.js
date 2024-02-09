@@ -29,7 +29,7 @@ mongoStorageInstance.connect()
         //testFindByUserIdAppRepo("NaveM");
         //testUpdateAppointmentValue("65c3bbba9a1094dc8d3f54ab","userName","Shirrrrr");        /*----Testing-----*/
         //testFindAllprofileRepo();
-        testFindByUserNameProfileRepo("maymonave");
+        //testFindByUserNameProfileRepo("maymonave");
         //testPofileValueRepo("65c3b8dba13edfb95c8ad3df", "userName", "maymonave");
     })
     .catch((err) => {
@@ -51,7 +51,7 @@ function runPort(){
   app.use('/images', express.static(__dirname + 'public/images'));
   app.use(express.urlencoded({ extended: false }));
   app.get('', (req, res) => {
-    res.sendFile(__dirname + '/Frontend/landing.html');
+    res.sendFile(__dirname + './');
   });
   app.listen(port, () => console.log('Listening on port', port));
 }
