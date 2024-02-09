@@ -6,7 +6,7 @@ const appointmentSchema = new Schema(
     {
         id: {type: ObjectId, index: 1},
         userName: {type: String},
-        firstName: {type: String},
+        firsstName: {type: String},
         lastName: {type: String},
         startTime: {type: Date},
         endTime: {type: Date},
