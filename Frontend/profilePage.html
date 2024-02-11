@@ -60,7 +60,7 @@
                                   id="firstname"
                                   placeholder="First name"
                                   class="formbold-form-input"
-                                />
+                                  required/>
                       
                                 <input
                                   type="text"
@@ -68,7 +68,7 @@
                                   id="lastname"
                                   placeholder="Last name"
                                   class="formbold-form-input"
-                                />
+                                  required/>
                               </div>
                             </div>
                       
@@ -78,14 +78,14 @@
                                 type="text"
                                 name="age"
                                 id="age"
-                                placeholder="ex:25"
+                                placeholder="25"
                                 class="formbold-form-input"
-                              />
+                                required/>
                             </div>
                       
                             <div class="formbold-mb-3">
                               <label for="dob" class="formbold-form-label"> Date of Birth </label>
-                              <input type="date" name="dob" id="dob" class="formbold-form-input" />
+                              <input type="date" name="dob" id="dob" class="formbold-form-input" required/>
                             </div>
                       
                             <div class="formbold-mb-3">
@@ -106,7 +106,8 @@
                                 id="email"
                                 placeholder="example@email.com"
                                 class="formbold-form-input"
-                              />
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                required/>
                             </div>
                       
                             <div class="formbold-mb-3">
@@ -118,7 +119,7 @@
                                 id="address"
                                 placeholder="Street address"
                                 class="formbold-form-input formbold-mb-3"
-                              />
+                                required/>
                               <input
                                 type="text"
                                 name="address2"
@@ -138,7 +139,7 @@
                                   id="areacode"
                                   placeholder="Area code"
                                   class="formbold-form-input formbold-w-45"
-                                />
+                                  required/>
                       
                                 <input
                                   type="text"
@@ -146,7 +147,7 @@
                                   id="phone"
                                   placeholder="Phone number"
                                   class="formbold-form-input"
-                                />
+                                  required/>
                               </div>
                             </div>
                       
@@ -159,7 +160,7 @@
                                   id="post"
                                   placeholder="ex:8976"
                                   class="formbold-form-input"
-                                />
+                                  required/>
                               </div>
                               <div>
                                 <label for="city" class="formbold-form-label"> City </label>
@@ -169,7 +170,7 @@
                                   id="city"
                                   placeholder="ex: New York"
                                   class="formbold-form-input"
-                                />
+                                  required/>
                               </div>
                             </div>
                       
