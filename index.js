@@ -50,7 +50,7 @@ function runPort(){
   app.use('/images', express.static(__dirname + 'public/images'));
   app.use(express.urlencoded({ extended: false }));
   app.get('', (req, res) => {
-    res.sendFile(__dirname + '/Frontend/landing.html');
+    res.sendFile(__dirname + '/Frontend/profilePage.html');
   });
   app.listen(port, () => console.log('Listening on port', port));
 }
