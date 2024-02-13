@@ -1,5 +1,5 @@
 const { ObjectId } = require("mongodb");
-const {Schema, model} = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const profileSchema = new Schema(
     {
@@ -10,14 +10,13 @@ const profileSchema = new Schema(
         email: { type: String },
         password: { type: String },
         status: { type: Boolean },
-        createdAt: { type: Date }, // Ensure createdAt is defined in your schema
-        cancelCount: { type: Number } // Ensure cancelCount is defined in your schema    
+        createdAt: { type: Date, default: Date.now }, // Set default value to current date
+        cancelCount: { type: Number, default: 0 } // Set default value to 0
     },
     {
-        Collection: "Profile",
+        collection: "profiles", // Corrected typo
     }
 );
-//profileSchema.path("id").validate((id) => validate(id));
 
-const profileModel = model("Profile", profileSchema);
-module.exports = {profileModel};
+const profileModel = model("profiles", profileSchema);
+module.exports = profileModel;
