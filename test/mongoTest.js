@@ -1,4 +1,5 @@
   /*----Testing-----*/
+  /*
 const { profileModel } = require("./models/profile.model");
 const { scheduleModel } = require("./models/schedule.model");
 const { messegeReplayModel } = require("./Models/messegeReplay.model");
@@ -7,6 +8,7 @@ const { ObjectId } = require("mongodb");
 const AppointmentRepository = require('./reposetory/appointment.repository');
 const ProfileRepository = require('./reposetory/profile.repository');
 const { UserProfile } = require('./ProfileglobalVribels');
+*/
 /*----Testing-----*/
         //mongoStorageInstance.create(createDeanProfoile());
         //mongoStorageInstance.create(createNewSchedule());
@@ -20,6 +22,7 @@ const { UserProfile } = require('./ProfileglobalVribels');
         //testFindByUserNameProfileRepo("maymonave");
         //testPofileValueRepo("65c3b8dba13edfb95c8ad3df", "userName", "maymonave");
 /*Schedule*/ 
+/*
 function createNewSchedule() {
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
@@ -81,17 +84,19 @@ function createNewSchedule() {
   }
   /*Pofile*/
   function createDeanProfoile(){
-    const newProfile = new profileModel({
-      userId: new ObjectId(),
-      userName: "hghjgjhgjh",
-      firstName: "Shir",
-      lastName: "Amar",
-      email: "ezwaitport@gmail.com",
-      password: "Test123",
-      status: true,
-      createdAt: Date.now(), // Assign current date and time
-      cancelCount: 0 // Ensure cancelCount is properly initialized
-  });
+      const newProfile = new profileModel({
+        userId: new ObjectId(), // Assuming you want to generate a new ObjectId for userId
+        userName: 'VibIhs',
+        firstName: 'Vib',
+        lastName: 'Ish',
+        email: 'Ish@gmail.com',
+        password: '1',
+        status: true,
+        type: false, // Assuming this is an admin user
+        createdAt: new Date(), // Assuming you want to set the current date as the createdAt value
+        cancelCount: 0
+    });        
+    newProfile.save();
     return newProfile;
   }
   async function testFindAllprofileRepo() {

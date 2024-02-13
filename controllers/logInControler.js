@@ -1,25 +1,20 @@
 const ProfileRepository = require('../reposetory/profile.repository');
 const User = require('../models/profile.model');
-
+const globalData = require('../models/myUser.singleton');
 module.exports = {
-    checkUserAdmin: (req, res) => {
+    checkUserExist: (req, res) => {
         proRepo = new ProfileRepository(User);
         proRepo.findOne({'userName': req.body.userName, 'password': req.body.password})
         .then(profiles => {
             if( profiles != null){
-                console.log("Retrieved profiles:", profiles);
-                res.send("The user exists");
+                globalData.setData('myUser', profiles);
+                res.send(profiles);
             }else{
-                res.send("null");
+                res.send("Invalid Data");
             }
-            
         })
         .catch(error => {
-            res.send("Error retrieving profiles:", error);
+            console.log("Error : ",error);
         });
-    
-
     },
-    checkUserClient: (req, res) => {
-    }
 };

@@ -5,6 +5,6 @@ const fileLoaderRouter = express.Router();
 fileLoaderRouter.get('/',fileLoaderController.signInPage);
 
 fileLoaderRouter.get('/singIn.html',fileLoaderController.signInPage);
-fileLoaderRouter.get('/profilePgae.html',fileLoaderController.profilePage);
+fileLoaderRouter.get('/appointmentPage.html',fileLoaderController.appointmentPage);
 
 module.exports = fileLoaderRouter;

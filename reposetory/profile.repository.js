@@ -10,7 +10,6 @@ class ProfileRepository extends MongoStorage {
         this.findAll = this.findAll.bind(this);
         this.findOne = this.findOne.bind(this);
     }
-
     async updateProfileValue(profileId, key, value) {
         try {
             const profile = await this.Model.findById(profileId);
@@ -52,5 +51,4 @@ class ProfileRepository extends MongoStorage {
         }
     }
 }
-
 module.exports = ProfileRepository;

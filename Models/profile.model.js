@@ -9,12 +9,13 @@ const profileSchema = new Schema(
         email: { type: String },
         password: { type: String },
         status: { type: Boolean },
+        type: { type: Boolean }, /*true = admin , false = client*/
         createdAt: { type: Date, default: Date.now }, 
         cancelCount: { type: Number, default: 0 } 
     },
     {
-        collection: "profiles", 
+        collection: "Profiles", 
     }
 );
-const profileModel = model("profiles", profileSchema);
+const profileModel = model("Profiles", profileSchema);
 module.exports = profileModel;
