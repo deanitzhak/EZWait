@@ -1,6 +1,5 @@
 const { ObjectId } = require("mongodb");
 const { Schema, model } = require("mongoose");
-
 const profileSchema = new Schema(
     {
         userId: { type: ObjectId, index: 1 },
@@ -10,13 +9,12 @@ const profileSchema = new Schema(
         email: { type: String },
         password: { type: String },
         status: { type: Boolean },
-        createdAt: { type: Date, default: Date.now }, // Set default value to current date
-        cancelCount: { type: Number, default: 0 } // Set default value to 0
+        createdAt: { type: Date, default: Date.now }, 
+        cancelCount: { type: Number, default: 0 } 
     },
     {
-        collection: "profiles", // Corrected typo
+        collection: "profiles", 
     }
 );
-
 const profileModel = model("profiles", profileSchema);
 module.exports = profileModel;
