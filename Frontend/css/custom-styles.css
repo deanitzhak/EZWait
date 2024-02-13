@@ -1,7 +1,36 @@
-
-body {
-    font-family: 'DM Sans', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Poppins:wght@300&display=swap');
+* {
+  padding: 0;
+  box-sizing: border-box;
 }
+body {
+  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;  }
+.formbold-mb-3 {
+  margin-bottom: 15px;
+}
+.formbold-relative {
+  position: relative;
+}
+.formbold-opacity-0 {
+  opacity: 0;
+}
+.formbold-stroke-current {
+  stroke: #ffffff;
+  z-index: 999;
+}
+
+#enter{
+  display: flex;
+  margin-left: 80%;
+  width: 4%;
+  font-weight: bold;
+  font-size: large;
+  box-shadow: none;
+  border-color: #71717A;
+  border-width: thin;
+}
+
 
  #wrapper {
     width: 100%;
@@ -38,8 +67,9 @@ font-size:26.32px;
 line-height:25px;
 color:black;
 position: absolute;
-margin-left: 25%;
-margin-top: 4%;
+margin-left: 20%;
+margin-top: 2%;
+font-weight: bold;
 
 
 }
@@ -155,15 +185,16 @@ background-color: #225081;
 color: #fff;
 }
 h1{
-    font-family: 'DM Sans', sans-serif;
-    font-size:26.32px;
+  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;    font-size:26.32px;
 line-height:25px;
 color:black;
-position: absolute;
-margin-left: 25%;
-margin-top: 4%;
 }
+span{
+  font-family: 'DM Sans', sans-serif;
 
+
+}
 
 .active-menu {
     background-color:white!important;
@@ -245,9 +276,10 @@ background-color: #FFF;
 }
 /* Style the tab */
 .tab {
-    overflow: hidden;
-    margin-bottom: 3%;
-    margin-left: 20%;
+  overflow: hidden;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  margin-left: 20%;
 
   }
   
@@ -262,44 +294,47 @@ background-color: #FFF;
     transition: 0.3s;
     font-size: 20px;
     font-weight: bold;
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'poppins';
     border-bottom-style: inset;
+    border-width: thick;
     
 }
 .btn {
-    background-color: white;
-    border: none;
-    color: #5A1AB7;
-    font-size: 16px;
-    cursor: pointer;
-    margin-left: 86%;
-    border: solid;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  }
+  background-color: white;
+  border: none;
+  margin-top: 2%;
+  color: #5A1AB7;
+  font-family: poppins;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 68%;
+  border: solid;
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);}
   
  .Reschedule{
     background-color: green;
     border: none;
     color: white;
     padding: 5px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     border: solid;
     border-radius: 10px;
-    margin-left: 22.5cm;
+    font-family: poppins;
   }
   .cancel{
-    background-color:white;
+    background-color:#ED3443;
     border: none;
-    color: #2EA7EB;
+    color: white;
+    font-family: poppins;
     padding: 5px;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
     border: solid;
     border-radius: 10px;
     margin-left: 22.5cm;
-    border-color: #2EA7EB;
 
  }
   /* Darker background on mouse-over */
@@ -318,6 +353,80 @@ background-color: #FFF;
   .tab button.active {
     color: #5A1AB7;
     border-bottom: solid;
+    border-width: thick;
+  }
+
+ 
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+  h2{
+    color: #5A6474;
+    font-weight: 300;
   }
   
   /* Style the tab content */
@@ -325,29 +434,7 @@ background-color: #FFF;
     display: none;
     padding: 6px 12px;
   }
-
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  body {
-    font-family:  'DM Sans', sans-serif;
-  }
-  .formbold-mb-3 {
-    margin-bottom: 15px;
-  }
-  .formbold-relative {
-    position: relative;
-  }
-  .formbold-opacity-0 {
-    opacity: 0;
-  }
-  .formbold-stroke-current {
-    stroke: #ffffff;
-    z-index: 999;
-  }
+  
 
 
 

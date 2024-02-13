@@ -1,4 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Poppins:wght@300&display=swap');
+* {
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;  }
   body {
     margin: 0;
   }
@@ -3226,6 +3233,7 @@
   }
   .nav > li > a > img {
     max-width: none;
+    inline-size: -webkit-fill-available;
   }
   .nav-tabs {
     border-bottom: 1px solid #ddd;
@@ -5349,11 +5357,20 @@
 
     padding: 6px;
   }
+
+  
   .date-time {
     font-size: 15px;
     background-color: #DCFCE7;
-    border-radius: 2px;
-  }
+    border-radius: 10px;
+    border-style: solid;
+    border-color: #DCFCE7;
+}
+
+.login{
+margin-left: 20%;
+}
+  
   
   .profile-image img {
     margin-left: 3px;
