@@ -10,7 +10,7 @@ module.exports = {
                 console.log("Retrieved profiles:", profiles);
                 res.send("The user exists");
             }else{
-                res.send("null:");
+                res.send("null");
             }
             
         })
@@ -21,6 +21,5 @@ module.exports = {
 
     },
     checkUserClient: (req, res) => {
-        // Implementation for checking user as a client
     }
 };

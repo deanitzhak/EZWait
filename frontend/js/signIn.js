@@ -2,7 +2,7 @@ const URL = window.location.origin;
 
 $(document).ready(() => {
     $('#signInForm').submit((e) => {
-        e.preventDefault(); // Prevent default form submission behavior
+        e.preventDefault(); 
 
         let JSONUser = {}
         JSONUser.userName = $('input[name="username"]').val();
