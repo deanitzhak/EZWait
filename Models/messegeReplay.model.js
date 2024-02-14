@@ -1,7 +1,5 @@
 const { ObjectId } = require("mongodb");
 const {Schema, model} = require("mongoose");
-const {validate} = require("uuid");
-
 const messegeReplaySchema = new Schema(
     {
         replayMessegId: {type: ObjectId, index: 1},
@@ -16,7 +14,5 @@ const messegeReplaySchema = new Schema(
         collection: "MessegeReplay",
     }
 );
-//messegeReplaySchema.path("id").validate((id) => validate(id));
-
 const messegeReplayModel = model("ReplayMesseg", messegeReplaySchema);
 module.exports = {messegeReplayModel};

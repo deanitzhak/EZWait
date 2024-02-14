@@ -1,6 +1,5 @@
 const { ObjectId } = require("mongodb");
 const {Schema, model} = require("mongoose");
-const {validate} = require("uuid");
 
 const appointmentSchema = new Schema(
     {
@@ -18,7 +17,6 @@ const appointmentSchema = new Schema(
         collection: "Appointment",
     }
 );
-appointmentSchema.path("id").validate((id) => validate(id));
-
 const appointmentModel = model("Appointment", appointmentSchema);
-module.exports = {appointmentModel};
+module.exports = appointmentModel;
+

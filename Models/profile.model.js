@@ -1,6 +1,5 @@
 const { ObjectId } = require("mongodb");
-const {Schema, model} = require("mongoose");
-
+const { Schema, model } = require("mongoose");
 const profileSchema = new Schema(
     {
         userId: { type: ObjectId, index: 1 },
@@ -10,14 +9,13 @@ const profileSchema = new Schema(
         email: { type: String },
         password: { type: String },
         status: { type: Boolean },
-        createdAt: { type: Date }, // Ensure createdAt is defined in your schema
-        cancelCount: { type: Number } // Ensure cancelCount is defined in your schema    
+        type: { type: Boolean }, /*true = admin , false = client*/
+        createdAt: { type: Date, default: Date.now }, 
+        cancelCount: { type: Number, default: 0 } 
     },
     {
-        Collection: "Profile",
+        collection: "Profiles", 
     }
 );
-//profileSchema.path("id").validate((id) => validate(id));
-
-const profileModel = model("Profile", profileSchema);
-module.exports = {profileModel};
+const profileModel = model("Profiles", profileSchema);
+module.exports = profileModel;
