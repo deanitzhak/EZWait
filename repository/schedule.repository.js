@@ -39,7 +39,7 @@ class ScheduleRepository extends MongoStorage {
             console.log(schedules);
             return schedules;
         } catch (error) {
-            throw new Error(`Error retrieving schedules: ${error.message}`);
+            throw new Error(`Error retrieving schedules: ${err.message}`);
         }
     }
 }
