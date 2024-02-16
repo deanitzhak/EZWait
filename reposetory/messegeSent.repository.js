@@ -1,12 +1,11 @@
 const MongoStorage = require('../db/mongo.storage');
-const { messegeSentModel } = require('../models/messegeSent.model');
 
 class MessegeSentRepository extends MongoStorage {
-    constructor() {
-        super(); 
-        this.Model = messegeSentModel;
+    constructor(mod) {
+        super(mod); 
+        this.Model = mod;
         this.updateMessegeSentValue = this.updateMessegeSentValue.bind(this);
-        this.findByUserId = this.findByUserName.bind(this);
+        this.findByUserName = this.findByUserName.bind(this);
         this.findAll = this.findAll.bind(this);
     }
 

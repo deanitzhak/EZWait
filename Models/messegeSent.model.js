@@ -1,6 +1,5 @@
 const { ObjectId } = require("mongodb");
 const {Schema, model} = require("mongoose");
-const {validate} = require("uuid");
 
 const messegeSentSchema = new Schema(
     {
@@ -16,7 +15,5 @@ const messegeSentSchema = new Schema(
         collection: "MessegeSent",
     }
 );
-//messegeSentSchema.path("id").validate((id) => validate(id));
-
 const messegeSentModel = model("SendMesseg", messegeSentSchema);
-module.exports = {messegeSentModel};
+module.exports = messegeSentModel;

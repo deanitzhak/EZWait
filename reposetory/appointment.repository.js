@@ -34,7 +34,6 @@ class AppointmentRepository extends MongoStorage {
 
     async findAll() {
         try {
-            // Use the find method inherited from MongoStorage to fetch all appointments
             const appointments = await this.find();
             return appointments;
         } catch (error) {

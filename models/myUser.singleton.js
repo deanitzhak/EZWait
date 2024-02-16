@@ -1,5 +1,3 @@
-// GlobalData.js
-
 class GlobalData {
     constructor() {
         if (!GlobalData.instance) {
