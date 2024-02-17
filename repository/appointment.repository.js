@@ -10,6 +10,7 @@ class AppointmentRepository extends MongoStorage {
         this.findAppointmentByAppId = this.findAppointmentByAppId.bind(this);
         this.findByStatus = this.findByStatus.bind(this);
         this.findByStartTime = this.findByStartTime.bind(this);
+        this.findByIdAndDelete = this.findByIdAndDelete.bind(this);
     }
 
     async updateAppointmentValue(appointmentValue, key, value) {
@@ -42,9 +43,9 @@ class AppointmentRepository extends MongoStorage {
             throw new Error(`Error retrieving appointments: ${error.message}`);
         }
     }  
-    async findAppointmentByAppId(appId) {
+    async findAppointmentByAppId(appointmentId) {
         try{
-            const appointment = await this.retrieve(appId);
+            const appointment = await this.retrieve(appointmentId);
             return appointment;
         }catch(error){
             throw new Error(`Error retrieving appointments: ${error.message}`);
@@ -66,6 +67,15 @@ class AppointmentRepository extends MongoStorage {
             throw new Error(`Error retrieving appointments by startTime: ${error.message}`);
         }
     }
+    async findByIdAndDelete(appointmentId) {
+        try {
+            const deletedAppointment = await this.Model.findByIdAndDelete(appointmentId);
+            return deletedAppointment;
+        } catch (error) {
+            throw new Error(`Error deleting appointment: ${error.message}`);
+        }
+    }
+
 }
 
 module.exports = AppointmentRepository;

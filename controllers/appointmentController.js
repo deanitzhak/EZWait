@@ -20,7 +20,7 @@ module.exports = {
         res.status(500).send("Internal server error");
       })
     },
-    findAppointmentByAppId: (req, res) => {
+  findAppointmentByAppId: (req, res) => {
       appRepo.findAppointmentByAppId(req.body._id)
           .then(appointment => {
               if (appointment) {
@@ -54,7 +54,16 @@ module.exports = {
       res.status(500).send("Internal server error");
     });
   },
-
+  findAppointmentByIdAndDelete:(req,res) => {
+    appRepo.findByIdAndDelete(req.body._id)
+    .then(appointments => {
+      res.send(appointments);
+    })
+    .catch(err =>{
+      console.error("Error retrieving appointment:", err);
+      res.status(500).send("Internal server error");
+    });
+  },
       /*get app by app id - V
       get app by user id - X there is not value as user ID in Appointment schema
       get app stsus - V

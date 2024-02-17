@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
             p.innerText = myUser.userName;
             if(myUserS.type == true){
                 findAppointmentByStartTime({ "startTime": "2024-02-15T22:00:00.663+00:00" });
+                findAppointmentByIdAndDelete({"_id" : "65c3bbba9a1094dc8d3f54ab"});
             }else{               
 
             }
@@ -40,6 +41,15 @@ function getAllAppointment(myUser){
 function findAppointmentByAppId(_id){
     /*post appointment by appId*/
     $.post(`${URL}/appointment/findAppointmentByAppId`, _id)
+    .done((appointment) => {
+        return appointment;
+     })
+     .fail((xhr, status, error) => {
+      console.error("Failed to retrieve appointments:", error);
+      });
+}
+function findAppointmentByIdAndDelete(_id){
+    $.post(`${URL}/appointment/findAppointmentByIdAndDelete`, _id)
     .done((appointment) => {
         return appointment;
      })
