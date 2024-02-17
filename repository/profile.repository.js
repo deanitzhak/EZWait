@@ -1,9 +1,8 @@
 const MongoStorage = require('../db/mongo.storage');
-const { profileModel } = require('../models/profile.model');
 
 class ProfileRepository extends MongoStorage {
     constructor(mod) {
-        super(profileModel); 
+        super(mod); 
         this.Model = mod;
         this.updateProfileValue = this.updateProfileValue.bind(this);
         this.findByUserName = this.findByUserName.bind(this);

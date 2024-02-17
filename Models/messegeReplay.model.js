@@ -15,4 +15,4 @@ const messegeReplaySchema = new Schema(
     }
 );
 const messegeReplayModel = model("ReplayMesseg", messegeReplaySchema);
-module.exports = {messegeReplayModel};
+module.exports = messegeReplayModel;

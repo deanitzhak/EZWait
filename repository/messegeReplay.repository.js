@@ -1,12 +1,11 @@
 const MongoStorage = require('../db/mongo.storage');
-const { messageReplayModel } = require('../models/messageReplay.model');
 
 class messageReplayRepository extends MongoStorage {
-    constructor() {
-        super(); 
-        this.Model = messageReplayModel;
+    constructor(mod) {
+        super(mod); 
+        this.Model = mod;
         this.updateMessageReplayValue = this.updateMessageReplayValue.bind(this);
-        this.findByUserId = this.findByUserName.bind(this);
+        this.findByUserName = this.findByUserName.bind(this);
         this.findAll = this.findAll.bind(this);
     }
 
