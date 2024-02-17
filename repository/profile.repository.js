@@ -35,7 +35,6 @@ class ProfileRepository extends MongoStorage {
     async findAll() {
         try {
             const profiles = await this.find();
-            console.log(profiles);
             return profiles;
         } catch (error) {
             throw new Error(`Error retrieving profiles: ${error.message}`);

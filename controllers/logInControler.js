@@ -1,4 +1,4 @@
-const ProfileRepository = require('../reposetory/profile.repository');
+const ProfileRepository = require('../repository/profile.repository');
 const User = require('../models/profile.model');
 const globalData = require('../models/myUser.singleton');
 module.exports = {

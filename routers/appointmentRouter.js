@@ -5,5 +5,8 @@ const appointmentRouter = express.Router();
 
 appointmentRouter.post('/allAppointment', appointmentController.getAllAppointment);
 appointmentRouter.post('/findAllByUserName', appointmentController.findAllByUserName);
+appointmentRouter.post('/findAppointmentByAppId', appointmentController.findAppointmentByAppId);
+appointmentRouter.post('/findAllAppointmentByStatus', appointmentController.findAllAppointmentByStatus);
+appointmentRouter.post('/findAppointmentByStartTime', appointmentController.findAppointmentByStartTime);
 
 module.exports = appointmentRouter;
