@@ -369,7 +369,7 @@
         </div>
         <div class="form-popup" id="myForm">
             <h1>Set Appointment</h2>
-                <form action="/action_page.php" class="form-container">
+                <!-- <form action="/action_page.php" class="form-container">
                     <button type="button" class="btn cancel" onclick="closeForm()">X</button>
                     <div class="formbold-main-wrapper">
                         <div class="formbold-form-wrapper">
@@ -415,7 +415,52 @@
                             </form>
                         </div>
                     </div>
+                </form> -->
+                <form action="/action_page.php" class="form-container" method="POST">
+                    <button type="button" class="btn cancel" onclick="closeForm()">X</button>
+                    <div class="formbold-main-wrapper">
+                        <div class="formbold-form-wrapper">
+                            <div class="flex flex-wrap formbold--mx-3">
+                                <div class="w-full sm:w-half formbold-px-3">
+                                    <div class="formbold-mb-5">
+                                        <label for="clientName" class="formbold-form-label">Client full name</label>
+                                        <select class="formbold-form-input" name="clientName" id="clientName" required>
+                                            <option value="" disabled selected>Select Client</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="formbold-mb-5">
+                                        <label for="type" class="formbold-form-label"> Type </label>
+                                        <select class="formbold-form-input" name="Type" id="occupation" required>
+                                            <option value="" disabled selected>Select Type</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex flex-wrap formbold--mx-3">
+                                        <div class="w-full sm:w-half formbold-px-3">
+                                            <div class="formbold-mb-5 w-full">
+                                                <label for="date" class="formbold-form-label"> Date </label>
+                                                <input type="date" name="date" id="date" class="formbold-form-input" required />
+                                            </div>
+                                        </div>
+                                        <div class="w-full sm:w-half formbold-px-3">
+                                            <div class="formbold-mb-5">
+                                                <label for="time" class="formbold-form-label"> Time </label>
+                                                <input type="time" name="time" id="time" class="formbold-form-input" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="formbold-btn">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
+                
         </div>
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
