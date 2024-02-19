@@ -1,9 +1,8 @@
 const MongoStorage = require('../db/mongo.storage');
-const { profileModel } = require('../models/profile.model');
 
 class ProfileRepository extends MongoStorage {
     constructor(mod) {
-        super(profileModel); 
+        super(mod); 
         this.Model = mod;
         this.updateProfileValue = this.updateProfileValue.bind(this);
         this.findByUserName = this.findByUserName.bind(this);
@@ -36,7 +35,6 @@ class ProfileRepository extends MongoStorage {
     async findAll() {
         try {
             const profiles = await this.find();
-            console.log(profiles);
             return profiles;
         } catch (error) {
             throw new Error(`Error retrieving profiles: ${error.message}`);

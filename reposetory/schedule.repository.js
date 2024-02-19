@@ -1,12 +1,11 @@
 const MongoStorage = require('../db/mongo.storage');
-const { scheduleModel } = require('../models/schedule.model');
 
 class ScheduleRepository extends MongoStorage {
-    constructor() {
-        super(); 
-        this.Model = scheduleModel;
+    constructor(mod) {
+        super(mod); 
+        this.Model = mod;
         this.updateScheduleValue = this.updateScheduleValue.bind(this);
-        this.findByUserId = this.findByUserName.bind(this);
+        this.findByUserName = this.findByUserName.bind(this);
         this.findAll = this.findAll.bind(this);
     }
 
@@ -36,7 +35,6 @@ class ScheduleRepository extends MongoStorage {
     async findAll() {
         try {
             const schedules = await this.find();
-            console.log(schedules);
             return schedules;
         } catch (error) {
             throw new Error(`Error retrieving schedules: ${err.message}`);
