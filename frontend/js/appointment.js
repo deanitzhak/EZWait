@@ -4,8 +4,7 @@ const status = {
     VALUE1: 'value1',
     VALUE2: 'value2',
     VALUE3: 'value3'
-  };
-  
+};
 document.addEventListener("DOMContentLoaded", function() {
     $.post(`${URL}/user/getUserData`, "GET")
     .done((myUser) => {
@@ -18,8 +17,16 @@ document.addEventListener("DOMContentLoaded", function() {
             p.innerText = myUser.userName;
             if(myUserS.type == true){
                 findAppointmentByStartTime({ "startTime": "2024-02-15T22:00:00.663+00:00" });
-                findAppointmentByIdAndDelete({"_id" : "65c3bbba9a1094dc8d3f54ab"});
-            }else{               
+                //findAppointmentByIdAndDelete({"_id" : "65cf1371b85f0166c68138f8"});
+                const newAppointment = {
+                userName: "Shekel",
+                firstName: "Shekel",
+                lastName: "Haparsi",
+                type: "value1", 
+                status: "value1", 
+                };
+                console.log(createNewAppointment(newAppointment));
+            } else{               
 
             }
         }
@@ -132,6 +139,14 @@ function findAppointmentByStartTime(startTime){
     .fail((xhr, status, error) => {
         return error;
     });
-
+}
+function createNewAppointment(newAppointment){
+    $.post(`${URL}/appointment/createNewAppointment`, newAppointment)
+    .done((appointment) => {
+        return appointment;
+    })
+    .fail((xhr, status, error) => {
+        return error;
+    });
 }
 
