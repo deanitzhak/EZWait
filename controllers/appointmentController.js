@@ -1,6 +1,8 @@
-const { resolve } = require('path');
+const { appointment } = require('../frontend/js/APIpath');
 const Appointment = require('../models/appointment.model');
 const AppointmentRepository = require('../repository/appointment.repository');
+const appointmentService = require('../service/appoinmentService');
+
 const appRepo = new AppointmentRepository(Appointment);
 module.exports = {
     getAllAppointment: (req, res) => {
@@ -65,33 +67,16 @@ module.exports = {
       res.status(500).send("Internal server error");
     });
   },
-  createNewAppointment: (req,res) => {
-    //create new Appoinment scema 
-    const newAppointment = new Appointment({
-      userName: req.body.userName,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      startTime: new Date(),
-      endTime: new Date(), // Set end time accordingly
-      type: req.body.type, // Choose one of the enumerated values
-      status: req.body.status, // Choose one of the enumerated values
-      timeStamp: new Date()
-    }); 
-    appRepo.create(newAppointment)
-    .then(resolveAppointment => {
-      res.send(resolveAppointment);
-    })
-    .catch(err=>{
-      res.send(err);
-    });
-  },
-      /*get app by app id - V
-      get app by user id - X there is not value as user ID in Appointment schema
-      get app stsus - V
-      get app by date(startTime) - V 
-      deelte app by id - V 
-      add new app -
-      */
-     
-
+  async submitNewAppointment(req, res) {
+    try {
+       const newApp = await appointmentService.createNewAppointment(req.body);
+      appRepo.create(newApp);
+      res.status(200).send("New appointment created successfully");
+      
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
+    }
+  }
 };
+

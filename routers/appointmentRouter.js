@@ -3,13 +3,13 @@ const express = require('express');
 const appointmentController = require("../controllers/appointmentController");
 const appointmentRouter = express.Router();
 
-appointmentRouter.post('/allAppointment', appointmentController.getAllAppointment);
-appointmentRouter.post('/findAllByUserName', appointmentController.findAllByUserName);
-appointmentRouter.post('/findAppointmentByAppId', appointmentController.findAppointmentByAppId);
-appointmentRouter.post('/findAllAppointmentByStatus', appointmentController.findAllAppointmentByStatus);
-appointmentRouter.post('/findAppointmentByStartTime', appointmentController.findAppointmentByStartTime);
-appointmentRouter.post('/findAppointmentByIdAndDelete', appointmentController.findAppointmentByIdAndDelete);
-appointmentRouter.post('/createNewAppointment', appointmentController.createNewAppointment);
+appointmentRouter.get('/allAppointment', appointmentController.getAllAppointment);
+appointmentRouter.get('/findAllByUserName', appointmentController.findAllByUserName);
+appointmentRouter.get('/findAppointmentByAppId', appointmentController.findAppointmentByAppId);
+appointmentRouter.get('/findAllAppointmentByStatus', appointmentController.findAllAppointmentByStatus);
+appointmentRouter.get('/findAppointmentByStartTime', appointmentController.findAppointmentByStartTime);
+appointmentRouter.get('/findAppointmentByIdAndDelete', appointmentController.findAppointmentByIdAndDelete);
+appointmentRouter.post('/submitNewAppointment', appointmentController.submitNewAppointment);
 
 
 module.exports = appointmentRouter;
