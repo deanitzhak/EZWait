@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Poppins:wght@300&display=swap');
 * {
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -23,7 +24,7 @@ body {
 #enter{
   display: flex;
   margin-left: 80%;
-  width: 4%;
+  width: 70px;
   font-weight: bold;
   font-size: large;
   box-shadow: none;
@@ -35,6 +36,9 @@ body {
  #wrapper {
     width: 100%;
     background:#5A1AB7;
+    height: 100%; 
+    margin: 0; 
+    padding: 0;
 }
 
 #page-wrapper {
