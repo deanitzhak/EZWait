@@ -1,5 +1,5 @@
 const MessegeReplay = require('../models/messegeReplay.model');
-const MessegeReplayRepository = require('../reposetory/messegeReplay.repository');
+const MessegeReplayRepository = require('../repository/messegeReplay.repository');
 
 module.exports = {
     getAllMessegeReplay:(req,res) => {

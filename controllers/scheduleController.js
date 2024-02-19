@@ -1,5 +1,5 @@
 const Schedule = require('../models/schedule.model');
-const ScheduleRepository = require('../reposetory/schedule.repository');
+const ScheduleRepository = require('../repository/schedule.repository');
 
 module.exports = {
     getAllSchedule:(req,res) => {

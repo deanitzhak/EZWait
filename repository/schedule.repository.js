@@ -35,7 +35,6 @@ class ScheduleRepository extends MongoStorage {
     async findAll() {
         try {
             const schedules = await this.find();
-            console.log("assdsdsadsads->",schedules);
             return schedules;
         } catch (error) {
             throw new Error(`Error retrieving schedules: ${err.message}`);

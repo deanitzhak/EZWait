@@ -1,5 +1,5 @@
 const MessegeSent= require('../models/messegeSent.model');
-const MessegeSentRepository = require('../reposetory/messegeSent.repository');
+const MessegeSentRepository = require('../repository/messegeSent.repository');
 
 module.exports = {
     getAllMessegeSent:(req,res) => {
