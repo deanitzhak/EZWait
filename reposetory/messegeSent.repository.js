@@ -35,7 +35,6 @@ class MessegeSentRepository extends MongoStorage {
     async findAll() {
         try {
             const messegeSents = await this.find();
-            console.log(messegeSents);
             return messegeSents;
         } catch (error) {
             throw new Error(`Error retrieving messege sents: ${error.message}`);

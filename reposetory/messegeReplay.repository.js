@@ -35,7 +35,6 @@ class messageReplayRepository extends MongoStorage {
     async findAll() {
         try {
             const messageReplays = await this.find();
-            console.log(messageReplays);
             return messageReplays;
         } catch (error) {
             throw new Error(`Error retrieving message replay: ${error.message}`);
