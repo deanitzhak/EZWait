@@ -1,5 +1,4 @@
 const MongoStorage = require('../db/mongo.storage');
-
 class AppointmentRepository extends MongoStorage {
     constructor(mod) {
         super(mod); 
@@ -11,6 +10,7 @@ class AppointmentRepository extends MongoStorage {
         this.findByStatus = this.findByStatus.bind(this);
         this.findByStartTime = this.findByStartTime.bind(this);
         this.findByIdAndDelete = this.findByIdAndDelete.bind(this);
+        this.createNewAppointment = this.createNewAppointment.bind(this);
     }
 
     async updateAppointmentValue(appointmentValue, key, value) {
@@ -75,7 +75,14 @@ class AppointmentRepository extends MongoStorage {
             throw new Error(`Error deleting appointment: ${error.message}`);
         }
     }
-
+    async createNewAppointment(appointmentData) {
+        try {
+            const newAppointment = await this.Model.create(appointmentData);
+            return newAppointment;
+        } catch (error) {
+            throw new Error(`Error creating appointment: ${error.message}`);
+        }
+    }
 }
 
 module.exports = AppointmentRepository;
