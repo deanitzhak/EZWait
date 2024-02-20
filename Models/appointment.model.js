@@ -8,7 +8,7 @@ const appointmentSchema = new Schema(
         firstName: {type: String},
         lastName: {type: String},
         time: {type: Date},
-       date: {type: Date},
+        date: {type: Date},
         type: { type: String, enum: ['value1', 'value2', 'value3'] },
         status: { type: String, enum: ['Upcoming', 'Cancelled', 'Completed'] },
         timeStamp:{ type: Date}

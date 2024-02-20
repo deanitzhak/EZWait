@@ -6697,7 +6697,7 @@ margin-left: 20%;
     background: #24A8FA;
     border-radius: 0.25em;
     text-decoration: none;
-  
+    z-index: -1;
     width: 100%;
   
   }

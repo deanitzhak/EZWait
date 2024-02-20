@@ -82,16 +82,7 @@ class AppointmentRepository extends MongoStorage {
         } catch (error) {
             throw new Error(`Error creating appointment: ${error.message}`);
         }
-    }
-    // async createNewAppointment(appointmentData) {
-    //     try {
-    //         const newAppointment = await this.create(appointmentData);
-    //         return newAppointment;
-    //     } catch (error) {
-    //         throw new Error(`Error creating appointment: ${error.message}`);
-    //     }
-    // }
-    
+    }    
 }
 
 module.exports = AppointmentRepository;
