@@ -14,6 +14,10 @@
     margin: 0;
   }
 
+  img, video {
+    max-width: none!important;
+  }
+
   article,
   aside,
   details,
@@ -148,6 +152,7 @@
   body {
     font-family: 'Inter', sans-serif;
     font-family: 'Poppins', sans-serif;
+    display: flex;
     /* display: flex; */
   }
 
@@ -4490,9 +4495,10 @@
     width: 100%;
     max-width: 100%;
     min-height: 600px;
-    zoom: 67%;    
+    /* zoom: 67%;     */
     margin: 0 auto; 
     background: #5A1AB7;
+    min-width: max-content;
   }
 
   #page-wrapper {
@@ -5095,6 +5101,7 @@
       margin: 0 0 0 260px;
       padding: 15px 30px;
       min-height: 1200px;
+      min-width: max-content;
 
     }
 
@@ -5736,15 +5743,15 @@
   }
 
   .modal-box.show-modal {
-    top: 50%;
-    opacity: 1;
-    visibility: visible;
-    transition: .4s;
-
-    transition: .4s;
-    POSITION: relative;
-    MARGIN-TOP: -50%;
-    MARGIN-LEFT: 50%;
+      top: -0.010cm;
+      opacity: 1;
+      left: 30cm;
+      visibility: visible;
+      transition: .4s;
+      transition: .4s;
+      POSITION: absolute;
+      /* MARGIN-TOP: -50%; */
+      /* MARGIN-LEFT: 50%;*/
   }
 
   .modal-box .fa-close {
