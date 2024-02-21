@@ -5,12 +5,13 @@ const appointmentSchema = new Schema(
     {
         id: {type: ObjectId, index: 1},
         userName: {type: String},
-        firsstName: {type: String},
+        firstName: {type: String},
         lastName: {type: String},
+        date: {type: Date},
         startTime: {type: Date},
-        endTime: {type: Date},
+        endTimee:{type: Date},
         type: { type: String, enum: ['value1', 'value2', 'value3'] },
-        status: { type: String, enum: ['value1', 'value2', 'value3'] },
+        status: { type: String, enum: ['Upcoming', 'Cancelled', 'Completed'] },
         timeStamp:{ type: Date}
     },
     {
