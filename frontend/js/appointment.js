@@ -1,3 +1,6 @@
+
+//const {getStartAndEndTimeFromUser} = require("./schedualer");
+
 const EnumType = {
     VALUE1: 'value1',
     VALUE2: 'value2',
@@ -11,23 +14,23 @@ const EnumStatus = {
 var appointmentsArray ;
 const URL = window.location.origin;
 window.onload = () => {
+    $('button[name="form_submit"]').click((e) => {
+        alert("Create");
+        e.preventDefault(); 
+        let inputValuesForm = postSetAppointment();
+        /*on Click Create*/
+      createNewAppointment(inputValuesForm);
+    });
     /*onLoad By status*/
     (async () => {
         try {
             appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE1);
             console.log(appointmentsArray);
-            //renderAppointments("appointmentsList");
+            renderAppointments("appointmentsList");
         } catch (error) {
             console.error('Error occurred while fetching appointments:', error);
         }
     })();
-    
-    $('button[name="form_submit"]').click((e) => {
-        e.preventDefault(); 
-        let inputValuesForm = postSetAppointment();
-        /*on Click Create*/
-        createNewAppointment(inputValuesForm);
-    });
     $('a[name="cancel_button"]').click((e) => {
         e.preventDefault(); 
         findAndDeleteByAppoinmentId(id);
@@ -72,19 +75,6 @@ function findAndDeleteByAppoinmentId(id) {
     });
 }
 /*find by status*/
-// function findAppointmentsByStatus(status) {
-//     $.ajax({
-//         url: `${URL}/appointment/findAllAppointmentByStatus`,
-//         method: 'GET',
-//         data: { status: status },
-//         success: function(appointments) {
-//             return appointments;
-//         },
-//         error: function(err) {
-//             alert("Error occurred while fetching appointments");
-//         }
-//     });
-// }
 async function findAppointmentsByStatus(status) {
     try {
         const response = await fetch(`${URL}/appointment/findAllAppointmentByStatus?status=${status}`, {
@@ -103,9 +93,11 @@ async function findAppointmentsByStatus(status) {
         throw error;
     }
 }
-/*find by status*/
 /*new app*/
 function createNewAppointment(newAppointment){
+    const takenTime = getStartAndEndTimeFromUser(newAppointment);
+    newAppointment.startTime = takenTime.startTime;
+    newAppointment.endTime = takenTime.endTime;
     $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
     .done(newApp =>{
        return newApp;
@@ -122,12 +114,15 @@ function postSetAppointment() {
         firstName: "Fail",
         lastName: "donski",
         type: EnumType.VALUE2,
-        time: new Date(),
+        //time: new Date(),
         date: new Date(),
+        startTime: new Date(),
+        endTime:new Date()
       },
     };
     return formData;
 }
+
 /*Invoke HTML object*/ 
 function createAppointmentListItem(appointment) {
         const li = document.createElement("li");

@@ -5,7 +5,6 @@ const EnumStatus = {
     VALUE2: 'Cancelled',
     VALUE3: 'Completed'
 };
-
 async function createNewAppointment(newAppointmentJSON) {
     const newAppointment = new appointmentModel({
         userName: newAppointmentJSON.Appointment.userName,
