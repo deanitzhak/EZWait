@@ -11,6 +11,7 @@ const userRouter = require('./routers/userRouter');
 const messegeReplayRouter = require('./routers/messegeReplayRouter');
 const messegeSentRouter = require('./routers/messegeSentRouter');
 const scheduleRouter = require('./routers/scheduleRouter');
+const schedulerRouter = require('./routers/schedulerRouter');
 const MongoStorage = require('./db/mongo.storage');
 /*inintialize environment exucting*/
 const app = express();
@@ -28,6 +29,7 @@ app.use('/user', userRouter);
 app.use("/messegeReplay",messegeReplayRouter);
 app.use("/messegeSent",messegeSentRouter);
 app.use("/schedule",scheduleRouter);
+app.use('/scheduler', schedulerRouter);
 /*Mongo connectig*/
 const mongoStorageInstance = new MongoStorage();
 mongoStorageInstance.connect()
