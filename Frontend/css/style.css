@@ -4496,6 +4496,7 @@ body {
     margin: 0 auto; 
     background: #5A1AB7;
     min-width: max-content;
+    zoom: 110%;
   }
 
   #page-wrapper {
