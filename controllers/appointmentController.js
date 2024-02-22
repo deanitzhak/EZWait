@@ -48,16 +48,6 @@ module.exports = {
       res.status(500).send("Internal server error");
     });
   },
-  // findAppointmentByIdAndDelete:(req,res) => {
-  //   appRepo.findByIdAndDelete(req.body._id)
-  //   .then(appointments => {
-  //     res.send(appointments);
-  //   })
-  //   .catch(err =>{
-  //     console.error("Error retrieving appointment:", err);
-  //     res.status(500).send("Internal server error");
-  //   });
-  // },
   async findAppointmentByIdAndDelete(req, res) {
     try {
         await appRepo.findByIdAndDelete(req.query._id); 
