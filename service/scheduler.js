@@ -1,4 +1,4 @@
-const schedule = require('../models/schedule.model');
+const scheduleModel = require('../models/schedule.model');
 const appointmentModel = require('../models/appointment.model');
 
 
@@ -8,18 +8,22 @@ const EnumType = {
     VALUE3: 'value3'
 };
 module.exports = {
-
-
-    
     async getStartAndEndTimeFromUser(req, res) {
         try {
-            console.log ("shir");
+            const schedule = new scheduleModel();
             const newAppointmentObj = JSON.parse(req.query.newAppointment);
-            const startTime = newAppointmentObj.startTime;
-            const type = newAppointmentObj.type;
-            const endTime = calculateDuration(startTime, type);//take type 
+            const startTime = newAppointmentObj.Appointment.startTime; // Access startTime from Appointment
+            const type = newAppointmentObj.Appointment.type;
+            const endTime = calculateDuration(startTime, type); // Take type
     
-            if (startTime < schedule.workingHours.startTime || endTime > schedule.workingHours.endTime) {
+            // Now you can use startTime, type, and endTime as needed
+    
+            console.log("startTime:", startTime);
+            console.log("type:", type);
+            console.log("endTime:", endTime);
+            console.log("schedule", scheduleModel);
+    
+            if (startTime < schedule.workingHours.type.startTime || endTime > schedule.workingHours.type.endTime) {
                 throw new Error("Can't set appointment");
             } else {
                 const takenHours = schedule.takenHours.appointments;
@@ -55,6 +59,7 @@ module.exports = {
 
 function calculateDuration(type, startTime) {
     const duration = getDurationByType(type);
+    console.log(duration);
     const endTime = new Date(startTime);
     endTime.setHours(endTime.getHours() + duration);
     return endTime;
