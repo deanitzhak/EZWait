@@ -82,7 +82,7 @@ class AppointmentRepository extends MongoStorage {
         } catch (error) {
             throw new Error(`Error creating appointment: ${error.message}`);
         }
-    }
+    }    
 }
 
 module.exports = AppointmentRepository;
