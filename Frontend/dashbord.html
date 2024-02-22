@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="./js/scripts.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <!-- BEGIN INBOX -->
+        <div class="col-md-12">
+            <div class="page-header">
+				<h1>
+					Hey, <small>Nave</small>
+				</h1>
+                <ul class="nav flex-column nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Upcoming</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Completed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Cancelled</a>
+                        <div style="width: 100%; height: 100%; border: 6px #5A1AB7 solid"></div>
+                        
+                    </li>
+                </ul>
+			</div>
+            <div class="col-md-3">
+                <div>
+                    <ul class="sidenav">
+                        <a href="Templates.html"><img src="./img/Group 20.png" alt="Logof" class="logof"></i></a>
+                        <a href="Templates.html"><img src="./img/Vector.png" alt="Logo" class="logo"></i> Appointments</a>
+                       <a href="schedule.html"><img src="./img/Colaborador Icon.png" alt="Logo" class="logo"></i> Customers</a>
+                        <a href="sent.html"><i class="fa fa-mail-forward"></i> Communication</a>
+                        <a href="#"><i class="fa fa-pencil-square-o"></i> Logout</a>
+                        <a href="#"><i class="fa fa-folder"></i> settings</a>
+                    </ul>
+                </div>
+            </div>
+          
+                <div class="row">
+                  <div class="col-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Day</th>
+                          <th scope="col">Article Name</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Bootstrap 4 CDN and Starter Template</td>
+                          <td>Cristina</td>
+                          <td>2.846</td>
+                          <td>
+                            <button type="button" class="btn btn-success"><i class="fas fa-edit">Reschedule</i></button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                          <td>Cristina</td>
+                          <td>3.417</td>
+                          <td>
+                            <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
+                            <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+                          <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                          </td>
+                        </tr>
+                        <tr>
+
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+                        <!-- BEGIN INBOX MENU -->
+                       
+                        <!-- END INBOX MENU -->
+                        <!-- BEGIN INBOX CONTENT -->
+                        <!-- <div class="col-md-9"> -->
+                            <!-- <div class="row"> -->
+                                <!-- <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="list-ap">
+                                                <div class="list-group-item">
+                                                    <button type="button" class="schedule" >Reschedule</button>
+                                                    DR Williem Smith
+                                                    Aug 17, 2023 | 11:00 AM 
+                                                </div>
+                                           
+                                            -->
+                                        <!-- </div>
+                                        <div class="list-ap">
+                                            <div class="list-group-item">
+                                                DR Williem Smith
+                                            </div>
+                                            <div class="list-group-item justify-content-between">
+                                                Aug 17, 2023 | 11:00 AM 
+                                        </div>
+                                    </div>
+                                    <div class="list-ap">
+                                        <div class="list-group-item">
+                                            DR Williem Smith
+                                        </div>
+                                        <div class="list-group-item justify-content-between">
+                                            Aug 17, 2023 | 11:00 AM 
+                                    </div>
+                                </div>
+                        END COMPOSE MESSAGE
+                    </div> -->
+                </div>
+            </div>
+       
+        <!-- </div> -->
+        <!-- END INBOX -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+                document.getElementById("myCheck").onchange = toggleBilling;
+
+            },
+            false
+        );
+
+        function toggleBilling() {
+            const billingItems = document.querySelectorAll('#billing input[type="time"]');
+            const Item2 = document.querySelectorAll('#billing input[type="date"]');
+
+            billingItems.forEach((item) => {
+                item.disabled = !item.disabled;
+
+            });
+            Item2.forEach((item) => {
+                item.disabled = !item.disabled;
+            });
+        }
+
+
+        clickSend();
+        getAllTemplates();
+
+
+            $("#closewindow").click(function() {
+                $("#window").modal("hide");
+
+        });
+        </script>
+        </div>
+  </body>
+</html>
+
+
+
+
+

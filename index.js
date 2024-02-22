@@ -1,29 +1,46 @@
+/*envirment config*/
+require('dotenv').config({ path: './.env' });
 const express = require('express');
 const bodyParser = require('body-parser');
-const privateConfig = require('./Integrations/privateConfig.js');
-const { connectToMongoDB, closeMongoDBConnection } = require('./mongoDBConnector.js');
-const app = privateConfig.getApp();
-const port = privateConfig.getPort();
-let mongoClient;
-
+const path = require('path');
+/*APIs*/
+const fileLoaderRouter = require('./routers/fileLoaderRouter');
+const loginRouter = require('./routers/logInRouter');
+const appointmentRouter = require('./routers/appointmentRouter');
+const userRouter = require('./routers/userRouter');
+const messegeReplayRouter = require('./routers/messegeReplayRouter');
+const messegeSentRouter = require('./routers/messegeSentRouter');
+const scheduleRouter = require('./routers/scheduleRouter');
+const schedulerRouter = require('./routers/schedulerRouter');
+const MongoStorage = require('./db/mongo.storage');
+/*inintialize environment exucting*/
+const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('Fronted'));
-app.use('/js', express.static(__dirname + 'public/js'));
-app.use('/css', express.static(__dirname + 'public/css'));
-app.use('/images', express.static(__dirname + 'public/images'));
-app.use(express.urlencoded({ extended: false }));
-
-app.get('', (req, res) => {
-  res.sendFile(__dirname + '/Frontend/landing.html');
+const port = process.env.PORT ;
+app.use('/', fileLoaderRouter);
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use(express.static(path.join(__dirname, 'frontend'))); 
+/*inintialize Routers*/
+app.use('/login', loginRouter);
+app.use('/appointment', appointmentRouter);
+app.use('/user', userRouter);
+app.use("/messegeReplay",messegeReplayRouter);
+app.use("/messegeSent",messegeSentRouter);
+app.use("/schedule",scheduleRouter);
+app.use('/scheduler', schedulerRouter);
+/*Mongo connectig*/
+const mongoStorageInstance = new MongoStorage();
+mongoStorageInstance.connect()
+    .then(() => {
+     
+    })
+    .catch((err) => {
+        console.error("Failed to connect to MongoDB:", err);
+    });
+/*server*/
+const server = app.listen(port, () => {
+    console.log("Server listening on port:", port);
 });
-
-///******main******////
-async function run() {
-  try {
-    mongoClient = await connectToMongoDB();
-  } catch(error){
-    mongoClient = await closeMongoDBConnection();
-  }
-}
-app.listen(port, () => console.log('Listening on port', port));
-run().catch(console.dir);
+module.exports = server;
