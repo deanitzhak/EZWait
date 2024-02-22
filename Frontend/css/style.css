@@ -3297,7 +3297,7 @@ body {
   .nav > li > a:hover,
   .nav > li > a:focus {
     text-decoration: none;
-    background-color: #eee;
+    background-color:#A7A3FF;
   }
   .nav > li.disabled > a {
     color: #999;
