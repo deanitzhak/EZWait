@@ -2,10 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=0.67"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ezwait - Appointment</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <title>Ezwait</title>
+	<!-- Bootstrap Styles-->
+    <!-- <link href="/Frontend/css/bootstrap.css" rel="stylesheet" /> -->
+     <!-- FontAwesome Styles-->
+     <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <!-- Custom Styles-->
+        <link href="/Frontend/css/style.css" rel="stylesheet" />
+
+    <!-- <link href="/frontend/css/custom-styles.css" rel="stylesheet" /> -->
+     <!-- Google Fonts-->
+   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
     <div id="wrapper">
@@ -42,18 +51,18 @@
                         <a href="#">Add Appointment</a>
                     </div>
                     <div class="tab">
-                        <button class="tablinks" onclick="openCity(event, 'Upcoming')" id="defaultOpen" name="upcoming_click">Upcoming</button>
-                        <button class="tablinks" onclick="openCity(event, 'Completed')" name="completed_click">Completed</button>
-                        <button class="tablinks" onclick="openCity(event, 'Cancelled')" name="cancelled_click">Cancelled</button>
-                    </div>
-                    <div id="Upcoming" class="tabcontent">
+                        <button class="tablinks" onclick="openCity(event, 'Upcoming')" id="defaultOpen">Upcoming</button>
+                        <button class="tablinks" onclick="openCity(event, 'Completed')">Completed</button>
+                        <button class="tablinks" onclick="openCity(event, 'Cancelled')">Cancelled</button>
+                      </div>
+                      <div id="Upcoming" class="tabcontent">
                         <div class="mt-3">
                             <ul class="list list-inline" id="appointmentsList">
                                 <li class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
                                         <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
+                                            <h1 class="mb-0">Dr william</h1>
+                                            <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                                 <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
                                             </div>
@@ -61,24 +70,25 @@
                                     </div>
                                     <div class="d-flex flex-row align-items-center">
                                         <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <div class="cd-popup" role="alert">
-                                            <div class="cd-popup-container">
-                                                <p>Are you sure you want to cancel this Appointment?</p>
-                                                <ul class="cd-buttons">
-                                                    <li><a href="#0">Yes</a></li>
-                                                    <li><a href="#0">No</a></li>
-                                                </ul>
-                                                <a href="#0" class="cd-popup-close img-replace">Close</a>
-                                            </div> <!-- cd-popup-container -->
-                                        </div> <!-- cd-popup -->
-                                        <button class="Reschedule">Reschedule</button>
+                                    </div>
+                                    <a href="#0" class="cd-popup-trigger">Cancel Appointment</a>
+                    <div class="cd-popup" role="alert">
+                        <div class="cd-popup-container">
+                            <p>Are you sure you want to cancel this Appointment?</p>
+                            <ul class="cd-buttons">
+                                <li><a href="#0">Yes</a></li>
+                                <li><a href="#0">No</a></li>
+                            </ul>
+                            <a href="#0" class="cd-popup-close img-replace">Close</a>
+                        </div> <!-- cd-popup-container -->
+                    </div> <!-- cd-popup -->
+                                <button  class="Reschedule" >Reschedule</button>
                                 </li>
                                 <li class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
                                         <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
+                                            <h1 class="mb-0">Dr william</h1>
+                                            <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                                 <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
                                             </div>
@@ -86,31 +96,15 @@
                                     </div>
                                     <div class="d-flex flex-row align-items-center">
                                         <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <!-- <a href="#0" class="cd-popup-trigger">Cancel Appointment</a>
-                                        <button class="Reschedule">Reschedule</button> -->
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
-                                            </div>
-                                        </div>
                                     </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <a href="#0" class="cd-popup-trigger">Cancel Appointment</a>
-                                        <button class="Reschedule">Reschedule</button>
+                                    <a href="#0" class="cd-popup-trigger">Cancel Appointment</a>
+                                    <button  class="Reschedule" >Reschedule</button>
                                 </li>
                                 <li class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
                                         <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
+                                            <h1 class="mb-0">Dr william</h1>
+                                            <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                                 <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
                                             </div>
@@ -125,8 +119,8 @@
                                 <li class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
                                         <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
+                                            <h1 class="mb-0">Dr william</h1>
+                                            <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                                 <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
                                             </div>
@@ -141,8 +135,24 @@
                                 <li class="d-flex justify-content-between">
                                     <div class="d-flex flex-row align-items-center">
                                         <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
+                                            <h1 class="mb-0">Dr william</h1>
+                                            <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
+                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div class="d-flex flex-column mr-2">
+                                        </div>
+                                        <a href="#0" class="cd-popup-trigger">Cancel Appointment</a>
+                                        <button class="Reschedule">Reschedule</button>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row align-items-center">
+                                        <div class="ml-2">
+                                            <h1 class="mb-0">Dr william</h1>
+                                            <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
                                                 <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
                                             </div>
@@ -180,7 +190,7 @@
                                             <h1 class="mb-0"></h1>
                                             <h2></h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +204,7 @@
                                             <h1 class="mb-0"></h1>
                                             <h2></h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
                                             </div>
                                         </div>
                                     </div>
@@ -208,7 +218,7 @@
                                             <h1 class="mb-0"></h1>
                                             <h2></h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"> </span></div>
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +232,7 @@
                                             <h1 class="mb-0"></h1>
                                             <h2></h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"> </span></div>
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
                                             </div>
                                         </div>
                                     </div>
@@ -236,7 +246,7 @@
                                             <h1 class="mb-0"></h1>
                                             <h2></h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"> </span></div>
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
                                             </div>
                                         </div>
                                     </div>
@@ -249,7 +259,7 @@
                                             <h1 class="mb-0"></h1>
                                             <h2></h2>
                                             <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
+                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
                                             </div>
                                         </div>
                                     </div>
@@ -259,97 +269,97 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
-                    <div id="Cancelled" class="tabcontent">
-                        <div class="mt-3">
-                            <ul class="list list-inline" id="cancelledAppointmentsList">
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
+                      </div>
+                      <div id="Cancelled" class="tabcontent">
+                            <div class="mt-3">
+                                <ul class="list list-inline">
+                                    <li class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="ml-2">
+                                                <h1 class="mb-0">Dr william</h1>
+                                                <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
+                                                <div class="d-flex flex-row mt-1 text-black-50 date-time">
+                                                    <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="d-flex flex-column mr-2">
                                         </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"</span></div>
+                                        <button  class="Reschedule" >Reschedule</button>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="ml-2">
+                                                <h1 class="mb-0">Dr william</h1>
+                                                <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
+                                                <div class="d-flex flex-row mt-1 text-black-50 date-time">
+                                                    <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="d-flex flex-column mr-2">
                                         </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"</span></div>
+                                        <button  class="Reschedule" >Reschedule</button>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="ml-2">
+                                                <h1 class="mb-0">Dr william</h1>
+                                                <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
+                                                <div class="d-flex flex-row mt-1 text-black-50 date-time">
+                                                    <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="d-flex flex-column mr-2">
                                         </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
+                                        <button  class="Reschedule" >Reschedule</button>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="ml-2">
+                                                <h1 class="mb-0">Dr william</h1>
+                                                <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
+                                                <div class="d-flex flex-row mt-1 text-black-50 date-time">
+                                                    <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="d-flex flex-column mr-2">
                                         </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
+                                        <button  class="Reschedule" >Reschedule</button>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="ml-2">
+                                                <h1 class="mb-0">Dr william</h1>
+                                                <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
+                                                <div class="d-flex flex-row mt-1 text-black-50 date-time">
+                                                    <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="d-flex flex-column mr-2">
                                         </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
+                                        <button  class="Reschedule" >Reschedule</button>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="ml-2">
+                                                <h1 class="mb-0">Dr william</h1>
+                                                <h2>Pharmacy A - xxx building, xxx street, xxx city</h2>
+                                                <div class="d-flex flex-row mt-1 text-black-50 date-time">
+                                                    <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>                                             
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="d-flex flex-column mr-2">
                                         </div>
                                         <button class="Reschedule">Reschedule</button>
                                 </li>
@@ -403,51 +413,10 @@
                                         </div>
                                         <button class="formbold-btn">Submit</button>
                                     </div>
-                            </form>
-                        </div>
-                    </div>
-                </form> -->
-                <form action="/action_page.php" class="form-container" method="POST">
-                    <button type="button" class="btn cancel" onclick="closeForm()">X</button>
-                    <div class="formbold-main-wrapper">
-                        <div class="formbold-form-wrapper">
-                            <div class="flex flex-wrap formbold--mx-3">
-                                <div class="w-full sm:w-half formbold-px-3">
-                                    <div class="formbold-mb-5">
-                                        <label for="clientName" class="formbold-form-label">Client full name</label>
-                                        <select class="formbold-form-input" name="clientName" id="clientName" required>
-                                            <option value="" disabled selected>Select Client</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                        </select>
-                                    </div>
-                                    <div class="formbold-mb-5">
-                                        <label for="type" class="formbold-form-label"> Type </label>
-                                        <select class="formbold-form-input" name="Type" id="occupation" required>
-                                            <option value="" disabled selected>Select Type</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                        </select>
-                                    </div>
-                                    <div class="flex flex-wrap formbold--mx-3">
-                                        <div class="w-full sm:w-half formbold-px-3">
-                                            <div class="formbold-mb-5 w-full">
-                                                <label for="date" class="formbold-form-label"> Date </label>
-                                                <input type="date" name="date" id="date" class="formbold-form-input" required />
-                                            </div>
-                                        </div>
-                                        <div class="w-full sm:w-half formbold-px-3">
-                                            <div class="formbold-mb-5">
-                                                <label for="time" class="formbold-form-label"> Time </label>
-                                                <input type="time" name="time" id="time" class="formbold-form-input" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="formbold-btn" name="form_submit">Submit</button>
+                                  </form>
                                 </div>
-                            </div>
+                              </div>
+                          </form>
                         </div>
                     </div>
                 </form>
@@ -512,71 +481,81 @@
         </div>
         <!-- /. PAGE WRAPPER  -->
         </div>
-        <!-- /. WRAPPER  -->
-        <!-- JS Scripts-->
-        <!-- jQuery Js -->
-        <script src="assets/js/jquery-1.10.2.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- Bootstrap Js -->
-        <script src="assets/js/bootstrap.min.js"></script>
-        <!-- Metis Menu Js -->
-        <!-- <script src="assets/js/jquery.metisMenu.js"></script> -->
-        <!-- Custom Js -->
-        <!-- <script src="assets/js/custom-scripts.js"></script> -->
-        <script>
-            function openCity(evt, cityName) {
-                var i, tabcontent, tablinks;
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                }
-                tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-                document.getElementById(cityName).style.display = "block";
-                evt.currentTarget.className += " active";
-            }
-            // Get the element with id="defaultOpen" and click on it
-            document.getElementById("defaultOpen").click();
-            function openForm() {
-                document.getElementById("myForm").style.display = "block";
-            }
-            function closeForm() {
-                document.getElementById("myForm").style.display = "none";
-            }
-            jQuery(document).ready(function ($) {
-                //open popup
-                $('.cd-popup-trigger').on('click', function (event) {
-                    event.preventDefault();
-                    $('.cd-popup').addClass('is-visible');
-                });
-                //close popup
-                $('.cd-popup').on('click', function (event) {
-                    if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup')) {
-                        event.preventDefault();
-                        $(this).removeClass('is-visible');
-                    }
-                });
-                //close popup when clicking the esc keyboard button
-                $(document).keyup(function (event) {
-                    if (event.which == '27') {
-                        $('.cd-popup').removeClass('is-visible');
-                    }
-                });
-            });
-            $(document).ready(function () {
-                $('.start-btn').click(function () {
-                    $('.modal-box').toggleClass("show-modal");
-                    $('.start-btn').toggleClass("show-modal");
-                });
-                $('.fa-close').click(function () {
-                    $('.modal-box').toggleClass("show-modal");
-                    $('.start-btn').toggleClass("show-modal");
-                });
-            });
-        </script>
-    </body>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="assets/js/jquery-1.10.2.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+      <!-- Bootstrap Js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="assets/js/jquery.metisMenu.js"></script>
+      <!-- Custom Js -->
+    <script src="assets/js/custom-scripts.js"></script>
+    
+      
+      <script>
+      function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+      
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+jQuery(document).ready(function($){
+	//open popup
+	$('.cd-popup-trigger').on('click', function(event){
+		event.preventDefault();
+		$('.cd-popup').addClass('is-visible');
+	});
+	
+	//close popup
+	$('.cd-popup').on('click', function(event){
+		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+			event.preventDefault();
+			$(this).removeClass('is-visible');
+		}
+	});
+	//close popup when clicking the esc keyboard button
+	$(document).keyup(function(event){
+    	if(event.which=='27'){
+    		$('.cd-popup').removeClass('is-visible');
+	    }
+    });
+});
+
+$(document).ready(function(){
+           $('.start-btn').click(function(){
+             $('.modal-box').toggleClass("show-modal");
+             $('.start-btn').toggleClass("show-modal");
+           });
+           $('.fa-close').click(function(){
+             $('.modal-box').toggleClass("show-modal");
+             $('.start-btn').toggleClass("show-modal");
+           });
+         });
+</script>
+
+</body>
 </html>
