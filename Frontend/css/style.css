@@ -134,7 +134,7 @@ body {
     .submitButton:hover {
       background-color: none;
       background: none;
-      border: none; 
+      border: #4D47C3; 
     }
 
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&family=Poppins:wght@300&display=swap');
