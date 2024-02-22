@@ -1,30 +1,33 @@
-const schedule = require('../models/schedule.model');
+const scheduleModel = require('../models/schedule.model');
 const appointmentModel = require('../models/appointment.model');
 
 
 const EnumType = {
-    VALUE1: 'value1',
-    VALUE2: 'value2',
-    VALUE3: 'value3'
+    VALUE1: '1',
+    VALUE2: '2',
+    VALUE3: '3'
 };
 module.exports = {
-
-
-    
     async getStartAndEndTimeFromUser(req, res) {
         try {
-            console.log ("shir");
+            const schedule = new scheduleModel();
             const newAppointmentObj = JSON.parse(req.query.newAppointment);
-            const startTime = newAppointmentObj.startTime;
-            const type = newAppointmentObj.type;
-            const endTime = calculateDuration(startTime, type);//take type 
-    
-            if (startTime < schedule.workingHours.startTime || endTime > schedule.workingHours.endTime) {
+            const startTime = newAppointmentObj.Appointment.startTime; // Access startTime from Appointment
+            console.log (startTime ,"for diiiiiiiiiiiiiiiin");
+            const type = newAppointmentObj.Appointment.type;
+            const endTime = calculateDuration(startTime, type); // Take type
+            
+            console.log("schedule >: " ,schedule);
+            // Now you can use startTime, type, and endTime as needed
+            const { startTime: defsStartTime, endTime: defEndTime } = schedule.workingHours;
+            
+            
+            if (startTime < defsStartTime || endTime > defEndTime) {
                 throw new Error("Can't set appointment");
             } else {
                 const takenHours = schedule.takenHours.appointments;
+                //console.log(startAppointmentType);
                 takenHours.sort(); // Assuming appointments is an array of times that can be sorted
-                
                 let canSetAppointment = true;
     
                 takenHours.forEach(takenTime => { 
@@ -37,6 +40,7 @@ module.exports = {
     
                 if (canSetAppointment) {
                     takenHours.push(startTime, endTime);
+                    console.log("workingHours : >>>>> ",takenHours[0]);
                     return takenHours;
                 } else {
                     throw new Error("Can't set appointment");
@@ -53,14 +57,17 @@ module.exports = {
 };
 
 
-function calculateDuration(type, startTime) {
+function calculateDuration(startTime,type) {
+    console.log ("starttimeeeeeeeeeeeee",startTime);
     const duration = getDurationByType(type);
+    console.log("durationnnnnnnnnnnnnnn",duration);
     const endTime = new Date(startTime);
     endTime.setHours(endTime.getHours() + duration);
     return endTime;
 }
 
 function getDurationByType(type) {
+    console.log (type,"typppppppppppe");
     switch (type) {
         case EnumType.VALUE1:
             return 2; // 2 hours

@@ -1,3 +1,19 @@
+let my_user;
+
+function getUserName() {
+    $.ajax({
+        url: `${URL}/user/getUserData`,
+        method: 'GET',
+        success: function(myUser) {
+            console.log("user: ", myUser);
+            my_user = myUser;
+            return my_user;
+        },
+        error: function(err) {
+            alert("Error occurred while fetching appointments");
+        }
+    });
+}
 
 const backendURL = 'http://localhost:3000'; 
 const EnumType = {
@@ -13,6 +29,7 @@ const EnumStatus = {
 var appointmentsArray ;
 const URL = window.location.origin;
 window.onload = () => {
+    my_user = getUserName ();
     $('button[name="form_submit"]').click((e) => {
         e.preventDefault(); 
         (async () => {
@@ -145,13 +162,12 @@ function createNewAppointment(newAppointment){
 function postSetAppointment() {
     const formData = {
       Appointment: {
-        userName: 'EranK',
-        firstName: "Fail",
-        lastName: "donski",
-        type: EnumType.VALUE2,
-        //time: new Date(),
-        date: new Date(),
-        startTime: new Date(),
+        userName: my_user.userName,
+        firstName:  my_user.firstNameName,
+        lastName: my_user.lastName,
+        type: document.getElementById('din').value,
+        date: document.getElementById('nave').value,
+        startTime: document.getElementById('tomer').value,
         endTime:new Date()
       },
     };
