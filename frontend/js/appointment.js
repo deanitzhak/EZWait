@@ -18,7 +18,7 @@ window.onload = () => {
         (async () => {
             try {
                 let newAppointment = postSetAppointment();
-                const canInvoke = await fetchStartAndEndTimeFromUser(newAppointment);
+                const canInvoke = await getStartAndEndTimeFromUser(newAppointment);
                 console.log(canInvoke);
             } catch (error) {
                 alert('faled');
@@ -101,19 +101,26 @@ async function findAppointmentsByStatus(status) {
     }
 }
 /*new app*/
-async function fetchStartAndEndTimeFromUser(newAppointment) {
+async function getStartAndEndTimeFromUser(newAppointment) {
     try {
         console.log(newAppointment);
-        const response = await fetch(`${URL}/scheduler/getStartAndEndTimeFromUser?newAppointment=${newAppointment}`, {
+
+        // Stringify the newAppointment object before passing it in the URL query parameter
+        const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
+
+        const response = await fetch(`${URL}/scheduler/getStartAndEndTimeFromUser?newAppointment=${queryParams}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
+
         if (!response.ok) {
             throw new Error('Failed to fetch appointments');
         }
+
         const appointments = await response.json();
+
         return appointments;
     } catch (error) {
         console.error('Error occurred while fetching appointments:', error);
