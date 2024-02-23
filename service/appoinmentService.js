@@ -16,10 +16,8 @@ async function createNewAppointment(newAppointmentJSON) {
         timeStamp: new Date(),
         type :newAppointmentJSON.Appointment.type
     });
-    console.log( newAppointment);
     return newAppointment; 
 }
-
 module.exports = {
     createNewAppointment
 };

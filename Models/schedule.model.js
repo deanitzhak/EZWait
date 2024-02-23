@@ -10,12 +10,12 @@ const scheduleSchema = new Schema(
         year: { type: Number, index: 1 },
         workingHours: {
             type: {
-                startTime: { type: String, default: '09:00:00' },
-                endTime: { type: String, default: '18:00:00' }
+                startTime: { type: String, default: '09:00' },
+                endTime: { type: String, default: '18:00' }
             },
             default: {
-                startTime: '09:00:00',
-                endTime: '18:00:00'
+                startTime: '09:00',
+                endTime: '18:00'
             }
         },
         takenHours: {     
@@ -30,7 +30,7 @@ const scheduleSchema = new Schema(
                     }]
                 }
             }
-    }
+    },{ collection: "Schedule" }
 );
 
 const scheduleModel = model("Schedule", scheduleSchema);

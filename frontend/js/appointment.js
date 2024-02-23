@@ -14,8 +14,6 @@ function getUserName() {
         }
     });
 }
-
-const backendURL = 'http://localhost:3000'; 
 const EnumType = {
     VALUE1: 'value1',
     VALUE2: 'value2',
@@ -30,31 +28,35 @@ var appointmentsArray ;
 const URL = window.location.origin;
 window.onload = () => {
     my_user = getUserName ();
-    $('button[name="form_submit"]').click((e) => {
-        e.preventDefault(); 
-        (async () => {
-            try {
-                let newAppointment = postSetAppointment();
-                const canInvoke = await getStartAndEndTimeFromUser(newAppointment);
-                console.log(canInvoke);
-            } catch (error) {
-                alert('faled');
-                console.error('Error occurred while fetching appointments:', error);
-            }
-        })();
-        /*on Click Create*/
-        //createNewAppointment(inputValuesForm);
-    });
-    /*onLoad By status*/
     (async () => {
         try {
-            appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE1);
+            appointmentsArray = await findAppointmentsByStatus("Upcoming");
             console.log(appointmentsArray);
             renderAppointments("appointmentsList");
         } catch (error) {
             console.error('Error occurred while fetching appointments:', error);
         }
     })();
+    $('button[name="form_submit"]').click((e) => {
+        e.preventDefault(); 
+        (async () => {
+            try {
+                let newAppointment = await postSetAppointment(); // Await the result of postSetAppointment
+                console.log('New appointment:', newAppointment);
+                const canInvoke = await getStartAndEndTimeFromUser(newAppointment);
+                console.log('Response from server:', canInvoke);
+                alert(canInvoke.value);
+            } catch (error) {
+                alert('Failed');
+                console.error('Error occurred while fetching appointments:', error);
+            }
+        })();
+        
+                /*on Click Create*/
+        //createNewAppointment(inputValuesForm);
+    });
+    /*onLoad By status*/
+    
     $('a[name="cancel_button"]').click((e) => {
         e.preventDefault(); 
         findAndDeleteByAppoinmentId(id);
@@ -120,30 +122,23 @@ async function findAppointmentsByStatus(status) {
 /*new app*/
 async function getStartAndEndTimeFromUser(newAppointment) {
     try {
-        console.log(newAppointment);
-
-        // Stringify the newAppointment object before passing it in the URL query parameter
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
-
         const response = await fetch(`${URL}/scheduler/getStartAndEndTimeFromUser?newAppointment=${queryParams}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-
         if (!response.ok) {
             throw new Error('Failed to fetch appointments');
         }
-
-        const appointments = await response.json();
-
-        return appointments;
+        const isTrue = await response.json();
+        console.log("isTrue : > ",isTrue);
+        return isTrue;
     } catch (error) {
         console.error('Error occurred while fetching appointments:', error);
         throw error;
     }
-
 }
 function createNewAppointment(newAppointment){
     alert("Create");
