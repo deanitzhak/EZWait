@@ -15,6 +15,7 @@ body {
   font-family: 'Poppins', sans-serif;  }
   body {
     margin: 0;
+    padding: 0;
   }
 
   img, video {
@@ -162,17 +163,7 @@ body {
   summary {
     display: block;
   }
-  /* audio,
-  canvas,
-  progress,
-  video {
-    display: inline-block;
-    vertical-align: baseline;
-  } */
-  /* audio:not([controls]) {
-    display: none;
-    height: 0; */
-  /* } */
+  
   [hidden],
   template {
     display: none;
@@ -816,6 +807,33 @@ body {
     }
   }
 
+
+  .full {
+    background-color: #F3D37E;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .flex-1 {
+    flex: 1;
+  }
+
+  .full-height {
+    height: 100%;
+  }
+
+  .flex-col-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .max-w-login {
+    max-width: 400px; /* Adjust the width as needed */
+  }
+  
   table {
     max-width: 100%;
     background-color: transparent;
