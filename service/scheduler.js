@@ -1,9 +1,11 @@
 const ScheduleRepository = require('../repository/schedule.repository');
 const Schedule = require('../models/schedule.model');
-const appointmentModel = require('../models/appointment.model');
 const { ObjectId } = require("mongodb");
 const schedRepo = new ScheduleRepository(Schedule);
 let duration;
+const GMT = 2 /*need to be on global data file*/
+const moment = require('moment');
+
 /*this flag is indicate if a new day is opend or not*/
 let defultCreate; 
 const EnumType = {
@@ -42,46 +44,60 @@ module.exports = {
             const formattedHours = hours < 10 ? '0' + hours : hours;
             const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
             const formattedEndTime = `${formattedHours}:${formattedMinutes}`;
-            if (startTime < defsStartTime || formattedEndTime > defEndTime) {
+            if (startTime < defsStartTime || formattedEndTime > defEndTime ||(formattedEndTime >= '00:00' && formattedEndTime < '05:00')) {
                 throw new Error("Can't set appointment");
             }else if(date < currentDate){
                 throw new Error("Can't set appointment");
             }
             /*cheking if the appointment is taken*/
             let appointments = schedule.takenHours.appointments;
+            /*formated to be able to compare*/
+            const newAppFormatedStartTime = combainDateAndHoursToDate(startTime ,dateStr);
+            if(newAppFormatedStartTime < currentDate){
+                throw new Error("Can't set appointment");
+
+            }
             appointments.forEach(takenTime => { 
+                /*formated end time in schedule*/
                 let endTimeFormat = new Date(takenTime.startAppointment + (takenTime.duration * (60 *60 *1000)));
                 endTimeFormat = formatedDate(endTimeFormat);
                 const formatedEndDate = new Date (endTimeFormat);
-                const newAppFormatedStartTime = combainDateAndHoursToDate(startTime,dateStr);
-                // console.log("first if");
-                // console.log("newAppFormatedStartTime : ",newAppFormatedStartTime);
-                const updatedtakenTime= new Date(takenTime.startAppointment.getTime() + (0 * 60 * 60 * 1000));
-                // console.log("takenTime.startAppointment : ", updatedtakenTime);
-                // console.log("second if");
-                const updatedEndDate = new Date(formatedEndDate.getTime() + (2 * 60 * 60 * 1000));
-                // console.log("newAppFormatedEndTime : ",newAppFormatedEndTime);
-                // console.log("formatedEndDate : ",updatedEndDate);
-                // console.log("-------------------");
-                if(newAppFormatedStartTime >= updatedtakenTime + (2 * 60 * 60 * 1000) || newAppFormatedEndTime <= updatedEndDate){
-                    throw new Error("Appointment Allready Taken");
+                let updatedtakenTime;
+                /*startAppointment in schedule*/
+                if(takenTime.duration == 0){                                           /*2 = time locataion in world israel is -  (GMT+2)*/
+                     updatedtakenTime= new Date(takenTime.startAppointment.getTime() + (GMT * 60 * 60 * 1000));
+                }else{
+                     updatedtakenTime= new Date(takenTime.startAppointment.getTime());
+                }
+                const updatedEndDate = new Date(formatedEndDate.getTime());
+                /*using moment for be able to compare*/
+                const newStartTime = moment(newAppFormatedStartTime);
+                const newEndTime = moment(newAppFormatedEndTime);
+                const takenTimeStartAppointment = moment(updatedtakenTime);
+                const takenTimeEndAppointment = moment(updatedEndDate)
+                /**/ 
+                const isOverlap = newStartTime.isBefore(takenTimeEndAppointment) && newEndTime.isAfter(takenTimeStartAppointment);
+                const CAN_BE_ACCEPTED = !isOverlap;
+                if (CAN_BE_ACCEPTED) {
+                } else {
+                    throw new Error("Appointment is taken");                   
                 }
             });
             let OBJstartTime = OBJDateAndTime(startTime,date);
             const newAppointment = {
                 startAppointment: OBJstartTime,
-                duration: duration 
+                duration: duration ,
+                appointmentId: new ObjectId()
             };
             appointments.push(newAppointment);
             appointments.sort();
             schedule.takenHours.appointments = appointments;
             if(defultCreate){
                 schedule.save();
-                res.send(true);
-
+                res.send(newAppointment.appointmentId);
             }else{
                 schedRepo.updateScheduleValueTwoKeys(schedule._id,"takenHours","appointments",appointments);
-                res.send(true);
+                res.send(newAppointment.appointmentId);
             }
         } catch (error) {
             console.error('Error processing appointment data:', error);
@@ -143,6 +159,7 @@ function OBJDateAndTime(time,date){
     const [hours, minutes] = time.split(':');
     const [year, month, day] = date.split('-');
     const startAppointment = new Date(year, month - 1, day, hours, minutes);
+    startAppointment.setTime(startAppointment.getTime() + (GMT * 60 * 60 * 1000));
     return startAppointment;
 }
 function formatedDate(strDate){

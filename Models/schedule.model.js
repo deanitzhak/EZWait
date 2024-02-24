@@ -22,11 +22,13 @@ const scheduleSchema = new Schema(
                 appointments:{
                     type: [{
                         startAppointment: { type: Date },
-                        duration: { type: Number, index: 1 }
+                        duration: { type: Number, index: 1 },
+                        appointmentId: { type: ObjectId, index: 1 }
                     }],
                     default: [{
                         startAppointment: new Date().setHours(9, 0, 0),
-                        duration: 0
+                        duration: 0,
+                        appointmentId: new ObjectId()
                     }]
                 }
             }

@@ -69,7 +69,8 @@ module.exports = {
 },
     async submitNewAppointment(req, res) {
     try {
-       const newApp = await appointmentService.createNewAppointment(req.body);
+      const newApp = await appointmentService.createNewAppointment(req.body);
+      console.log(newApp);
       appRepo.create(newApp);
       res.status(200).send("New appointment created successfully");
       

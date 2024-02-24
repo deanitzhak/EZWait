@@ -1,5 +1,4 @@
 let my_user;
-
 function getUserName() {
     $.ajax({
         url: `${URL}/user/getUserData`,
@@ -41,14 +40,18 @@ window.onload = () => {
         e.preventDefault(); 
         (async () => {
             try {
-                let newAppointment = await postSetAppointment(); // Await the result of postSetAppointment
-                console.log('New appointment:', newAppointment);
-                const canInvoke = await getStartAndEndTimeFromUser(newAppointment);
-                console.log('Response from server:', canInvoke);
-                alert(canInvoke.value);
+                let newAppointment = await postSetAppointment(1); // Await the result of postSetAppointment
+                const appointmentId = await getStartAndEndTimeFromUser(newAppointment);
+                if(appointmentId === null){
+                    alert('Failed to create new appointment.');
+                }else{
+                    alert('secssused.');
+                    const _newAppointment = await postSetAppointment(appointmentId);
+                    await createNewAppointment(_newAppointment);
+                }
             } catch (error) {
-                alert('Failed');
-                console.error('Error occurred while fetching appointments:', error);
+                alert('Failed to create new appointment.');
+                console.error('Failed to create new appointment.', error);
             }
         })();
         
@@ -56,7 +59,6 @@ window.onload = () => {
         //createNewAppointment(inputValuesForm);
     });
     /*onLoad By status*/
-    
     $('a[name="cancel_button"]').click((e) => {
         e.preventDefault(); 
         findAndDeleteByAppoinmentId(id);
@@ -132,38 +134,50 @@ async function getStartAndEndTimeFromUser(newAppointment) {
         if (!response.ok) {
             throw new Error('Failed to fetch appointments');
         }
-        const isTrue = await response.json();
-        console.log("isTrue : > ",isTrue);
-        return isTrue;
+        const appId = await response.json();
+        return appId;
     } catch (error) {
         console.error('Error occurred while fetching appointments:', error);
         throw error;
     }
 }
-function createNewAppointment(newAppointment){
-    alert("Create");
-    const takenTime = getStartAndEndTimeFromUser(newAppointment);
-    newAppointment.startTime = takenTime.startTime;
-    newAppointment.endTime = takenTime.endTime;
-    $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
-    .done(newApp =>{
-       return newApp;
-    })
-    .fail(err => {
-        console(err);
-    });
-
+async function createNewAppointment(newAppointment) {
+        $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
+        .done((_newApp) =>
+        {
+            const newApp = _newApp;
+            return newApp;
+        })
+        .fail((xhr, status, error) => {
+            console.error("failed send to server" + error);
+        });
 }
-function postSetAppointment() {
+function postSetAppointment(_appointmentId) {
+    const input = document.getElementById('din').value;
+    let _duration;
+    switch (input) {
+        case '1':
+            _duration = 2;
+            break;
+        case '2':
+            _duration = 3;
+            break;
+        case '3':
+            _duration = 1;
+            break;
+        default:
+            break;
+    }
     const formData = {
       Appointment: {
+        appointmentId : _appointmentId,
         userName: my_user.userName,
-        firstName:  my_user.firstNameName,
+        firstName:  my_user.firstName,
         lastName: my_user.lastName,
-        type: document.getElementById('din').value,
+        type: input,
         date: document.getElementById('nave').value,
         startTime: document.getElementById('tomer').value,
-        endTime:new Date()
+        duration : _duration,
       },
     };
     return formData;
@@ -194,7 +208,7 @@ function createAppointmentListItem(appointment, tabContent) {
 
     const dateSpan = document.createElement("span");
     dateSpan.className = "ml-2";
-    const date = new Date(appointment.time);
+    const date = new Date(appointment.startTime);
     dateSpan.textContent = date.toLocaleString(); // Format date as needed
 
     dateDiv.appendChild(dateIcon);
