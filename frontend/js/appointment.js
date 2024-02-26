@@ -215,9 +215,15 @@ function createAppointmentListItem(appointment, tabContent) {
     dateDiv.appendChild(dateIcon);
     dateDiv.appendChild(dateSpan);
 
+    const idSpan = document.createElement("span");
+    idSpan.setAttribute("data-appointment-id", appointment.appointmentId); // Set data attribute for appointment ID
+    idSpan.style.display = "none"; // Hide the ID span
+
+
     innerDiv.appendChild(h1);
     innerDiv.appendChild(h2);
     innerDiv.appendChild(dateDiv);
+    innerDiv.appendChild(idSpan); // Append ID to innerDiv
 
     div1.appendChild(innerDiv);
 
@@ -292,6 +298,7 @@ function createAppointmentListItem(appointment, tabContent) {
 
     return li;
 }
+
 function renderAppointments(listType) {
     const appointmentsList = document.getElementById(listType);
     // Clear previous content
