@@ -4,18 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=0.75">
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <title>Ezwait - profilePage</title>
   <!-- Bootstrap Styles-->
-  <link href="/Frontend/css/bootstrap.css" rel="stylesheet" />
+  <!-- <link href="/Frontend/css/bootstrap.css" rel="stylesheet" /> -->
   <!-- FontAwesome Styles-->
   <!-- Custom Styles-->
   <!-- <link href="/Frontend/css/custom-styles.css" rel="stylesheet" /> -->
-  <link href="/Frontend/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
   <!-- Google Fonts-->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" style="zoom: 67%;">
       <nav class="navbar navbar-default top-navbar" role="navigation">
         <div class="navbar-header">
           <a class="navbar-brand" href="index.html"><img src="./img/Group 20.png" alt="Logof" class="logof"></a>
@@ -27,16 +28,19 @@
           </button>
         </div>
         </ul>
+        <button type="button" class="btn btn-primary">Danielle Bernstein</button>
       </nav>
       <!--/. NAV TOP  -->
       <nav class="navbar-default navbar-side" role="navigation">
         <div class="sidebar-collapse">
           <ul class="nav" id="main-menu">
-            <li><a href="index.html"><img src="./img/appointment.png" alt="Logo" class="logo"></i></li>
-            <li><a href="index.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a></li>
-            <li><a href="index.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a></li>
-            <li><a href="table.html"><img src="./img/Services.png" alt="Logo" class="logo"></i></a></li>
-            <li><a href="index.html"><img src="./img/Logout.png" alt="Logo" class="logo"></i></a></li>
+            <li><a href="appointment.html"><img src="./img/appointment.png" alt="Logo" class="logo"></i></a></li>
+            <li><a href="CustomerList.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a>
+            </li>
+            <li><a href="SendMessege.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a>
+            </li>
+            <li><a href="profilePage.html"><img src="./img/Services.png" alt="Logo" class="logo"></i></a></li>
+            <li><a href="signIn.html"><img src="./img/Logout.png" alt="Logo" class="logo"></i></a></li>
           </ul>
         </div>
       </nav>
@@ -46,7 +50,6 @@
           <body>
             <div class="formbold-main-wrapper">
               <!-- Author: FormBold Team -->
-              <!-- Learn More: https://formbold.com -->
               <div class="formbold-form-wrapper">
                 <form action="https://formbold.com/s/FORM_ID" method="POST">
                   <div class="formbold-input-wrapp formbold-mb-3">
@@ -54,16 +57,16 @@
                     <div>
                       <input type="text" name="firstname" id="firstname" placeholder="First name"
                         class="formbold-form-input" required />
-                      <input type="text" name="lastname" id="lastname" placeholder="Last name" class="formbold-form-input" required />
+                      <input type="text" name="lastname" id="lastname" placeholder="Last name" class="formbold-form-input" required/>
                     </div>
                   </div>
                   <div class="formbold-mb-3">
                     <label for="age" class="formbold-form-label"> Age </label>
-                    <input type="text" name="age" id="age" placeholder="25" class="formbold-form-input" required />
+                    <input type="text" name="age" id="age" placeholder="25" class="formbold-form-input" required/>
                   </div>
                   <div class="formbold-mb-3">
                     <label for="dob" class="formbold-form-label"> Date of Birth </label>
-                    <input type="date" name="dob" id="dob" class="formbold-form-input" required />
+                    <input type="date" name="dob" id="dob" class="formbold-form-input" required/>
                   </div>
                   <div class="formbold-mb-3">
                     <label class="formbold-form-label">Gender</label>
@@ -76,7 +79,7 @@
                   <div class="formbold-mb-3">
                     <label for="email" class="formbold-form-label"> Email </label>
                     <input type="email" name="email" id="email" placeholder="example@email.com"
-                      class="formbold-form-input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required />
+                      class="formbold-form-input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
                   </div>
                   <div class="formbold-mb-3">
                     <label for="address" class="formbold-form-label"> Address </label>
