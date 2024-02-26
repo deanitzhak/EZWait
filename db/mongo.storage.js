@@ -32,12 +32,16 @@ module.exports = class MongoStorage {
         return this.Model.find(obj);
     }
 
-    findByAttribute(key, value) {
-        const obj = {};
-        obj[key] = value;
-        return this.Model.find(obj);
+    async findByAttribute(key, value) {
+        try {
+            const query = {};
+            query[key] = value;
+            const appointments = await this.Model.find(query);
+            return appointments;
+        } catch (error) {
+            throw new Error(`Error retrieving appointments by ${key}: ${error.message}`);
+        }
     }
-
     retrieve(id) {
         return this.Model.findById(id);
     }

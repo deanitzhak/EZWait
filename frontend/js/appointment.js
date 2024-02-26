@@ -1,5 +1,4 @@
 let my_user;
-
 function getUserName() {
     $.ajax({
         url: `${URL}/user/getUserData`,
@@ -14,7 +13,6 @@ function getUserName() {
         }
     });
 }
-
 const EnumType = {
     VALUE1: 'value1',
     VALUE2: 'value2',
@@ -29,34 +27,39 @@ var appointmentsArray ;
 const URL = window.location.origin;
 window.onload = () => {
     my_user = getUserName ();
-    $('button[name="form_submit"]').click((e) => {
-        e.preventDefault(); 
-        (async () => {
-            try {
-                let newAppointment = postSetAppointment();
-                const canInvoke = await getStartAndEndTimeFromUser(newAppointment);
-                console.log(canInvoke);
-            } catch (error) {
-                alert('faled');
-                console.error('Error occurred while fetching appointments:', error);
-            }
-        })();
-        /*on Click Create*/
-        //createNewAppointment(inputValuesForm);
-    });
-    /*onLoad By status*/
     (async () => {
         try {
-            appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE1);
+            appointmentsArray = await findAppointmentsByStatus("Upcoming");
             console.log(appointmentsArray);
             renderAppointments("appointmentsList");
         } catch (error) {
             console.error('Error occurred while fetching appointments:', error);
         }
     })();
-    
-    $('button[id="cancel_appointment"]').click((e) => {
-        console.log("shirrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+    $('button[name="form_submit"]').click((e) => {
+        e.preventDefault(); 
+        (async () => {
+            try {
+                let newAppointment = await postSetAppointment(1); // Await the result of postSetAppointment
+                const appointmentId = await getStartAndEndTimeFromUser(newAppointment);
+                if(appointmentId === null){
+                    alert('Failed to create new appointment.');
+                }else{
+                    alert('secssused.');
+                    const _newAppointment = await postSetAppointment(appointmentId);
+                    await createNewAppointment(_newAppointment);
+                }
+            } catch (error) {
+                alert('Failed to create new appointment.');
+                console.error('Failed to create new appointment.', error);
+            }
+        })();
+        
+                /*on Click Create*/
+        //createNewAppointment(inputValuesForm);
+    });
+    /*onLoad By status*/
+    $('a[name="cancel_button"]').click((e) => {
         e.preventDefault(); 
         findAndDeleteByAppoinmentId(id);
     });
@@ -122,55 +125,60 @@ async function findAppointmentsByStatus(status) {
 /*new app*/
 async function getStartAndEndTimeFromUser(newAppointment) {
     try {
-        console.log(newAppointment);
-
-        // Stringify the newAppointment object before passing it in the URL query parameter
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
-
         const response = await fetch(`${URL}/scheduler/getStartAndEndTimeFromUser?newAppointment=${queryParams}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-
         if (!response.ok) {
             throw new Error('Failed to fetch appointments');
         }
-
-        const appointments = await response.json();
-
-        return appointments;
+        const appId = await response.json();
+        return appId;
     } catch (error) {
         console.error('Error occurred while fetching appointments:', error);
         throw error;
     }
-
 }
-function createNewAppointment(newAppointment){
-    alert("Create");
-    const takenTime = getStartAndEndTimeFromUser(newAppointment);
-    newAppointment.startTime = takenTime.startTime;
-    newAppointment.endTime = takenTime.endTime;
-    $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
-    .done(newApp =>{
-       return newApp;
-    })
-    .fail(err => {
-        console(err);
-    });
-
+async function createNewAppointment(newAppointment) {
+        $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
+        .done((_newApp) =>
+        {
+            const newApp = _newApp;
+            return newApp;
+        })
+        .fail((xhr, status, error) => {
+            console.error("failed send to server" + error);
+        });
 }
-function postSetAppointment() {
+function postSetAppointment(_appointmentId) {
+    const input = document.getElementById('din').value;
+    let _duration;
+    switch (input) {
+        case '1':
+            _duration = 2;
+            break;
+        case '2':
+            _duration = 3;
+            break;
+        case '3':
+            _duration = 1;
+            break;
+        default:
+            break;
+    }
     const formData = {
       Appointment: {
+        appointmentId : _appointmentId,
         userName: my_user.userName,
-        firstName:  my_user.firstNameName,
+        firstName:  my_user.firstName,
         lastName: my_user.lastName,
-        type: document.getElementById('din').value,
+        type: input,
         date: document.getElementById('nave').value,
         startTime: document.getElementById('tomer').value,
-        endTime:new Date()
+        duration : _duration,
       },
     };
     return formData;
@@ -201,7 +209,7 @@ function createAppointmentListItem(appointment, tabContent) {
 
     const dateSpan = document.createElement("span");
     dateSpan.className = "ml-2";
-    const date = new Date(appointment.time);
+    const date = new Date(appointment.startTime);
     dateSpan.textContent = date.toLocaleString(); // Format date as needed
 
     dateDiv.appendChild(dateIcon);

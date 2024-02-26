@@ -60,7 +60,7 @@ module.exports = {
 
   async findAllAppointmentByStatus(req, res) {
     try {
-        const appointments = await appRepo.findByStatus(req.query.status); 
+        const appointments = await appRepo.findByStatus(req.query.status);
         res.status(200).send(appointments);
     } catch (error) {
         console.error(error);
@@ -69,7 +69,8 @@ module.exports = {
 },
     async submitNewAppointment(req, res) {
     try {
-       const newApp = await appointmentService.createNewAppointment(req.body);
+      const newApp = await appointmentService.createNewAppointment(req.body);
+      console.log(newApp);
       appRepo.create(newApp);
       res.status(200).send("New appointment created successfully");
       
