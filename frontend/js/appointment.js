@@ -15,7 +15,6 @@ function getUserName() {
     });
 }
 
-const backendURL = 'http://localhost:3000'; 
 const EnumType = {
     VALUE1: 'value1',
     VALUE2: 'value2',
@@ -55,10 +54,13 @@ window.onload = () => {
             console.error('Error occurred while fetching appointments:', error);
         }
     })();
-    $('a[name="cancel_button"]').click((e) => {
+    
+    $('button[id="cancel_appointment"]').click((e) => {
+        console.log("shirrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
         e.preventDefault(); 
         findAndDeleteByAppoinmentId(id);
     });
+    
     $('button[name="completed_click"]').click((e) => {
         e.preventDefault(); 
         (async () => {
@@ -217,6 +219,7 @@ function createAppointmentListItem(appointment, tabContent) {
     const cancelButton = document.createElement("a");
     cancelButton.href = "#0";
     cancelButton.className = "cd-popup-trigger";
+    cancelButton.id = "Cancel_Appointment";
     cancelButton.textContent = "Cancel Appointment";
 
     const cdPopup = document.createElement("div");
