@@ -1,22 +1,23 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-      <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ezwait</title>
-	<!-- Bootstrap Styles-->
-    <link href="/Frontend/css/bootstrap.css" rel="stylesheet" />
-     <!-- FontAwesome Styles-->
-        <!-- Custom Styles-->
-    <link href="/Frontend/css/custom-styles.css" rel="stylesheet" />
-     <!-- Google Fonts-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.75">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Ezwait - profilePage</title>
+  <!-- Bootstrap Styles-->
+  <link href="/Frontend/css/bootstrap.css" rel="stylesheet" />
+  <!-- FontAwesome Styles-->
+  <!-- Custom Styles-->
+  <!-- <link href="/Frontend/css/custom-styles.css" rel="stylesheet" /> -->
+  <link href="/Frontend/css/style.css" rel="stylesheet" />
+  <!-- Google Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" style="zoom: 67%;">
         <nav class="navbar navbar-default top-navbar" role="navigation">  
-            <p>Hello, Shir</p>
             <div class="navbar-header">
                 <a class="navbar-brand" href="index.html"><img src="./img/Group 20.png" alt="Logof" class="logof"></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -25,12 +26,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                
             </div>                 
             </ul>
-            <button class="btn" id="enter">shir</button>
-
-
+            <!-- <button class="btn" id="enter">shir</button> -->
+            <button type="button" class="btn btn-primary">Danielle Bernstein</button>
         </nav>
         <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
@@ -38,313 +37,357 @@
                 <ul class="nav" id="main-menu">
                     <li><a href="index.html"><img src="./img/appointment.png" alt="Logo" class="logo"></i></a></li>
                     <li><a href="index.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a></li>
-                    <li><a href="SendMessege.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a></li>
+                    <li><a href="SendMessege.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a>
+                    </li>
                     <li><a href="table.html"><img src="./img/Services.png" alt="Logo" class="logo"></i></a></li>
                     <li><a href="table.html"><img src="./img/Logout.png" alt="Logo" class="logo"></i></a></li>
                 </ul>
             </div>
         </nav>
         <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-            <div id="page-inner">
-                <body>
+        <div id="page-wrapper">
+            <!-- <div id="page-inner"> -->
+                <div id="page-inner" style="zoom: 120%;">
+                <!-- <body> -->
                     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container bootstrap snippets bootdey">
-    <div class="tile tile-alt" id="messages-main">
-        <div class="ms-menu">
-            <div class="ms-user clearfix">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar pull-left">
-                <div>Signed in as <br> m-hollaway@gmail.com</div>
-            </div>
-            
-            <div class="p-15">
-                <div class="dropdown">
-    
-                    <ul class="dropdown-menu dm-icon w-100">
-                        <li><a href=""><i class="fa fa-envelope"></i> Messages</a></li>
-                        <li><a href=""><i class="fa fa-users"></i> Contacts</a></li>
-                        <li><a href=""><i class="fa fa-format-list-bulleted"> </i>Todo Lists</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="list-group lg-alt">
-                <a class="list-group-item media" href="">
-                    <div class="pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
+                    <div class="container bootstrap snippets bootdey">
+                        <div class="tile tile-alt" id="messages-main">
+                            <div class="ms-menu">
+                                <div class="ms-user clearfix">
+                                    <span class="inline-block h-14 w-14 overflow-hidden rounded-full bg-gray-100">
+                                        <svg class="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                                             <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                        </svg>
+                                    </span>
+                                    <div>Signed in as Danielle Bernstein<br>danielle.bernstein@gmail.com</div>
+                                </div>
+                                <div class="p-15">
+                                    <div class="dropdown">
+                                        <ul class="dropdown-menu dm-icon w-100">
+                                            <li><a href=""><i class="fa fa-envelope"></i> Messages</a></li>
+                                            <li><a href=""><i class="fa fa-users"></i> Contacts</a></li>
+                                            <li><a href=""><i class="fa fa-format-list-bulleted"> </i>Todo Lists</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="list-group lg-alt">
+                                    <a class="list-group-item media" href="">
+                                        <div class="pull-left">
+                                            <span
+                                                class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="list-group-item-heading">Oliver Reynolds</div>
+                                            <small class="list-group-item-text c-gray">Fierent fastidii recteque ad pro</small>
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item media" href="">
+                                        <div class="pull-left">
+                                            <span
+                                                class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="list-group-item-heading">Mia Thompson</div>
+                                            <small class="list-group-item-text c-gray">Cum sociis natoque penatibus</small>
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item media" href="">
+                                        <div class="pull-left">
+                                            <span
+                                                class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="list-group-item-heading">Elisah Martinez</div>
+                                            <small class="list-group-item-text c-gray">Suspendisse sapien ligula</small>
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item media" href="">
+                                        <div class="lv-avatar pull-left">
+                                            <span
+                                                class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="list-group-item-heading">Ava Simmons</div>
+                                            <!-- <small class="list-group-item-text c-gray">Phasellus porttitor tellus nec</small> -->
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item media" href="">
+                                        <div class="lv-avatar pull-left">
+                                            <span
+                                                class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="list-group-item-heading">Jackson Taylor</div>
+                                            <!-- <small class="list-group-item-text c-gray">Quisque consequat arc eget</small> -->
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item media" href="">
+                                        <div class="pull-left">
+                                            <span
+                                                class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="list-group-item-heading">Scarlett Harper</div>
+                                            <!-- <small class="list-group-item-text c-gray">Nam lobortis odio et leo maximu</small> -->
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item media" href="">
+                                        <div class="pull-left">
+                                            <span
+                                                class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="list-group-item-heading">Calra Anderson</div>
+                                        </div>
+                                    </a>
+                                    <a class="list-group-item media" href="">
+                                        <div class="lv-avatar pull-left">
+                                            <span
+                                                class="inline-block h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                                                <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path
+                                                        d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="list-group-item-heading">Isabella Foster</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ms-body">
+                                <div class="action-header clearfix">
+                                    <div class="visible-xs" id="ms-menu-trigger">
+                                        <i class="fa fa-bars"></i>
+                                    </div>
+                                    <div class="pull-left hidden-xs">
+                                        <span class="inline-block h-10 w-10 overflow-hidden rounded-full bg-gray-100">
+                                            <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                            </svg>
+                                        </span>
+                                        <div class="lv-avatar pull-left"></div>
+                                        <br><span>Oliver Reynolds</span>
+                                    </div>
+                                    <ul class="ah-actions actions">
+                                        <li>
+                                            <a href="">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <i class="fa fa-check"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <i class="fa fa-clock-o"></i>
+                                            </a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="" data-toggle="dropdown" aria-expanded="true">
+                                                <i class="fa fa-sort"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a href="">Latest</a>
+                                                </li>
+                                                <li>
+                                                    <a href="">Oldest</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="" data-toggle="dropdown" aria-expanded="true">
+                                                <i class="fa fa-bars"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                <li>
+                                                    <a href="">Refresh</a>
+                                                </li>
+                                                <li>
+                                                    <a href="">Message Settings</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="message-feed media">
+                                    <div class="pull-left">
+                                        <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
+                                            <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="mf-content">Welcome.<br> How can I help you?
+                                        </div>
+                                        <small class="mf-date"><i class="fa fa-clock-o"></i> 23/02/2024 at 09:00</small>
+                                    </div>
+                                </div>
+                                <div class="message-feed right">
+                                    <div class="pull-right">
+                                        <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
+                                            <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="mf-content">
+                                            Hi,
+                                            I want to change my appointment date.<br>Currently, it is scheduled for
+                                            February 24th at 11:00.
+                                            I would like it to be on February 25th at 09:00. Is that available?
+                                        </div>
+                                        <small class="mf-date"><i class="fa fa-clock-o"></i> 23/02/2024 at 09:30</small>
+                                    </div>
+                                </div>
+                                <div class="message-feed media">
+                                    <div class="pull-left">
+                                        <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
+                                            <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="mf-content">Yes, I can change your appointment to February 25th at 08:30. Is that okay with you?</div>
+                                        <small class="mf-date"><i class="fa fa-clock-o"></i> 23/02/2024 at 09:33</small>
+                                    </div>
+                                </div>
+                                <div class="message-feed right">
+                                    <div class="pull-right">
+                                        <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
+                                            <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path  d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="mf-content">Yes, it suits me. Thank you very much.</div>
+                                        <small class="mf-date"><i class="fa fa-clock-o"></i> 23/02/2024 at 10:10</small>
+                                    </div>
+                                </div>
+                                <div class="message-feed media">
+                                    <div class="pull-left">
+                                        <span class="inline-block h-8 w-8 overflow-hidden rounded-full bg-gray-100">
+                                            <svg class="h-full w-full text-gray-300" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path  d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="mf-content">You're welcome!<br> Have a great day and good luck with your appointment. If you have any further questions, I'm here to help.</div>
+                                        <small class="mf-date"><i class="fa fa-clock-o"></i> 23/02/2024 at 10:24</small>
+                                    </div>
+                                </div>
+                                <div class="msb-reply">
+                                    <textarea placeholder="What's on your mind..."></textarea>
+                                    <button><i class="fa fa-paper-plane-o"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <small class="list-group-item-heading">Davil Parnell</small>
-                        <small class="list-group-item-text c-gray">Fierent fastidii recteque ad pro</small>
-                    </div>
-                </a>
-                
-                <a class="list-group-item media" href="">
-                    <div class="pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">Ann Watkinson</div>
-                        <small class="list-group-item-text c-gray">Cum sociis natoque penatibus </small>
-                    </div>
-                </a>
-                
-                <a class="list-group-item media" href="">
-                    <div class="pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">Marse Walter</div>
-                        <small class="list-group-item-text c-gray">Suspendisse sapien ligula</small>
-                    </div>
-                </a>
-                
-                <a class="list-group-item media" href="">
-                    <div class="lv-avatar pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">Jeremy Robbins</div>
-                        <small class="list-group-item-text c-gray">Phasellus porttitor tellus nec</small>
-                    </div>
-                </a>
-                
-                <a class="list-group-item media" href="">
-                    <div class="lv-avatar pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">Reginald Horace</div>
-                        <small class="list-group-item-text c-gray">Quisque consequat arcu eget</small>
-                    </div>
-                </a>
-                
-                <a class="list-group-item media" href="">
-                    <div class="pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">Shark Henry</div>
-                        <small class="list-group-item-text c-gray">Nam lobortis odio et leo maximu</small>
-                    </div>
-                </a>
-                
-                <a class="list-group-item media" href="">
-                    <div class="pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">Paul Van Dack</div>
-                        <small class="list-group-item-text c-gray">Nam posuere purus sed velit auctor sodales</small>
-                    </div>
-                </a>
-                
-                <a class="list-group-item media" href="">
-                    <div class="lv-avatar pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">James Anderson</div>
-                        <small class="list-group-item-text c-gray">Vivamus imperdiet sagittis quam</small>
-                    </div>
-                </a>
-                
-                <a class="list-group-item media" href="">
-                    <div class="lv-avatar pull-left">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" class="img-avatar">
-                    </div>
-                    <div class="media-body">
-                        <div class="list-group-item-heading">Kane Williams</div>
-                        <small class="list-group-item-text c-gray">Suspendisse justo nulla luctus nec</small>
-                    </div>
-                </a>
-            </div>
-    
-            
-        </div>
-        
-        <div class="ms-body">
-            <div class="action-header clearfix">
-                <div class="visible-xs" id="ms-menu-trigger">
-                    <i class="fa fa-bars"></i>
-                </div>
-                
-                <div class="pull-left hidden-xs">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar m-r-10">
-                    <div class="lv-avatar pull-left">
-                        
-                    </div>
-                    <span>David Parbell</span>
-                </div>
-                 
-                <ul class="ah-actions actions">
-                    <li>
-                        <a href="">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa-check"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="fa fa-clock-o"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="" data-toggle="dropdown" aria-expanded="true">
-                            <i class="fa fa-sort"></i>
-                        </a>
-            
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li>
-                                <a href="">Latest</a>
-                            </li>
-                            <li>
-                                <a href="">Oldest</a>
-                            </li>
-                        </ul>
-                    </li>                             
-                    <li class="dropdown">
-                        <a href="" data-toggle="dropdown" aria-expanded="true">
-                            <i class="fa fa-bars"></i>
-                        </a>
-            
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            <li>
-                                <a href="">Refresh</a>
-                            </li>
-                            <li>
-                                <a href="">Message Settings</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-    
-            <div class="message-feed media">
-                <div class="pull-left">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
-                </div>
-                <div class="media-body">
-                    <div class="mf-content">
-                        Quisque consequat arcu eget odio cursus, ut tempor arcu vestibulum. Etiam ex arcu, porta a urna non, lacinia pellentesque orci. Proin semper sagittis erat, eget condimentum sapien viverra et. Mauris volutpat magna nibh, et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
-                    </div>
-                    <small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 09:00</small>
-                </div>
-            </div>
-            
-            <div class="message-feed right">
-                <div class="pull-right">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
-                </div>
-                <div class="media-body">
-                    <div class="mf-content">
-                        Mauris volutpat magna nibh, et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
-                    </div>
-                    <small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 09:30</small>
-                </div>
-            </div>
-            
-            <div class="message-feed media">
-                <div class="pull-left">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
-                </div>
-                <div class="media-body">
-                    <div class="mf-content">
-                        Etiam ex arcumentum
-                    </div>
-                    <small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 09:33</small>
-                </div>
-            </div>
-            
-            <div class="message-feed right">
-                <div class="pull-right">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
-                </div>
-                <div class="media-body">
-                    <div class="mf-content">
-                        Etiam nec facilisis lacus. Nulla imperdiet augue ullamcorper dui ullamcorper, eu laoreet sem consectetur. Aenean et ligula risus. Praesent sed posuere sem. Cum sociis natoque penatibus et magnis dis parturient montes,
-                    </div>
-                    <small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 10:10</small>
-                </div>
-            </div>
-            
-            <div class="message-feed media">
-                <div class="pull-left">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
-                </div>
-                <div class="media-body">
-                    <div class="mf-content">
-                        Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam ac tortor ut elit sodales varius. Mauris id ipsum id mauris malesuada tincidunt. Vestibulum elit massa, pulvinar at sapien sed, luctus vestibulum eros. Etiam finibus tristique ante, vitae rhoncus sapien volutpat eget
-                    </div>
-                    <small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 10:24</small>
-                </div>
-            </div>
-            
-            <div class="msb-reply">
-                <textarea placeholder="What's on your mind..."></textarea>
-                <button><i class="fa fa-paper-plane-o"></i></button>
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
-            </div>
-         <!-- /. PAGE WRAPPER  -->
-        </div>
-     <!-- /. WRAPPER  -->
+    <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <!-- Bootstrap Js -->
+    <!-- Bootstrap Js -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-      <!-- Custom Js -->
+    <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
-    
-      
-      <script>
-      function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-          tabcontent[i].style.display = "none";
+    <script>
+        function openCity(evt, cityName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
         }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
-      }
-      
-      // Get the element with id="defaultOpen" and click on it
-      document.getElementById("defaultOpen").click();
-
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-
-$(function(){
-   if ($('#ms-menu-trigger')[0]) {
-        $('body').on('click', '#ms-menu-trigger', function() {
-            $('.ms-menu').toggleClass('toggled'); 
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+        $(function () {
+            if ($('#ms-menu-trigger')[0]) {
+                $('body').on('click', '#ms-menu-trigger', function () {
+                    $('.ms-menu').toggleClass('toggled');
+                });
+            }
         });
-    }
-});
-</script>
-   
+    </script>
 </body>
 </html>
