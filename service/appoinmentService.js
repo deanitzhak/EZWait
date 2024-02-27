@@ -20,6 +20,7 @@ async function createNewAppointment(newAppointmentJSON) {
     }
     const _timeString = convertTimeString(newAppointmentJSON.Appointment.startTime);
     const _dateString = coverDateString(newAppointmentJSON.Appointment.date);
+    const _date = combainDateAndHoursToDate(newAppointmentJSON.Appointment.startTime, newAppointmentJSON.Appointment.date);
     const newAppointment = new appointmentModel({
         appointmentId: newAppointmentJSON.Appointment.appointmentId,
         userName: newAppointmentJSON.Appointment.userName,
@@ -27,8 +28,8 @@ async function createNewAppointment(newAppointmentJSON) {
         lastName: newAppointmentJSON.Appointment.lastName,
         type :newAppointmentJSON.Appointment.type,
         status: EnumStatus.VALUE1,
-        date: _dateString, 
-        startTime: _timeString,
+        date: _date, 
+        startTime: _date,
         duration : newAppointmentJSON.Appointment.duration,
         timeStamp: new Date()
     });
@@ -53,4 +54,13 @@ function coverDateString(dateString)
     const [year, month, day] = dateString.split('-').map(Number);
     const date = new Date(year, month - 1, day);
     return date ;
+}
+function combainDateAndHoursToDate(time,_date)
+{
+    const date = new Date(_date);
+    const [startHour, startMinute] = time.split(':').map(Number);
+    date.setUTCHours(startHour);
+    date.setUTCMinutes(startMinute);
+    const newDate = new Date(date);
+    return newDate;
 }

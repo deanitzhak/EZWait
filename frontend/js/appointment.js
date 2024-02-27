@@ -40,6 +40,7 @@ window.onload = () => {
         e.preventDefault(); 
         (async () => {
             try {
+                console.log("time - > ",document.getElementById('tomer').value);
                 let newAppointment = await postSetAppointment(1); // Await the result of postSetAppointment
                 const appointmentId = await getStartAndEndTimeFromUser(newAppointment);
                 if(appointmentId === null){
@@ -210,7 +211,7 @@ function createAppointmentListItem(appointment, tabContent) {
     const dateSpan = document.createElement("span");
     dateSpan.className = "ml-2";
     const date = new Date(appointment.startTime);
-    dateSpan.textContent = date.toLocaleString(); // Format date as needed
+    dateSpan.textContent = date.toUTCString(); // Format date as needed
 
     dateDiv.appendChild(dateIcon);
     dateDiv.appendChild(dateSpan);

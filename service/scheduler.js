@@ -5,7 +5,7 @@ const schedRepo = new ScheduleRepository(Schedule);
 let duration;
 const GMT = 2 /*need to be on global data file*/
 const moment = require('moment');
-
+const currentDate = new Date();
 /*this flag is indicate if a new day is opend or not*/
 let defultCreate; 
 const EnumType = {
@@ -16,76 +16,39 @@ const EnumType = {
 module.exports = {
     async getStartAndEndTimeFromUser(req, res) {
         try {
-            const currentDate = new Date(); 
             defultCreate = false;
             let newAppointmentObj = JSON.parse(req.query.newAppointment);
             const dateStr = newAppointmentObj.Appointment.date;
             const startTime = newAppointmentObj.Appointment.startTime; 
             const date = newAppointmentObj.Appointment.date;
             const type = newAppointmentObj.Appointment.type;
-            const newAppFormatedEndTime = calculateDuration(startTime, type,date); // Take type 
+            const newAppFormatedStartTime = combainDateAndHoursToDate(startTime ,dateStr);
+            const newAppFormatedEndTime = calculateDuration(startTime, type,date);
             /*get the schedule of the input day*/
             const _date = new Date(dateStr);
-            const day = _date.getDate();
-            const month = _date.getMonth() + 1;
-            const year = _date.getFullYear();
-            let schedule = await schedRepo.findByDayMonthYear(day, month, year);
-            /*if the schedule is exsist*/
-            if (schedule === null) {
-                schedule = createDefultSchedule(day,month,year);
-                defultCreate = true;
-            } 
+            let schedule = await getScheduleByDate(_date);
+            const formattedEndTime = getformatedDateEndTime (newAppFormatedEndTime);
             /*if there is no appoontment so ther is no sched if the is no sech so create defult*/
             /*get the start day and the end of working hours*/
-            const { startTime: defsStartTime, endTime: defEndTime } = schedule.workingHours;
-            /*extract time and date for cheking if the ours time is valid*/
-            const hours = newAppFormatedEndTime.getUTCHours();
-            const minutes = newAppFormatedEndTime.getUTCMinutes();
-            const formattedHours = hours < 10 ? '0' + hours : hours;
-            const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-            const formattedEndTime = `${formattedHours}:${formattedMinutes}`;
-            if (startTime < defsStartTime || formattedEndTime > defEndTime ||(formattedEndTime >= '00:00' && formattedEndTime < '05:00')) {
-                throw new Error("Can't set appointment");
-            }else if(date < currentDate){
+            /*cheking if the appointment is taken*/
+            const validTime = checkalidTime(schedule,startTime,formattedEndTime);
+            if(date < currentDate){
                 throw new Error("Can't set appointment");
             }
-            /*cheking if the appointment is taken*/
+            if(validTime != true){
+                throw new Error("Time is not valid");                   
+            }
             let appointments = schedule.takenHours.appointments;
             /*formated to be able to compare*/
-            const newAppFormatedStartTime = combainDateAndHoursToDate(startTime ,dateStr);
             if(newAppFormatedStartTime < currentDate){
                 throw new Error("Can't set appointment");
-
             }
-            appointments.forEach(takenTime => { 
-                /*formated end time in schedule*/
-                let endTimeFormat = new Date(takenTime.startAppointment + (takenTime.duration * (60 *60 *1000)));
-                endTimeFormat = formatedDate(endTimeFormat);
-                const formatedEndDate = new Date (endTimeFormat);
-                let updatedtakenTime;
-                /*startAppointment in schedule*/
-                if(takenTime.duration == 0){                                           /*2 = time locataion in world israel is -  (GMT+2)*/
-                     updatedtakenTime= new Date(takenTime.startAppointment.getTime() + (GMT * 60 * 60 * 1000));
-                }else{
-                     updatedtakenTime= new Date(takenTime.startAppointment.getTime());
-                }
-                const updatedEndDate = new Date(formatedEndDate.getTime());
-                /*using moment for be able to compare*/
-                const newStartTime = moment(newAppFormatedStartTime);
-                const newEndTime = moment(newAppFormatedEndTime);
-                const takenTimeStartAppointment = moment(updatedtakenTime);
-                const takenTimeEndAppointment = moment(updatedEndDate)
-                /**/ 
-                const isOverlap = newStartTime.isBefore(takenTimeEndAppointment) && newEndTime.isAfter(takenTimeStartAppointment);
-                const CAN_BE_ACCEPTED = !isOverlap;
-                if (CAN_BE_ACCEPTED) {
-                } else {
-                    throw new Error("Appointment is taken");                   
-                }
-            });
-            let OBJstartTime = OBJDateAndTime(startTime,date);
+            const isTaken = checkTakenTime(appointments,newAppFormatedStartTime,newAppFormatedEndTime);
+            if(isTaken != true){
+                throw new Error("appointment is taken");
+            }
             const newAppointment = {
-                startAppointment: OBJstartTime,
+                startAppointment: newAppFormatedStartTime,
                 duration: duration ,
                 appointmentId: new ObjectId()
             };
@@ -103,9 +66,76 @@ module.exports = {
             console.error('Error processing appointment data:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
-    }
+    },
+    async getScheduleByDayMonthYear(req, res) {
+        try {
+            
 
+
+        } catch (error) {
+            console.error('Error retrieving schedule:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 };
+async function getScheduleByDate (newDate)
+{
+    const day = newDate.getDate();
+    const month = newDate.getMonth() + 1;
+    const year = newDate.getFullYear();
+    let schedule = await schedRepo.findByDayMonthYear(day, month, year);
+    /*if the schedule is exsist*/
+    if (schedule === null) {
+        schedule = createDefultSchedule(day,month,year);
+        defultCreate = true;
+    } 
+    return schedule;
+}
+function checkalidTime(schedule,startTime,formattedEndTime){
+    const { startTime: defsStartTime, endTime: defEndTime } = schedule.workingHours;
+    /*extract time and date for cheking if the ours time is valid*/
+    if (startTime < defsStartTime || formattedEndTime > defEndTime ||(formattedEndTime >= '00:00' && formattedEndTime < '05:00')) {
+        throw new Error("Can't set appointment");
+    }
+return true;
+}
+function checkTakenTime(appointments,newAppFormatedStartTime,newAppFormatedEndTime){
+    appointments.forEach(takenTime => { 
+        /*formated end time in schedule*/
+        let endTimeFormat = new Date(takenTime.startAppointment + (takenTime.duration * (60 *60 *1000)));
+        endTimeFormat = formatedDate(endTimeFormat);
+        const formatedEndDate = new Date (endTimeFormat);
+        let updatedtakenTime;
+        /*startAppointment in schedule*/
+        if(takenTime.duration == 0){                                          
+             updatedtakenTime= new Date(takenTime.startAppointment.getTime());
+        }else{
+             updatedtakenTime= new Date(takenTime.startAppointment.getTime());
+        }
+        const updatedEndDate = new Date(formatedEndDate.getTime());
+        /*using moment for be able to compare*/
+        const newStartTime = moment(newAppFormatedStartTime);
+        const newEndTime = moment(newAppFormatedEndTime);
+        const takenTimeStartAppointment = moment(updatedtakenTime);
+        const takenTimeEndAppointment = moment(updatedEndDate)
+        /**/ 
+        const isOverlap = newStartTime.isBefore(takenTimeEndAppointment) && newEndTime.isAfter(takenTimeStartAppointment);
+        const CAN_BE_ACCEPTED = !isOverlap;
+        if (CAN_BE_ACCEPTED) {
+        } else {
+            throw new Error("Appointment is taken");                   
+        }
+    });
+    return true;
+}
+function getformatedDateEndTime(newAppFormatedEndTime){
+    const hours = newAppFormatedEndTime.getUTCHours();
+    const minutes = newAppFormatedEndTime.getUTCMinutes();
+    const formattedHours = hours < 10 ? '0' + hours : hours;
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+    const formattedEndTime = `${formattedHours}:${formattedMinutes}`;
+    return formattedEndTime
+}
 function combainDateAndHoursToDate(time,_date)
 {
     const date = new Date(_date);
@@ -154,13 +184,6 @@ function createDefultSchedule(_day,_month,_year){
         }
     });
     return newSchedule;
-}
-function OBJDateAndTime(time,date){
-    const [hours, minutes] = time.split(':');
-    const [year, month, day] = date.split('-');
-    const startAppointment = new Date(year, month - 1, day, hours, minutes);
-    startAppointment.setTime(startAppointment.getTime() + (GMT * 60 * 60 * 1000));
-    return startAppointment;
 }
 function formatedDate(strDate){
     const day = strDate.getDate();
