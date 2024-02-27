@@ -37,6 +37,7 @@ module.exports = {
               res.status(500).send("Internal server error");
           });
   },
+
  
   findAppointmentByStartTime:(req,res) => {
     appRepo.findByStartTime(req.body.startTime)
@@ -60,7 +61,7 @@ module.exports = {
 
   async findAllAppointmentByStatus(req, res) {
     try {
-        const appointments = await appRepo.findByStatus(req.query.status); 
+        const appointments = await appRepo.findByStatus(req.query.status);
         res.status(200).send(appointments);
     } catch (error) {
         console.error(error);
@@ -69,7 +70,8 @@ module.exports = {
 },
     async submitNewAppointment(req, res) {
     try {
-       const newApp = await appointmentService.createNewAppointment(req.body);
+      const newApp = await appointmentService.createNewAppointment(req.body);
+      console.log(newApp);
       appRepo.create(newApp);
       res.status(200).send("New appointment created successfully");
       
@@ -77,6 +79,28 @@ module.exports = {
       console.error(error);
       res.status(500).send("Internal server error");
     }
+  },
+
+  findAppointmentByAppIdAndUpdateStatus: (req, res) => {
+    const appointmentId = req.body._id;
+    const newStatus = "cancelled"; // Define the new status, for example, "cancelled"
+
+    // Update the appointment status in the database
+    appRepo.updateAppointmentStatus(appointmentId, newStatus)
+        .then(updatedAppointment => {
+            if (updatedAppointment) {
+                res.send(updatedAppointment);
+            } else {
+                res.status(404).send("Appointment not found");
+            }
+        })
+        .catch(err => {
+            console.error("Error updating appointment status:", err);
+            res.status(500).send("Internal server error");
+        });
   }
+  
+
+  
 };
 
