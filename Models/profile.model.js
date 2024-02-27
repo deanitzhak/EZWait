@@ -5,7 +5,7 @@ const profileSchema = new Schema(
         userId: { type: ObjectId, index: 1 },
         userName: { type: String },
         firstName: { type: String },
-        lastName: { type: String },
+        lastName: { type: String }, 
         email: { type: String },
         password: { type: String },
         status: { type: Boolean },

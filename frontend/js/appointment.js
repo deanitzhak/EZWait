@@ -84,7 +84,6 @@ window.onload = () => {
         })();
     });
 
-
     $(document).on('click', '#Cancel_Appointment', function(e) {
         e.preventDefault();
         console.log("shircancel");
@@ -92,8 +91,6 @@ window.onload = () => {
         console.log(appointmentId,"shrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
         cancelAppointment(appointmentId); // Call function to cancel appointment
     });
-    
-
     
 };
 
@@ -151,7 +148,6 @@ async function findAppointmentsByStatus(status) {
         throw error;
     }
 }
-/*new app*/
 async function getStartAndEndTimeFromUser(newAppointment) {
     try {
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
