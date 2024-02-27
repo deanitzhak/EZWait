@@ -36,6 +36,11 @@ window.onload = () => {
             console.error('Error occurred while fetching appointments:', error);
         }
     })();
+    $(document).on('click', '.Reschedule', function(e) {
+        e.preventDefault();
+        console.log ("start-btn");
+
+       });
     $('button[name="form_submit"]').click((e) => {
         e.preventDefault(); 
         (async () => {
@@ -59,11 +64,13 @@ window.onload = () => {
                 /*on Click Create*/
         //createNewAppointment(inputValuesForm);
     });
-    /*onLoad By status*/
-    $('a[name="cancel_button"]').click((e) => {
-        e.preventDefault(); 
-        findAndDeleteByAppoinmentId(id);
-    });
+    // /*onLoad By status*/
+    // $(document).on('click', '#Cancel_Appointment', function(e) {
+    //     e.preventDefault();
+    //     console.log("shircancel");
+    //     const appointmentId = $(this).closest('li').find('[data-appointment-id]').attr('data-appointment-id'); // Extract appointment ID
+    //     deleteAppointment(appointmentId); // Call function to delete appointment
+    // })
     
     $('button[name="completed_click"]').click((e) => {
         e.preventDefault(); 
@@ -77,34 +84,56 @@ window.onload = () => {
             }
         })();
     });
-    $('button[name="cancelled_click"]').click((e) => {
-        e.preventDefault(); 
-        (async () => {
-            try {
-                appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE3);
-                console.log(appointmentsArray);
-                renderAppointments("cancelledAppointmentsList");
-            } catch (error) {
-                console.error('Error occurred while fetching appointments:', error);
-            }
-        })();
+
+
+    $(document).on('click', '#Cancel_Appointment', function(e) {
+        e.preventDefault();
+        console.log("shircancel");
+        const appointmentId = $(this).closest('li').find('[data-appointment-id]').attr('data-appointment-id');
+        console.log(appointmentId,"shrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+        cancelAppointment(appointmentId); // Call function to cancel appointment
     });
+    
+
+    
 };
-/*delete by app Id*/
-function findAndDeleteByAppoinmentId(id) {
+
+// function deleteAppointment(appointmentId) {
+//     $.ajax({
+//         url: `${URL}/appointment/findAppointmentByIdAndDelete`,
+//         method: 'GET',
+//         data: { _id: appointmentId },
+        
+//         success: function(appointments) {
+//         console.log(appointmentId,"appointmengdeket");
+//             console.log("Appointments: ", appointments);
+//             // If deletion is successful, remove the appointment from the UI
+//             // This step depends on your UI implementation
+//             // You may need to remove the appointment from the appointmentsArray and re-render the appointments list
+//         },
+//         error: function(err) {
+//             alert("Error occurred while deleting the appointment");
+//         }
+//     });
+// }
+function cancelAppointment(appointmentId) {
     $.ajax({
-        url: `${URL}/appointment/findAppointmentByIdAndDelete`,
-        method: 'GET',
-        data: { _id: id },
-        success: function(appointments) {
-            console.log("Appointments: ", appointments);
+        url: `${URL}/appointment/updateAppointmentStatus`, // Assuming this is the endpoint to cancel appointments
+        method: 'PUT', // Use PUT method to update the appointment status
+     
+        data: { _id: appointmentId },
+        success: function(response) {
+            console.log("Appointment cancelled:", response);
+            // If cancellation is successful, you can handle any UI updates here
+            // For example, remove the cancelled appointment from the UI
         },
         error: function(err) {
-            alert("Error occurred while fetching appointments");
+            console.log (appointmentId);
+            console.error("Error occurred while cancelling the appointment:", err);
+            alert("Error occurred while cancelling the appointment");
         }
     });
 }
-/*find by status*/
 async function findAppointmentsByStatus(status) {
     try {
         const response = await fetch(`${URL}/appointment/findAllAppointmentByStatus?status=${status}`, {
@@ -218,8 +247,8 @@ function createAppointmentListItem(appointment, tabContent) {
 
     const idSpan = document.createElement("span");
     idSpan.setAttribute("data-appointment-id", appointment.appointmentId); // Set data attribute for appointment ID
-    idSpan.style.display = "none"; // Hide the ID span
-
+    idSpan.style.display = "none"; 
+    
 
     innerDiv.appendChild(h1);
     innerDiv.appendChild(h2);
@@ -281,6 +310,14 @@ function createAppointmentListItem(appointment, tabContent) {
     const rescheduleButton = document.createElement("button");
     rescheduleButton.className = "Reschedule";
     rescheduleButton.textContent = "Reschedule";
+
+    // Add event listener for the reschedule button
+    rescheduleButton.addEventListener('click', function() {
+        $('.modal-box').toggleClass("show-modal");
+        $('.start-btn').toggleClass("show-modal");
+        // Use the appointment ID as needed
+        console.log("Reschedule clicked for appointment ID:", appointment.appointmentId);
+    });
 
     div2.appendChild(rescheduleButton);
 

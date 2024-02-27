@@ -25,10 +25,9 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li><a href="index.html"><img src="./img/appointment.png" alt="Logo" class="logo"></i></a></li>
-                    <li><a href="CustomerList.HTML"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a>
+                    <li><a href="CustomerList.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a>
                     </li>
-                    <li><a href="SendMessege.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a>
-                    </li>
+                </li>
                     <li><a href="profilePage.html"><img src="./img/Services.png" alt="Logo" class="logo"></i></a></li>
                     <li><a href="signIn.html"><img src="./img/Logout.png" alt="Logo" class="logo"></i></a></li>
                 </ul>
@@ -358,55 +357,8 @@
 
             </div>
         </div>
-        <div class="form-popup" id="myForm">
-            <h1>Set Appointment</h2>
-                <form action="/action_page.php" class="form-container" method="POST">
-                    <button type="button" class="btn cancel" onclick="closeForm()">X</button>
-                    <div class="formbold-main-wrapper">
-                        <div class="formbold-form-wrapper">
-                            <div class="flex flex-wrap formbold--mx-3">
-                                <div class="w-full sm:w-half formbold-px-3">
-                                    <div class="formbold-mb-5">
-                                        <label for="clientName" class="formbold-form-label">Client full name</label>
-                                        <select class="formbold-form-input" name="clientName" id="clientName" required>
-                                            <option value="" disabled selected>Select Client</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                        </select>
-                                    </div>
-                                    <div class="formbold-mb-5">
-                                        <label for="type" class="formbold-form-label"> Type </label>
-                                        <select class="formbold-form-input" name="Type" id="occupation" required>
-                                            <option value="" disabled selected>Select Type</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                        </select>
-                                    </div>
-                                    <div class="flex flex-wrap formbold--mx-3">
-                                        <div class="w-full sm:w-half formbold-px-3">
-                                            <div class="formbold-mb-5 w-full">
-                                                <label for="date" class="formbold-form-label"> Date </label>
-                                                <input type="date" name="date" id="date" class="formbold-form-input"
-                                                    required />
-                                            </div>
-                                        </div>
-                                        <div class="w-full sm:w-half formbold-px-3">
-                                            <div class="formbold-mb-5">
-                                                <label for="time" class="formbold-form-label"> Time </label>
-                                                <input type="time" name="time" id="time" class="formbold-form-input"
-                                                    required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="formbold-btn">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-        </div>
+      
+
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/popper.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -417,10 +369,10 @@
 </ul>
 </div>
 </div>
-<div class="center modal-box">
+<div class="center modal-box" id="shir">
     <div class="fa fa-close"></div>
     <div class="form_container">
-        <form name="form">
+        <form name="form" >
             <div class="w-full sm:w-half formbold-px-3">
                 <div class="formbold-mb-5 w-full">
                     <label for="type" class="formbold-form-label">Client full name</label>
@@ -444,17 +396,18 @@
             <div class="form_wrap">
                 <div class="w-full sm:w-half formbold-px-3">
                     <div class="formbold-mb-5 w-full">
-                        <label for="date" class="formbold-form-label"> Date </label>
-                        <input type="date" name="date" id="nave" class="formbold-form-input" />
+                        <label for="date" class="formbold-form-label">Date</label>
+                        <input type="date" name="date" id="nave" class="formbold-form-input"  />
                     </div>
                 </div>
             </div>
             <div class="w-full sm:w-half formbold-px-3">
                 <div class="formbold-mb-5">
-                    <label for="time" class="formbold-form-label"> Time </label>
-                    <input type="time" name="time" id="tomer" class="formbold-form-input" />
+                    <label for="time" class="formbold-form-label">Time</label>
+                    <input type="time" name="time" id="tomer" class="formbold-form-input"  />
                 </div>
             </div>
+            
             <button class="formbold-btn" name="form_submit">Submit</button>
             </div>
             </form>
@@ -531,6 +484,7 @@
                     $('.start-btn').toggleClass("show-modal");
                 });
             });
+
         </script>
     </body>
 </html>
