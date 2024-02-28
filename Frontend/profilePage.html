@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=0.75">
@@ -41,7 +41,7 @@
           <body>
             <div class="formbold-main-wrapper">
               <div class="formbold-form-wrapper">
-                <form action="https://formbold.com/s/FORM_ID" method="POST">
+                <form name="form" >
                   <div class="formbold-input-wrapp formbold-mb-3">
                     <label for="firstname" class="formbold-form-label"> Name </label>
                     <div>
@@ -60,7 +60,7 @@
                   </div>
                   <div class="formbold-mb-3">
                     <label class="formbold-form-label">Gender</label>
-                    <select class="formbold-form-input" name="occupation" id="occupation">
+                    <select class="formbold-form-input" name="gender" id="gender">
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="others">Others</option>
@@ -95,7 +95,7 @@
                       <input type="text" name="city" id="city" placeholder="ex: New York" class="formbold-form-input" required />
                     </div>
                   </div>
-                  <button class="formbold-btn">Submit</button>
+                  <input class="btn btn-primary" type="submit" value="Submit" name="submit">
               </div>
             </div>
             </label>
@@ -104,14 +104,14 @@
       </div>
     </div>
     </div>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+    <script src="js/bootstrap.min.js"></script> -->
+    <script src="js/client.js"></script>
+    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
       integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
       data-cf-beacon='{"rayId":"8525a0d1c9641890","version":"2024.2.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"></script> -->
   </body>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   </ul>

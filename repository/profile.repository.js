@@ -8,8 +8,6 @@ class ProfileRepository extends MongoStorage {
         this.findByUserName = this.findByUserName.bind(this);
         this.findAll = this.findAll.bind(this);
         this.findOne = this.findOne.bind(this);
-        this.createNewProfile = this.createNewProfile.bind(this);
-
     }
     async updateProfileValue(profileId, key, value) {
         try {
@@ -50,14 +48,5 @@ class ProfileRepository extends MongoStorage {
             throw new Error(`Error retrieving profile: ${error.message}`);
         }
     }
-
-    async createNewProfile(profileData) {
-        try {
-            const newProfile = await this.Model.create(profileData);
-            return newProfile;
-        } catch (error) {
-            throw new Error(`Error creating appointment: ${error.message}`);
-        }
-    }    
 }
 module.exports = ProfileRepository;
