@@ -10,5 +10,5 @@ appointmentRouter.get('/findAppointmentByStartTime', appointmentController.findA
 appointmentRouter.get('/findAppointmentByIdAndDelete', appointmentController.findAppointmentByIdAndDelete);
 appointmentRouter.post('/submitNewAppointment', appointmentController.submitNewAppointment);
 appointmentRouter.put('/updateAppointmentStatus', appointmentController.findAppointmentByAppIdAndUpdateStatus);
-
+appointmentRouter.post('/updateAppointment', appointmentController.updateAppointment);
 module.exports = appointmentRouter;
