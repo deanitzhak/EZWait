@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=0.75">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Ezwait - profilePage</title>
-  <!-- Bootstrap Styles-->
-  <!-- <link href="/Frontend/css/bootstrap.css" rel="stylesheet" /> -->
-  <!-- FontAwesome Styles-->
-  <!-- Custom Styles-->
-  <!-- <link href="/Frontend/css/custom-styles.css" rel="stylesheet" /> -->
   <link rel="stylesheet" type="text/css" href="./css/style.css">
-  <!-- Google Fonts-->
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <body>
@@ -30,7 +23,6 @@
         </ul>
         <button type="button" class="btn btn-primary">Danielle Bernstein</button>
       </nav>
-      <!--/. NAV TOP  -->
       <nav class="navbar-default navbar-side" role="navigation">
         <div class="sidebar-collapse">
           <ul class="nav" id="main-menu">
@@ -44,14 +36,12 @@
           </ul>
         </div>
       </nav>
-      <!-- /. NAV SIDE  -->
       <div id="page-wrapper">
         <div id="page-inner" style="zoom: 120%;">
           <body>
             <div class="formbold-main-wrapper">
-              <!-- Author: FormBold Team -->
               <div class="formbold-form-wrapper">
-                <form action="https://formbold.com/s/FORM_ID" method="POST">
+                <form name="form" >
                   <div class="formbold-input-wrapp formbold-mb-3">
                     <label for="firstname" class="formbold-form-label"> Name </label>
                     <div>
@@ -70,7 +60,7 @@
                   </div>
                   <div class="formbold-mb-3">
                     <label class="formbold-form-label">Gender</label>
-                    <select class="formbold-form-input" name="occupation" id="occupation">
+                    <select class="formbold-form-input" name="gender" id="gender">
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                       <option value="others">Others</option>
@@ -85,8 +75,6 @@
                     <label for="address" class="formbold-form-label"> Address </label>
                     <input type="text" name="address" id="address" placeholder="Street address"
                       class="formbold-form-input formbold-mb-3" required />
-                    <input type="text" name="address2" id="address2" placeholder="Street address line 2"
-                      class="formbold-form-input" />
                   </div>
                   <div class="formbold-mb-3 formbold-input-wrapp">
                     <label for="phone" class="formbold-form-label"> Phone </label>
@@ -95,33 +83,24 @@
                       <input type="text" name="phone" id="phone" placeholder="Phone number" class="formbold-form-input" required/>
                     </div>
                   </div>
-                  <div class="formbold-input-flex">
-                    <div>
-                      <label for="post" class="formbold-form-label"> Post/Zip code </label>
-                      <input type="text" name="post" id="post" placeholder="ex:8976" class="formbold-form-input" required />
-                    </div>
-                    <div>
-                      <label for="city" class="formbold-form-label"> City </label>
-                      <input type="text" name="city" id="city" placeholder="ex: New York" class="formbold-form-input" required />
-                    </div>
                   </div>
-                  <button class="formbold-btn">Submit</button>
               </div>
+              <input class="btn btn-primary" type="submit" value="Submit" name="submit">
             </div>
+
             </label>
         </div>
         </form>
       </div>
     </div>
     </div>
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+    <script src="js/bootstrap.min.js"></script> -->
+    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
       integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
       data-cf-beacon='{"rayId":"8525a0d1c9641890","version":"2024.2.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"></script> -->
   </body>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   </ul>
@@ -146,6 +125,8 @@
   <script src="assets/js/jquery.metisMenu.js"></script>
   <!-- Custom Js -->
   <script src="assets/js/custom-scripts.js"></script>
+  <script src="js/client.js"></script>
+
   <script>
     function openCity(evt, cityName) {
       var i, tabcontent, tablinks;
@@ -160,6 +141,13 @@
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
     }
+    document.addEventListener('DOMContentLoaded', function() {
+    // Assuming you have the user's email available in the variable 'userEmail'
+    const userEmail = cliemt.userEmail; // Replace this with the actual user's email
+    
+    // Set the value of the email input field
+    document.getElementById('email').value = userEmail;
+  });
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
   </script>
