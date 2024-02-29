@@ -3,6 +3,8 @@ require('dotenv').config({ path: './.env' });
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const Schedule = require('./models/schedule.model');
+
 /*APIs*/
 const fileLoaderRouter = require('./routers/fileLoaderRouter');
 const loginRouter = require('./routers/logInRouter');
@@ -12,6 +14,7 @@ const messegeReplayRouter = require('./routers/messegeReplayRouter');
 const messegeSentRouter = require('./routers/messegeSentRouter');
 const scheduleRouter = require('./routers/scheduleRouter');
 const schedulerRouter = require('./routers/schedulerRouter');
+const clientRouter = require('./routers/clientRouter');
 const MongoStorage = require('./db/mongo.storage');
 /*inintialize environment exucting*/
 const app = express();
@@ -25,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 /*inintialize Routers*/
 app.use('/login', loginRouter);
 app.use('/appointment', appointmentRouter);
+app.use('/client', clientRouter);
 app.use('/user', userRouter);
 app.use("/messegeReplay",messegeReplayRouter);
 app.use("/messegeSent",messegeSentRouter);
@@ -35,7 +39,7 @@ const mongoStorageInstance = new MongoStorage();
 mongoStorageInstance.connect()
     .then(() => {
      
-    })
+     })
     .catch((err) => {
         console.error("Failed to connect to MongoDB:", err);
     });
@@ -43,4 +47,7 @@ mongoStorageInstance.connect()
 const server = app.listen(port, () => {
     console.log("Server listening on port:", port);
 });
-module.exports = server;
+
+// Create a Mongoose model using the schema
+
+// Now you can use the Schedule model to create new instances
