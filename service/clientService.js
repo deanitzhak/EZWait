@@ -15,7 +15,7 @@ async function createNewClient(newClientJSON) {
         gender: newClientJSON.Client.gender,
         phone: newClientJSON.Client.phone,
         address: newClientJSON.Client.address,
-        status: EnumStatus[newClientJSON.Client.status],
+        status: EnumStatus.VALUE1,
     });
     console.log("newClient -> ", newClient);
     console.log("newClient -> ", newClientJSON.Client.userName);
