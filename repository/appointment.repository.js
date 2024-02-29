@@ -13,8 +13,28 @@ class AppointmentRepository extends MongoStorage {
         this.findByIdAndDelete = this.findByIdAndDelete.bind(this);
         this.createNewAppointment = this.createNewAppointment.bind(this);
         this.createNewAppointment = this.updateAppointmentStatus.bind(this);
+        this.findByIdAndDeleteByAtributeAppointmentId = this.findByIdAndDeleteByAtributeAppointmentId.bind(this);
     }
-
+    async updateAppointment(appointmentId, newData) {
+        try {
+            var appointment = await this.Model.findOne({ appointmentId: appointmentId });
+    
+            if (!appointment) {
+                throw new Error(`Appointment with ID ${appointmentId} not found.`);
+            }
+    
+            for (const key in newData) {
+                appointment[key] = newData[key];
+            }
+    
+            await appointment.save();
+    
+            console.log("Updated appointment:", appointment);
+            return appointment;
+        } catch (error) {
+            throw new Error(`Error updating appointment: ${error.message}`);
+        }
+    }
     async updateAppointmentValue(appointmentValue, key, value) {
         try {
             const appointment = await this.Model.findById(appointmentValue);
@@ -88,17 +108,12 @@ class AppointmentRepository extends MongoStorage {
 
     async updateAppointmentStatus(appointmentId, status) {
         try {
-            // Find the appointment by ID
-            const appointment = await this.Model.findOne({ _id: appointmentId });
-            
+            const appointment = await this.Model.findOne({ "appointmentId": appointmentId });
             if (!appointment) {
                 throw new Error("Appointment not found");
             }
+            appointment.status = status;
     
-            // Update the status field
-            appointment.status = newStatus;
-    
-            // Save the updated appointment
             const updatedAppointment = await appointment.save();
     
             return updatedAppointment;
@@ -106,8 +121,17 @@ class AppointmentRepository extends MongoStorage {
             throw new Error(`Error updating appointment status: ${error.message}`);
         }
     }
-    
-    
+    async findByIdAndDeleteByAtributeAppointmentId(appointmentId, newApp) {
+        try {
+            const deletedAppointment = await this.Model.findOneAndDelete({ appointmentId: appointmentId });
+            if (!deletedAppointment) {
+                throw new Error(`Appointment with ID ${appointmentId} not found.`);
+            }
+            return newApp.save();
+            } catch (error) {
+            throw new Error(`Error deleting appointment: ${error.message}`);
+        }
+    }
 }
 
 module.exports = AppointmentRepository;
