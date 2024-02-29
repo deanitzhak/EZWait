@@ -21,7 +21,7 @@
           </button>
         </div>
         </ul>
-        <button type="button" class="btn btn-primary">Danielle Bernstein</button>
+        <button type="button" class="btn btn-primary text-lg">Danielle Bernstein</button>
       </nav>
       <nav class="navbar-default navbar-side" role="navigation">
         <div class="sidebar-collapse">
@@ -43,7 +43,7 @@
               <div class="formbold-form-wrapper">
                 <form action="https://formbold.com/s/FORM_ID" method="POST">
                   <div class="formbold-input-wrapp formbold-mb-3">
-                    <label for="firstname" class="formbold-form-label"> Name </label>
+                    <label for="firstname" class="formbold-form-label text-lg"> Name </label>
                     <div>
                       <input type="text" name="firstname" id="firstname" placeholder="First name"
                         class="formbold-form-input" required />
@@ -51,15 +51,15 @@
                     </div>
                   </div>
                   <div class="formbold-mb-3">
-                    <label for="age" class="formbold-form-label"> Age </label>
+                    <label for="age" class="formbold-form-label text-lg">Age</label>
                     <input type="text" name="age" id="age" placeholder="25" class="formbold-form-input" required/>
                   </div>
                   <div class="formbold-mb-3">
-                    <label for="dob" class="formbold-form-label"> Date of Birth </label>
+                    <label for="dob" class="formbold-form-label text-lg">Date of Birth</label>
                     <input type="date" name="dob" id="dob" class="formbold-form-input" required/>
                   </div>
                   <div class="formbold-mb-3">
-                    <label class="formbold-form-label">Gender</label>
+                    <label class="formbold-form-label text-lg">Gender</label>
                     <select class="formbold-form-input" name="occupation" id="occupation">
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -67,19 +67,19 @@
                     </select>
                   </div>
                   <div class="formbold-mb-3">
-                    <label for="email" class="formbold-form-label"> Email </label>
+                    <label for="email" class="formbold-form-label text-lg">Email</label>
                     <input type="email" name="email" id="email" placeholder="example@email.com"
                       class="formbold-form-input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
                   </div>
                   <div class="formbold-mb-3">
-                    <label for="address" class="formbold-form-label"> Address </label>
+                    <label for="address" class="formbold-form-label text-lg">Address</label>
                     <input type="text" name="address" id="address" placeholder="Street address"
                       class="formbold-form-input formbold-mb-3" required />
                     <input type="text" name="address2" id="address2" placeholder="Street address line 2"
                       class="formbold-form-input" />
                   </div>
                   <div class="formbold-mb-3 formbold-input-wrapp">
-                    <label for="phone" class="formbold-form-label"> Phone </label>
+                    <label for="phone" class="formbold-form-label text-lg">Phone Number</label>
                     <div>
                       <input type="text" name="areacode" id="areacode" placeholder="Area code" class="formbold-form-input formbold-w-45" required/>
                       <input type="text" name="phone" id="phone" placeholder="Phone number" class="formbold-form-input" required/>
@@ -87,25 +87,23 @@
                   </div>
                   <div class="formbold-input-flex">
                     <div>
-                      <label for="post" class="formbold-form-label"> Post/Zip code </label>
+                      <label for="post" class="formbold-form-label text-lg">Post/Zip code</label>
                       <input type="text" name="post" id="post" placeholder="ex:8976" class="formbold-form-input" required />
                     </div>
                     <div>
-                      <label for="city" class="formbold-form-label"> City </label>
+                      <label for="city" class="formbold-form-label text-lg">City</label>
                       <input type="text" name="city" id="city" placeholder="ex: New York" class="formbold-form-input" required />
                     </div>
                   </div>
                   <div class="formbold-mb-3">
-                    <label for="name" class="formbold-form-label">Add family Member</label>
-                    <input type="name" name="name" id="name" placeholder="Enter full name" class="formbold-form-input" required/>             
+                  <button onclick="openInputFields()" class="inline-flex items-center gap-x-1.5 rounded-md bg-purple-100 px-2 py-1 text-lg font-medium text-purple-700"">+ Add Family Member</button>
+                  <div id="itemsContainer"></div>
                   </div>
-                  <div class="formbold-mb-3">
-                    <input type="gender" name="gender" id="gender" placeholder="gender" class="formbold-form-input" required/>             
-                  </div>
-                  <div class="formbold-mb-3">
-                    <input type="name" name="name" id="name" placeholder="gender" class="formbold-form-input" required/>             
-                  </div>
-                  <button class="formbold-btn">Submit</button>
+                  <table>
+                    <tr>
+                    </tr>
+                </table>
+                  <button class="formbold-btn text-lg">Submit</button>
               </div>
             </div>
             </label>
@@ -146,6 +144,30 @@
   <script src="assets/js/jquery.metisMenu.js"></script>
   <!-- Custom Js -->
   <script src="assets/js/custom-scripts.js"></script>
+  <script>
+    function openInputFields() {
+        var itemsContainer = document.getElementById("itemsContainer");
+        var newItemDiv = document.createElement("div");
+        newItemDiv.className = "mb-4 p-4 bg-white rounded shadow text-m";
+
+        var nameInput = createInput("text", "Full Name");
+        var dobInput = createInput("text", "Date of Birth");
+        var genderInput = createInput("text", "Gender");
+
+        newItemDiv.appendChild(nameInput);
+        newItemDiv.appendChild(dobInput);
+        newItemDiv.appendChild(genderInput);
+        itemsContainer.appendChild(newItemDiv);
+    }
+
+    function createInput(type, placeholder) {
+        var input = document.createElement("input");
+        input.type = type;
+        input.placeholder = placeholder;
+        input.className = "block w-full p-2 border rounded mt-2 focus:outline-none focus:border-blue-500";
+        return input;
+    }
+</script>
   <script>
     function openCity(evt, cityName) {
       var i, tabcontent, tablinks;
