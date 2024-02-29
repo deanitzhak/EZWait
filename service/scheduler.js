@@ -75,12 +75,13 @@ module.exports = {
             const dateStr = newAppointment.date;
             const startTime = newAppointment.startTime;
             const type = newAppointment.type;
-    
+
             const newAppFormattedStartTime = combineDateAndHoursToDate(startTime, dateStr);
             const newAppFormattedEndTime = calculateDuration(startTime, type, dateStr);
             const formattedEndTime = getFormattedDateEndTime(newAppFormattedEndTime);
     
             const currentDate = new Date();
+            const _oldDate = new Date(oldDate);
             const scheduleDate = new Date(dateStr);
     
             let schedule = await getScheduleByDate(scheduleDate);
@@ -99,17 +100,19 @@ module.exports = {
                 if (!isValidTime || !isTaken) {
                     throw new Error("Appointment time is invalid or already taken");
                 }
-    
-                // Update appointment
+                /*remove from old Schedule */
+                /*Update appointment*/ 
                 const newRescheduledAppointment = createNewAppointmentScheduleFormat(newAppFormattedStartTime, duration, appointmentIdToFind);
                 schedule.takenHours.appointments = updatedAppointments;
                 schedule.takenHours.appointments.push(newRescheduledAppointment);
                 schedule.takenHours.appointments.sort();
-                
                 if (defultCreate) {
+                    schedRepo.removeAppointmentFromScheduleByAttributeAppointmentId(appointmentIdToFind, _oldDate);
                     await schedule.save();
                 } else {
-                    schedRepo.updateScheduleValueTwoKeys(schedule._id, "takenHours", "appointments", updatedAppointments);
+                    /*update new Schedule*/
+                    schedRepo.removeAppointmentFromScheduleByAttributeAppointmentId(appointmentIdToFind, _oldDate);
+                    await schedRepo.updateScheduleValueTwoKeys(schedule._id, "takenHours", "appointments", updatedAppointments);
                 }
     
                 res.status(200).send(true);
@@ -137,7 +140,17 @@ module.exports = {
             console.error('Error rescheduling appointment:', error);
             res.status(500).json({ error: 'Internal Server Error' });
         }
+    },
+    async cancelAppointmentById(req, res) 
+    {
+        const appointment =  req.body;
+        const appointmentId = new ObjectId(appointment.appointmentId);
+        const date = new Date(appointment.date);
+     
+        const isDeleted =  await schedRepo.removeAppointmentFromScheduleByAttributeAppointmentId(appointmentId, date);
+        res.status(200).send(isDeleted);
     }
+
 };
 async function getScheduleByDate (newDate)
 {
@@ -150,11 +163,9 @@ async function getScheduleByDate (newDate)
         schedule = createDefultSchedule(day,month,year);
         defultCreate = true;
     } 
-    
     return schedule;
 }
 function checkValidTime(schedule,startTime,formattedEndTime){
-    console.log("schedule - > ",schedule);
     const { startTime: defsStartTime, endTime: defEndTime } = schedule.workingHours;
     if (startTime < defsStartTime || formattedEndTime > defEndTime ||(formattedEndTime >= '00:00' && formattedEndTime < '05:00')) {
         throw new Error("Can't set appointment");
@@ -181,7 +192,6 @@ function getFormattedDateEndTime(newAppFormatedEndTime){
     const formattedEndTime = `${formattedHours}:${formattedMinutes}`;
     return formattedEndTime
 }
-
 function combineDateAndHoursToDate(time,_date)
 {
     const date = new Date(_date);
@@ -231,17 +241,6 @@ function createDefultSchedule(_day,_month,_year){
         }
     });
     return newSchedule;
-}
-function formatedDate(strDate){
-    const day = strDate.getDate();
-    const month = strDate.getMonth() + 1;
-    const year = strDate.getFullYear();
-    const hours = strDate.getHours();
-    const minutes = strDate.getMinutes();
-    const seconds = strDate.getSeconds();
-
-    const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.000Z`;
-    return formattedDate;
 }
 function createNewAppointmentScheduleFormat(newAppFormatedStartTime,duration, appointmentId){
     const newAppointment = {

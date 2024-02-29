@@ -68,13 +68,14 @@ window.onload = () => {
                 }else{
                     var rescheduleAppointment = await getApoinmentFromAppointmentArray(appointmentsArray, currentAppointmentId);
                     const oldDate = rescheduleAppointment.date;
-                    newRescheduleAppointment = await createRescheduleAppointment(rescheduleAppointment);
+                    const newRescheduleAppointment = await createRescheduleAppointment(rescheduleAppointment);
                     const query = {newRescheduleAppointment : newRescheduleAppointment, oldDate : oldDate};
                     const isScheduled = await reScheduleNewAppointment(query);
                     if (isScheduled === true) {
                         await updateAppointment(newRescheduleAppointment);
                         window.location.reload();
                     } else {
+                        currentAppointmentId = null;          
                         throw new Error('Failed to reschedule appointment.');
                     }  
                     currentAppointmentId = null;          
@@ -96,29 +97,57 @@ window.onload = () => {
             }
         })();
     });
-
-    $(document).on('click', '#Cancel_Appointment', function(e) {
-        e.preventDefault();
-        const appointmentId = getAllAppointmentId();
-       
+    $('button[name="cancelled_click"]').click((e) => {
+        e.preventDefault(); 
+        (async () => {
+            try {
+                arrayData = findAppointmentsByStatus("Cancelled");
+                arrayData.then(data => {
+                    appointmentsArray = data;
+                    renderAppointments("cancelledAppointmentsList");        
+                }).catch(error => {
+                    console.error('Error fetching appointments:', error);
+                  });                  
+            } catch (error) {
+                console.error('Error occurred while fetching appointments:', error);
+            }
+        })();
     });
-};
-function cancelAppointment(appointmentId) {
-    $.ajax({
-        url: `${URL}/appointment/updateAppointmentStatus`, 
-        method: 'PUT', 
-     
-        data: { _id: appointmentId },
-        success: function(response) {
 
-            
-        },
-        error: function(err) {
-            console.error("Error occurred while cancelling the appointment:", err);
-            alert("Error occurred while cancelling the appointment");
+
+    $(document).on('click', '#Cancel_Appointment', async function(e) {
+        e.preventDefault();
+        try {
+            currentAppointmentId = await getAppointmentId(); 
+            const cancelAppointment = appointmentsArray.find(appointment => appointment.appointmentId === currentAppointmentId);
+            await cancelScheduleAppointmentById(cancelAppointment);
+            statusCancelAppointment(currentAppointmentId, "cancelled");
+            window.location.reload();
+            currentAppointmentId = null;
+        } catch (error) {
+            // Handle errors
+            console.error('Error cancelling appointment:', error);
         }
     });
-}
+    };
+    function statusCancelAppointment(_appointmentId) {
+        const currentAppointment = {
+            appointmentId: _appointmentId,
+            status: "Cancelled"
+        };
+        alert("Appointment has been cancelled");
+        return new Promise((resolve, reject) => {
+            $.post(`${URL}/appointment/updateAppointmentStatus`, currentAppointment)
+                .done((update) => {
+                    resolve(update); 
+                })
+                .fail((xhr, status, error) => {
+                    console.error("Failed to send to server:", error);
+                    reject(error); 
+                });
+        });
+    
+    }    
 async function findAppointmentsByStatus(status) {
     try {
         const response = await fetch(`${URL}/appointment/findAllAppointmentByStatus?status=${status}`, {
@@ -130,7 +159,7 @@ async function findAppointmentsByStatus(status) {
         if (!response.ok) {
             throw new Error('Failed to fetch appointments');
         }
-        const appointments = await response.json();
+        const appointments = await response.json();        
         return appointments;
     } catch (error) {
         console.error('Error occurred while fetching appointments:', error);
@@ -181,6 +210,18 @@ async function createNewAppointment(newAppointment) {
         .fail((xhr, status, error) => {
             console.error("failed send to server" + error);
         });
+}
+async function cancelScheduleAppointmentById(appointmentId) 
+{
+    $.post(`${URL}/scheduler/cancelAppointmentById`, appointmentId)
+    .done((response) =>
+    {
+        return response;
+    })
+    .fail((xhr, status, error) => {
+        console.error("failed send to server" + error);
+    });
+
 }
 async function updateAppointment(newAppointment) {
     $.post(`${URL}/appointment/updateAppointment`, newAppointment)
@@ -343,7 +384,10 @@ function createAppointmentListItem(appointment, tabContent) {
         cancelButton.remove();
         rescheduleButton.remove();
     } else if (tabContent === "Cancelled") {
-
+        try {
+        }catch(error){
+            console.error('Error occurred while fetching appointments:', error);
+        }
     }
 
     return li;
@@ -363,9 +407,26 @@ async function getAppointmentId(){
 async function getApoinmentFromAppointmentArray(appointmentsArray, currentAppointmentId){
     try{
         const appointment = appointmentsArray.find(appointment => appointment.appointmentId === currentAppointmentId);
+        console.log("appointment",appointment);
         return appointment;
     }catch(error){
         console.error('Error occurred while fetching appointments:', error);
     }
 }
+async function getCurrentAppointment(appointmentsArray, currentAppointmentId) {
+    try {
+        console.log("currentAppointmentId:", currentAppointmentId);
+        console.log("appointmentsArray:", appointmentsArray);
+        const appointment = appointmentsArray.find(appointment => appointment.appointmentId === currentAppointmentId);
+        console.log("Found appointment:", appointment);
+
+        return appointment;
+    } catch (error) {
+        console.error('Error occurred while fetching appointments:', error);
+        throw error; // Rethrow the error to propagate it further if needed
+    }
+}
+
+
+
 

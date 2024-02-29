@@ -3,7 +3,7 @@ const Appointment = require('../models/appointment.model');
 const AppointmentRepository = require('../repository/appointment.repository');
 const appointmentService = require('../service/appoinmentService');
 const { ObjectId } = require("mongodb");
-
+let i = 1;
 const appRepo = new AppointmentRepository(Appointment);
 module.exports = {
     getAllAppointment: (req, res) => {
@@ -81,10 +81,11 @@ module.exports = {
     }
   },
   findAppointmentByAppIdAndUpdateStatus: (req, res) => {
-    const appointmentId = req.body._id;
-    const newStatus = "cancelled"; // Define the new status, for example, "cancelled"
+    const appointmentId = req.body.appointmentId;
+    const newStatus = req.body.status; 
+    console.log("body",req.body);
+    console.log("newStatus",newStatus);
 
-    // Update the appointment status in the database
     appRepo.updateAppointmentStatus(appointmentId, newStatus)
         .then(updatedAppointment => {
             if (updatedAppointment) {
