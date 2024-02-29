@@ -1,7 +1,9 @@
+const { APIpaths } = require("./APIpaths");
+
 let my_user;
 function getUserName() {
     $.ajax({
-        url: `${URL}/user/getUserData`,
+        url: APIpaths["getUserData"],
         method: 'GET',
         success: function(myUser) {
             console.log("user: ", myUser);
@@ -137,6 +139,8 @@ window.onload = () => {
         };
         alert("Appointment has been cancelled");
         return new Promise((resolve, reject) => {
+            
+
             $.post(`${URL}/appointment/updateAppointmentStatus`, currentAppointment)
                 .done((update) => {
                     resolve(update); 

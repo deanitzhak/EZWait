@@ -8,6 +8,8 @@ $(document).ready(() => {
         JSONUser.password= $('input[name="password"]').val();
         
         console.log(JSONUser)
+       
+
         $.post(`${URL}/login/logIn`, JSONUser)
             .done((userCheckServer) => {
                 if (userCheckServer != "Invalid Data") {
