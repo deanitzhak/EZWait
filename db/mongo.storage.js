@@ -57,7 +57,7 @@ module.exports = class MongoStorage {
     delete(id) {
         return this.Model.findByIdAndDelete(id);
     }
-
+    
     update(id, data) {
         return this.Model.findByIdAndUpdate(id, data, {
             new: true,

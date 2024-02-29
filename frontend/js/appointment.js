@@ -24,6 +24,8 @@ const EnumStatus = {
     VALUE3: 'Cancelled'
 };
 var appointmentsArray ;
+/*after Reschedule or cancel assign needed to be null*/
+var currentAppointmentId = null;
 const URL = window.location.origin;
 window.onload = () => {
     my_user = getUserName ();
@@ -36,41 +38,53 @@ window.onload = () => {
             console.error('Error occurred while fetching appointments:', error);
         }
     })();
-    $(document).on('click', '.Reschedule', function(e) {
+    $(document).on('click', '.Reschedule', async function(e) {
         e.preventDefault();
-        console.log ("start-btn");
-
-       });
+        try {
+            currentAppointmentId = await getAppointmentId(); 
+        } catch (error) {
+            alert('Failed to reschedule appointment.');
+            console.error('Error occurred while rescheduling appointment:', error);
+        }
+    });
+    
     $('button[name="form_submit"]').click((e) => {
         e.preventDefault(); 
         (async () => {
             try {
-                let newAppointment = await postSetAppointment(1); // Await the result of postSetAppointment
-                const appointmentId = await getStartAndEndTimeFromUser(newAppointment);
-                if(appointmentId === null){
-                    alert('Failed to create new appointment.');
+                /*if the currentAppointmentId is null create new appointment if the id is not null so ctreate new appointment*/
+                if(currentAppointmentId === null || currentAppointmentId === undefined){
+                    let newAppointment = createNewAppointmentFromUserData(1); // Await the result of postSetAppointment
+                    const appointmentId = await scheduleNewAppointment(newAppointment);
+                    if(appointmentId === null){
+                        throw new Error('Failed to create new appointment.');
+                    }else{
+                        alert('secssused.');
+                        const _newAppointment = createNewAppointmentFromUserData(appointmentId);
+                        await createNewAppointment(_newAppointment);
+                        currentAppointmentId = null;
+                        window.location.replace(`../appointment.html`);
+                    }
                 }else{
-                    alert('secssused.');
-                    const _newAppointment = await postSetAppointment(appointmentId);
-                    await createNewAppointment(_newAppointment);
+                    var rescheduleAppointment = await getApoinmentFromAppointmentArray(appointmentsArray, currentAppointmentId);
+                    const oldDate = rescheduleAppointment.date;
+                    const newRescheduleAppointment = await createRescheduleAppointment(rescheduleAppointment);
+                    const query = {newRescheduleAppointment : newRescheduleAppointment, oldDate : oldDate};
+                    const isScheduled = await reScheduleNewAppointment(query);
+                    if (isScheduled === true) {
+                        await updateAppointment(newRescheduleAppointment);
+                        window.location.reload();
+                    } else {
+                        currentAppointmentId = null;          
+                        throw new Error('Failed to reschedule appointment.');
+                    }  
+                    currentAppointmentId = null;          
                 }
             } catch (error) {
-                alert('Failed to create new appointment.');
-                console.error('Failed to create new appointment.', error);
+                alert(error.message);
             }
-        })();
-        
-                /*on Click Create*/
-        //createNewAppointment(inputValuesForm);
+        })();   
     });
-    // /*onLoad By status*/
-    // $(document).on('click', '#Cancel_Appointment', function(e) {
-    //     e.preventDefault();
-    //     console.log("shircancel");
-    //     const appointmentId = $(this).closest('li').find('[data-appointment-id]').attr('data-appointment-id'); // Extract appointment ID
-    //     deleteAppointment(appointmentId); // Call function to delete appointment
-    // })
-    
     $('button[name="completed_click"]').click((e) => {
         e.preventDefault(); 
         (async () => {
@@ -84,6 +98,7 @@ window.onload = () => {
         })();
     });
 
+
     $(document).on('click', '#Cancel_Appointment', function(e) {
         e.preventDefault();
         console.log("shircancel");
@@ -91,6 +106,8 @@ window.onload = () => {
         console.log(appointmentId,"shrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
         cancelAppointment(appointmentId); // Call function to cancel appointment
     });
+    
+
     
 };
 
@@ -141,17 +158,18 @@ async function findAppointmentsByStatus(status) {
         if (!response.ok) {
             throw new Error('Failed to fetch appointments');
         }
-        const appointments = await response.json();
+        const appointments = await response.json();        
         return appointments;
     } catch (error) {
         console.error('Error occurred while fetching appointments:', error);
         throw error;
     }
 }
+/*new app*/
 async function getStartAndEndTimeFromUser(newAppointment) {
     try {
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
-        const response = await fetch(`${URL}/scheduler/getStartAndEndTimeFromUser?newAppointment=${queryParams}`, {
+        const response = await fetch(`${URL}/scheduler/scheduleNewAppointment?newAppointment=${queryParams}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -167,6 +185,20 @@ async function getStartAndEndTimeFromUser(newAppointment) {
         throw error;
     }
 }
+/*reSchedule current appointment*/
+async function reScheduleNewAppointment(currentAppointment) {
+    return new Promise((resolve, reject) => {
+        $.post(`${URL}/scheduler/reScheduleNewAppointment`, currentAppointment)
+            .done((update) => {
+                resolve(update); 
+            })
+            .fail((xhr, status, error) => {
+                console.error("Failed to send to server:", error);
+                reject(error); 
+            });
+    });
+}
+/*create new appointment*/
 async function createNewAppointment(newAppointment) {
         $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
         .done((_newApp) =>
@@ -178,7 +210,30 @@ async function createNewAppointment(newAppointment) {
             console.error("failed send to server" + error);
         });
 }
-function postSetAppointment(_appointmentId) {
+async function cancelScheduleAppointmentById(appointmentId) 
+{
+    $.post(`${URL}/scheduler/cancelAppointmentById`, appointmentId)
+    .done((response) =>
+    {
+        return response;
+    })
+    .fail((xhr, status, error) => {
+        console.error("failed send to server" + error);
+    });
+
+}
+async function updateAppointment(newAppointment) {
+    $.post(`${URL}/appointment/updateAppointment`, newAppointment)
+    .done((_newApp) =>
+    {
+        const newApp = _newApp;
+        return newApp;
+    })
+    .fail((xhr, status, error) => {
+        console.error("failed send to server" + error);
+    });
+}
+function createNewAppointmentFromUserData(_appointmentId) {
     const input = document.getElementById('din').value;
     let _duration;
     switch (input) {
@@ -208,6 +263,13 @@ function postSetAppointment(_appointmentId) {
     };
     return formData;
 }
+async function createRescheduleAppointment(currentAppointment)
+{
+    currentAppointment.type = document.getElementById('din').value;
+    currentAppointment.date = document.getElementById('nave').value;
+    currentAppointment.startTime = document.getElementById('tomer').value;
+    return currentAppointment;
+}
 /*Invoke HTML object*/ 
 function createAppointmentListItem(appointment, tabContent) {
     const li = document.createElement("li");
@@ -235,20 +297,20 @@ function createAppointmentListItem(appointment, tabContent) {
     const dateSpan = document.createElement("span");
     dateSpan.className = "ml-2";
     const date = new Date(appointment.startTime);
-    dateSpan.textContent = date.toLocaleString(); // Format date as needed
+    dateSpan.textContent = date.toUTCString(); 
 
     dateDiv.appendChild(dateIcon);
     dateDiv.appendChild(dateSpan);
 
     const idSpan = document.createElement("span");
-    idSpan.setAttribute("data-appointment-id", appointment.appointmentId); // Set data attribute for appointment ID
+    idSpan.setAttribute("data-appointment-id", appointment.appointmentId); 
     idSpan.style.display = "none"; 
     
 
     innerDiv.appendChild(h1);
     innerDiv.appendChild(h2);
     innerDiv.appendChild(dateDiv);
-    innerDiv.appendChild(idSpan); // Append ID to innerDiv
+    innerDiv.appendChild(idSpan);
 
     div1.appendChild(innerDiv);
 
@@ -305,13 +367,11 @@ function createAppointmentListItem(appointment, tabContent) {
     const rescheduleButton = document.createElement("button");
     rescheduleButton.className = "Reschedule";
     rescheduleButton.textContent = "Reschedule";
+    rescheduleButton.id = "Reschedule_Appointment";
 
-    // Add event listener for the reschedule button
     rescheduleButton.addEventListener('click', function() {
         $('.modal-box').toggleClass("show-modal");
         $('.start-btn').toggleClass("show-modal");
-        // Use the appointment ID as needed
-        console.log("Reschedule clicked for appointment ID:", appointment.appointmentId);
     });
 
     div2.appendChild(rescheduleButton);
@@ -320,25 +380,52 @@ function createAppointmentListItem(appointment, tabContent) {
     li.appendChild(div2);
 
     if (tabContent === "Completed") {
-        // Remove cancel button for the Completed tab
         cancelButton.remove();
         rescheduleButton.remove();
     } else if (tabContent === "Cancelled") {
-        // Customize for Cancelled tab
-        // For example, you can add a strike-through style or change colors
-        // This function would modify the appearance of elements for the Cancelled tab
+        try {
+        }catch(error){
+            console.error('Error occurred while fetching appointments:', error);
+        }
     }
 
     return li;
 }
-
 function renderAppointments(listType) {
     const appointmentsList = document.getElementById(listType);
-    // Clear previous content
     appointmentsList.innerHTML = "";
-    // Create list items for each appointment and append them to the list
     appointmentsArray.forEach(function(appointment) {
         const li = createAppointmentListItem(appointment);
         appointmentsList.appendChild(li);
     });
 }
+async function getAppointmentId(){
+    const appointmentId = $('[data-appointment-id]').data('appointment-id');
+    return appointmentId;
+}
+async function getApoinmentFromAppointmentArray(appointmentsArray, currentAppointmentId){
+    try{
+        const appointment = appointmentsArray.find(appointment => appointment.appointmentId === currentAppointmentId);
+        console.log("appointment",appointment);
+        return appointment;
+    }catch(error){
+        console.error('Error occurred while fetching appointments:', error);
+    }
+}
+async function getCurrentAppointment(appointmentsArray, currentAppointmentId) {
+    try {
+        console.log("currentAppointmentId:", currentAppointmentId);
+        console.log("appointmentsArray:", appointmentsArray);
+        const appointment = appointmentsArray.find(appointment => appointment.appointmentId === currentAppointmentId);
+        console.log("Found appointment:", appointment);
+
+        return appointment;
+    } catch (error) {
+        console.error('Error occurred while fetching appointments:', error);
+        throw error; // Rethrow the error to propagate it further if needed
+    }
+}
+
+
+
+
