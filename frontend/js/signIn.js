@@ -6,11 +6,12 @@ $(document).ready(() => {
         let JSONUser = {}
         JSONUser.userName = $('input[name="username"]').val();
         JSONUser.password= $('input[name="password"]').val();
+        
         console.log(JSONUser)
         $.post(`${URL}/login/logIn`, JSONUser)
             .done((userCheckServer) => {
                 if (userCheckServer != "Invalid Data") {
-                    window.location.replace(`../appointment.html`);
+                    window.location.replace("../appointment.html");
                 } else {
                     alert("User does not exist");
                 }
