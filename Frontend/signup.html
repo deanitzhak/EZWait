@@ -7,7 +7,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <title>EZWAit - Singup</title>
-  <script src="./js/signIn.js"></script>
+  <!-- <script src="./js/signIn.js"></script> -->
+  <script type="module" src="https://ezwait.onrender.com/Front/js/signIn.js"></script>
+
   <!-- <link rel="stylesheet" type="text/css" href="./css/style.css"> -->
 
 </head>
@@ -22,7 +24,7 @@
           </div>
           <div class="mt-10">
           <div>
-            <form action="#" method="POST" class="space-y-6">
+            <form id="signInForm" method="POST" class="space-y-6">
               <div>
                 <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username:</label>
                 <div class="mt-2">
@@ -58,7 +60,7 @@
                 </div>
               </div>
               <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign Up</button>
+                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" name="submit_button">Sign Up</button>
               </div>
             </form>
           </div>
