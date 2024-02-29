@@ -51,7 +51,7 @@ class ClientRepository extends MongoStorage {
         }
     }
 
-    async createNewProfile(clientData) {
+    async createNewClient(clientData) {
         try {
             const newClient = await this.Model.create(clientData);
             return newClient;

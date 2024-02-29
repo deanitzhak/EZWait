@@ -29,11 +29,12 @@ window.onload = async () => {
         $('input[name="submit"]').click(async (e) => {
             e.preventDefault();
             console.log("im hereeeeeeeeeeeeeeeee");
-
+        
             try {
                 const _newClient = await postSetClient();
-                console.log("can create new client");
 
+                console.log("can create new client",_newClient);
+        
                 await createNewClient(_newClient);
             } catch (error) {
                 console.error('Failed to create new client.', error);
@@ -48,8 +49,10 @@ window.onload = async () => {
 
 async function createNewClient(newClient) {
     try {
+        console.log(newClient);
         const response = await $.post(`${URL}/client/submitNewClient`, newClient);
         console.log("New client created:", response);
+        console.log(newClient);
         alert('Client created successfully.');
     } catch (error) {
         console.error('Failed to send data to server:', error);
@@ -65,11 +68,10 @@ function postSetClient() {
             firstName: my_user.firstName,
             lastName: my_user.lastName,
             dateOfBirth: document.getElementById('dob').value,
-            gender: document.getElementById('age').value,
+            gender: document.getElementById('gender').value,
             email: my_user.email,
             phone: document.getElementById('phone').value,
             address: document.getElementById('address').value,
-            status: "active",
         },
     };
     return formData;

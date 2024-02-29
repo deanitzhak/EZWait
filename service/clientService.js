@@ -1,42 +1,26 @@
+const mongoose = require('mongoose');
 const clientModel = require('../models/client.model');
 
-
 const EnumStatus = {
-    VALUE1: 'block',
-    VALUE2: 'active',
+    VALUE1: 'active',
+    VALUE2: 'block',
 };
 
-    
-    async function createNewClient(newClientJSON) {
-        switch (newClientJSON.client.type) {
-            case "1":
-                newClientJSON.client.type = "value1";
-                break;
-            case "2":
-                newClientJSON.client.type = "value2";
-                break;
-    
-        }
-
+async function createNewClient(newClientJSON) {
+    const clientId = new mongoose.Types.ObjectId(); // Generate a new ObjectId for clientId
     const newClient = new clientModel({
-        clientId: newClientJSON.client.clientId,
-        userName: newClientJSON.client.userName,
-        dateOfBirth: newClientJSON.client.dateOfBirth,
-        gender: newClientJSON.client.gender,
-        phone :newClientJSON.client.phone,
-        address: newClientJSON.client.address,
-        status :newClientJSON.client.status,
-        status: EnumStatus.VALUE1,
-        subClient : newClientJSON.client. subClient.firstName,
-        subClient : newClientJSON.client. subClient.lastName,
-        subClient : newClientJSON.client. subClient.dateOfBirth,
-        subClient : newClientJSON.client. subClient.gender,
+        clientId: clientId,
+        userName: newClientJSON.Client.userName,
+        dateOfBirth: newClientJSON.Client.dateOfBirth,
+        gender: newClientJSON.Client.gender,
+        phone: newClientJSON.Client.phone,
+        address: newClientJSON.Client.address,
+        status: EnumStatus[newClientJSON.Client.status],
     });
-    console.log(newClient);
-    return newClient; 
+    console.log("newClient -> ", newClient);
+    console.log("newClient -> ", newClientJSON.Client.userName);
+    return newClient;
 }
 module.exports = {
     createNewClient
 };
-
-

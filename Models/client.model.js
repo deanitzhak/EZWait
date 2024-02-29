@@ -9,7 +9,8 @@ const clientSchema = new Schema(
         gender: { type: String }, 
         phone: { type: String },
         address: { type: String },
-        status: { type: Boolean },
+        status: { type: String, enum: ['block', 'active'] },
+
         subClient: {
             firstName: { type: String },
             lastName: { type: String },
@@ -17,7 +18,7 @@ const clientSchema = new Schema(
             dateOfBirth: { type: Date }, 
         }
     },
-    { collection: "client" }
+    { collection: "Client" }
 );
 
 const clientModel = model("Client", clientSchema);

@@ -1,4 +1,4 @@
-const { client } = require('../frontend/js/APIpath');
+// const { client } = require('../frontend/js/APIpath');
 const client = require('../models/client.model');
 const clientRepository = require('../repository/client.repository');
 const clientService = require('../service/clientService');
@@ -59,8 +59,9 @@ module.exports = {
 },
     async submitNewClient(req, res) {
     try {
-      const newApp = await profileService.createNewClient(req.body);
-      console.log(newApp);
+      console.log("hey");
+      const newApp = await clientService.createNewClient(req.body);
+      console.log("this is my clint : - >",newApp);
       appRepo.create(newApp);
       res.status(200).send("New client created successfully");
       
