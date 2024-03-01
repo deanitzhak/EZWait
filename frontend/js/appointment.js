@@ -1,13 +1,14 @@
-const { APIpaths } = require("./APIpaths");
+import { APIpaths } from './APIpaths.js';
 
 let my_user;
 function getUserName() {
     $.ajax({
-        url: APIpaths["getUserData"],
+        url: APIpaths.getUserData,
         method: 'GET',
         success: function(myUser) {
             console.log("user: ", myUser);
             my_user = myUser;
+            document.getElementById('userName').textContent = my_user.userName;
             return my_user;
         },
         error: function(err) {
@@ -137,11 +138,8 @@ window.onload = () => {
             appointmentId: _appointmentId,
             status: "Cancelled"
         };
-        alert("Appointment has been cancelled");
         return new Promise((resolve, reject) => {
-            
-
-            $.post(`${URL}/appointment/updateAppointmentStatus`, currentAppointment)
+            $.post(APIpaths.updateAppointmentStatus, currentAppointment)
                 .done((update) => {
                     resolve(update); 
                 })
@@ -154,7 +152,7 @@ window.onload = () => {
     }    
 async function findAppointmentsByStatus(status) {
     try {
-        const response = await fetch(`${URL}/appointment/findAllAppointmentByStatus?status=${status}`, {
+        const response = await fetch(`${APIpaths.findAllAppointmentByStatus}?status=${status}`,{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -174,7 +172,7 @@ async function findAppointmentsByStatus(status) {
 async function scheduleNewAppointment(newAppointment) {
     try {
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
-        const response = await fetch(`${URL}/scheduler/scheduleNewAppointment?newAppointment=${queryParams}`, {
+        const response = await fetch(APIpaths.scheduleNewAppointment`?newAppointment=${queryParams}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -193,7 +191,7 @@ async function scheduleNewAppointment(newAppointment) {
 /*reSchedule current appointment*/
 async function reScheduleNewAppointment(currentAppointment) {
     return new Promise((resolve, reject) => {
-        $.post(`${URL}/scheduler/reScheduleNewAppointment`, currentAppointment)
+        $.post(APIpaths.reScheduleNewAppointment, currentAppointment)
             .done((update) => {
                 resolve(update); 
             })
@@ -205,7 +203,7 @@ async function reScheduleNewAppointment(currentAppointment) {
 }
 /*create new appointment*/
 async function createNewAppointment(newAppointment) {
-        $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
+        $.post(APIpaths.scheduleNewAppointment, newAppointment)
         .done((_newApp) =>
         {
             const newApp = _newApp;
@@ -216,8 +214,8 @@ async function createNewAppointment(newAppointment) {
         });
 }
 async function cancelScheduleAppointmentById(appointmentId) 
-{
-    $.post(`${URL}/scheduler/cancelAppointmentById`, appointmentId)
+{   
+    $.post(APIpaths.cancelAppointmentById, appointmentId)
     .done((response) =>
     {
         return response;
@@ -228,7 +226,7 @@ async function cancelScheduleAppointmentById(appointmentId)
 
 }
 async function updateAppointment(newAppointment) {
-    $.post(`${URL}/appointment/updateAppointment`, newAppointment)
+    $.post(APIpaths.updateAppointment, newAppointment)
     .done((_newApp) =>
     {
         const newApp = _newApp;
@@ -427,7 +425,7 @@ async function getCurrentAppointment(appointmentsArray, currentAppointmentId) {
         return appointment;
     } catch (error) {
         console.error('Error occurred while fetching appointments:', error);
-        throw error; // Rethrow the error to propagate it further if needed
+        throw error; 
     }
 }
 

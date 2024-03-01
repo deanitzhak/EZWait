@@ -1,4 +1,3 @@
-const { appointment } = require('../frontend/js/APIpath');
 const Appointment = require('../models/appointment.model');
 const AppointmentRepository = require('../repository/appointment.repository');
 const appointmentService = require('../service/appoinmentService');
