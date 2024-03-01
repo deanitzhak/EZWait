@@ -3,7 +3,6 @@ require('dotenv').config({ path: './.env' });
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const Schedule = require('./models/schedule.model');
 
 /*APIs*/
 const fileLoaderRouter = require('./routers/fileLoaderRouter');
