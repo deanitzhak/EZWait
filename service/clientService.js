@@ -16,9 +16,17 @@ async function createNewClient(newClientJSON) {
         phone: newClientJSON.Client.phone,
         address: newClientJSON.Client.address,
         status: EnumStatus.VALUE1,
+        subClient: {
+            subfirstName: newClientJSON.Client.subfirstName,
+            sublastName:newClientJSON.Client.sublastName,
+            subgender:newClientJSON.Client.subgender,
+            subdateOfBirth: newClientJSON.Client.subdateOfBirth,
+   
+        },
+            
     });
     console.log("newClient -> ", newClient);
-    console.log("newClient -> ", newClientJSON.Client.userName);
+    console.log("newClient -> ", newClientJSON.subfirstName);
     return newClient;
 }
 module.exports = {

@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function createNewClient(newClient) {
     try {
         console.log(newClient);
-        const response = await $.post(`${URL}/client/submitNewClient`, newClient);
+        const response = await $.post(`${URL}/client/submitNewClient, newClient`);
         console.log("New client created:", response);
         console.log(newClient);
         alert('Client created successfully.');
@@ -79,8 +79,12 @@ function postSetClient() {
             email: my_user.email,
             phone: document.getElementById('phone').value,
             address: document.getElementById('address').value,
+            subfirstName: document.getElementById('subfirstName').value,
+            sublastName: document.getElementById('sublastName').value,
+            subgender: document.getElementById('subGender').value,
+            subdateOfBirth: document.getElementById('subDateofBirth').value,
+         
         },
     };
-    return formData;
+    return formData;
 }
-

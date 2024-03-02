@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=0.75">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <title>Ezwait - profilePage</title>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
@@ -21,7 +21,7 @@
           </button>
         </div>
         </ul>
-        <button type="button" class="btn btn-primary">Danielle Bernstein</button>
+        <button type="button" class="btn btn-primary text-lg">Danielle Bernstein</button>
       </nav>
       <nav class="navbar-default navbar-side" role="navigation">
         <div class="sidebar-collapse">
@@ -42,65 +42,76 @@
             <div class="formbold-main-wrapper">
               <div class="formbold-form-wrapper">
                 <form name="form" >
-                  <div class="formbold-input-wrapp formbold-mb-3">
-                    <label for="firstname" class="formbold-form-label"> Name </label>
+                    <div class="formbold-input-wrapp formbold-mb-3">
+                      <label for="firstname" class="formbold-form-label"> Name </label>
+                      <div>
+                        <input type="text" name="firstname" id="firstname" placeholder="First name"
+                          class="formbold-form-input" required />
+                        <input type="text" name="lastname" id="lastname" placeholder="Last name" class="formbold-form-input" required/>
+                      </div>
+                    </div>
+                    <div class="formbold-mb-3">
+                      <label for="age" class="formbold-form-label"> Age </label>
+                      <input type="text" name="age" id="age" placeholder="25" class="formbold-form-input" required/>
+                    </div>
+                    <div class="formbold-mb-3">
+                      <label for="dob" class="formbold-form-label"> Date of Birth </label>
+                      <input type="date" name="dob" id="dob" class="formbold-form-input" required/>
+                    </div>
+                    <div class="formbold-mb-3">
+                      <label class="formbold-form-label">Gender</label>
+                      <select class="formbold-form-input" name="gender" id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="others">Others</option>
+                      </select>
+                    </div>
+                    <div class="formbold-mb-3">
+                      <label for="email" class="formbold-form-label"> Email </label>
+                      <input type="email" name="email" id="email" placeholder="example@email.com"
+                        class="formbold-form-input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+                    </div>
+                    <div class="formbold-mb-3">
+                      <label for="address" class="formbold-form-label"> Address </label>
+                      <input type="text" name="address" id="address" placeholder="Street address"
+                        class="formbold-form-input formbold-mb-3" required />
+                    </div>
+                    <div class="formbold-mb-3 formbold-input-wrapp">
+                      <label for="phone" class="formbold-form-label"> Phone </label>
+                      <div>
+                        <input type="text" name="areacode" id="areacode" placeholder="Area code" class="formbold-form-input formbold-w-45" required/>
+                        <input type="text" name="phone" id="phone" placeholder="Phone number" class="formbold-form-input" required/>
+                      </div>
+                      <div class="formbold-input-flex">
                     <div>
-                      <input type="text" name="firstname" id="firstname" placeholder="First name"
-                        class="formbold-form-input" required />
-                      <input type="text" name="lastname" id="lastname" placeholder="Last name" class="formbold-form-input" required/>
+                    </div>
+                    <div>
                     </div>
                   </div>
                   <div class="formbold-mb-3">
-                    <label for="age" class="formbold-form-label"> Age </label>
-                    <input type="text" name="age" id="age" placeholder="25" class="formbold-form-input" required/>
+                  <button onclick="openInputFields()" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">+ Add Family Member</button>
+                  <div id="itemsContainer"></div>
                   </div>
-                  <div class="formbold-mb-3">
-                    <label for="dob" class="formbold-form-label"> Date of Birth </label>
-                    <input type="date" name="dob" id="dob" class="formbold-form-input" required/>
-                  </div>
-                  <div class="formbold-mb-3">
-                    <label class="formbold-form-label">Gender</label>
-                    <select class="formbold-form-input" name="gender" id="gender">
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="others">Others</option>
-                    </select>
-                  </div>
-                  <div class="formbold-mb-3">
-                    <label for="email" class="formbold-form-label"> Email </label>
-                    <input type="email" name="email" id="email" placeholder="example@email.com"
-                      class="formbold-form-input" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
-                  </div>
-                  <div class="formbold-mb-3">
-                    <label for="address" class="formbold-form-label"> Address </label>
-                    <input type="text" name="address" id="address" placeholder="Street address"
-                      class="formbold-form-input formbold-mb-3" required />
-                  </div>
-                  <div class="formbold-mb-3 formbold-input-wrapp">
-                    <label for="phone" class="formbold-form-label"> Phone </label>
-                    <div>
-                      <input type="text" name="areacode" id="areacode" placeholder="Area code" class="formbold-form-input formbold-w-45" required/>
-                      <input type="text" name="phone" id="phone" placeholder="Phone number" class="formbold-form-input" required/>
-                    </div>
-                  </div>
-                  </div>
-              </div>
-              <input class="btn btn-primary" type="submit" value="Submit" name="submit">
+                  <table>
+                    <tr>
+                    </tr>
+                </table>
+                <input class="btn btn-primary" type="submit" value="Submit" name="submit">
             </div>
-
             </label>
         </div>
         </form>
       </div>
     </div>
     </div>
-    <!-- <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script> -->
-    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
       integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
       data-cf-beacon='{"rayId":"8525a0d1c9641890","version":"2024.2.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
-      crossorigin="anonymous"></script> -->
+      crossorigin="anonymous"></script>
   </body>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
   </ul>
@@ -116,6 +127,7 @@
   <!-- JS Scripts-->
   <!-- jQuery Js -->
   <script src="assets/js/jquery-1.10.2.js"></script>
+  <script src="js/client.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -125,8 +137,38 @@
   <script src="assets/js/jquery.metisMenu.js"></script>
   <!-- Custom Js -->
   <script src="assets/js/custom-scripts.js"></script>
-  <script src="js/client.js"></script>
+  <script>
+    function openInputFields() {
+        var itemsContainer = document.getElementById("itemsContainer");
+        var newItemDiv = document.createElement("div");
+        var newItemDiv = document.createElement("label");
+        newItemDiv.textContent = "memeber client";
+        newItemDiv.className = "formbold-form-input formbold-mb-3";
+       
 
+        var fistInput = createInput("text", "subfirstName",);
+        var lastInput = createInput("text", "sublastName",);
+        var dobInput = createInput("date", "subDateofBirth",);
+        var genderInput = createInput("text", "subGender");
+
+        newItemDiv.appendChild(fistInput);
+        newItemDiv.appendChild(lastInput);
+        newItemDiv.appendChild(dobInput);
+        newItemDiv.appendChild(genderInput);
+        itemsContainer.appendChild(newItemDiv);
+    }
+
+    function createInput(type, placeholder) {
+    
+        var input = document.createElement("input");
+        input.type = type;
+        input.placeholder = placeholder;
+        input.id = placeholder;
+        input.className = "formbold-form-input";
+      
+        return input;
+    }
+</script>
   <script>
     function openCity(evt, cityName) {
       var i, tabcontent, tablinks;
@@ -141,13 +183,6 @@
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
     }
-    document.addEventListener('DOMContentLoaded', function() {
-    // Assuming you have the user's email available in the variable 'userEmail'
-    const userEmail = cliemt.userEmail; // Replace this with the actual user's email
-    
-    // Set the value of the email input field
-    document.getElementById('email').value = userEmail;
-  });
     // Get the element with id="defaultOpen" and click on it
     document.getElementById("defaultOpen").click();
   </script>
