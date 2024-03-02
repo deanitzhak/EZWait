@@ -10,12 +10,11 @@ const clientSchema = new Schema(
         phone: { type: String },
         address: { type: String },
         status: { type: String, enum: ['block', 'active'] },
-
         subClient: {
-            firstName: { type: String },
-            lastName: { type: String },
-            gender: { type: String },
-            dateOfBirth: { type: Date }, 
+            subfirstName: { type: String },
+            sublastName: { type: String },
+            subgender: { type: String },
+            subdateOfBirth: { type: Date }, 
         }
     },
     { collection: "Client" }
