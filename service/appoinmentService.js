@@ -18,8 +18,7 @@ async function createNewAppointment(newAppointmentJSON) {
             newAppointmentJSON.Appointment.type = "value3";
             break;
     }
-    const _timeString = convertTimeString(newAppointmentJSON.Appointment.startTime);
-    const _dateString = coverDateString(newAppointmentJSON.Appointment.date);
+    const _date = combainDateAndHoursToDate(newAppointmentJSON.Appointment.startTime, newAppointmentJSON.Appointment.date);
     const newAppointment = new appointmentModel({
         appointmentId: newAppointmentJSON.Appointment.appointmentId,
         userName: newAppointmentJSON.Appointment.userName,
@@ -27,30 +26,51 @@ async function createNewAppointment(newAppointmentJSON) {
         lastName: newAppointmentJSON.Appointment.lastName,
         type :newAppointmentJSON.Appointment.type,
         status: EnumStatus.VALUE1,
-        date: _dateString, 
-        startTime: _timeString,
+        date: _date, 
+        startTime: _date,
         duration : newAppointmentJSON.Appointment.duration,
         timeStamp: new Date()
     });
     console.log(newAppointment);
     return newAppointment; 
 }
-module.exports = {
-    createNewAppointment
-};
-function convertTimeString(timeString)
-{
-    const [hours, minutes] = timeString.split(':');
-    const date = new Date();
-    date.setHours(parseInt(hours, 10));
-    date.setMinutes(parseInt(minutes, 10));
-    date.setSeconds(0);
-    date.setMilliseconds(0);
-    return date
+async  function updateNewAppointment(appointmentJSON) {
+    switch (appointmentJSON.type) {
+        case "1":
+            appointmentJSON.type = "value1";
+            break;
+        case "2":
+            appointmentJSON.type = "value2";
+            break;
+        case "3":
+            appointmentJSON.type = "value3";
+            break;
+    }
+    const _date = combainDateAndHoursToDate(appointmentJSON.startTime, appointmentJSON.date);
+    const newAppointment = new appointmentModel({
+        appointmentId: appointmentJSON.appointmentId,
+        userName: appointmentJSON.userName,
+        firstName: appointmentJSON.firstName,
+        lastName: appointmentJSON.lastName,
+        type :appointmentJSON.type,
+        status: appointmentJSON.status,
+        date: _date, 
+        startTime: _date,
+        duration : appointmentJSON.duration,
+        timeStamp: new Date()
+    });
+    return newAppointment;
 }
-function coverDateString(dateString)
+module.exports = {
+    createNewAppointment,
+    updateNewAppointment
+};
+function combainDateAndHoursToDate(time,_date)
 {
-    const [year, month, day] = dateString.split('-').map(Number);
-    const date = new Date(year, month - 1, day);
-    return date ;
+    const date = new Date(_date);
+    const [startHour, startMinute] = time.split(':').map(Number);
+    date.setUTCHours(startHour);
+    date.setUTCMinutes(startMinute);
+    const newDate = new Date(date);
+    return newDate;
 }
