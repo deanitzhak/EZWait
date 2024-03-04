@@ -4,12 +4,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 /*APIs*/
+const profileRouter = require('./routers/profileRouter');
+
 const fileLoaderRouter = require('./routers/fileLoaderRouter');
 const loginRouter = require('./routers/logInRouter');
 const appointmentRouter = require('./routers/appointmentRouter');
 const userRouter = require('./routers/userRouter');
-const messegeReplayRouter = require('./routers/messegeReplayRouter');
-const messegeSentRouter = require('./routers/messegeSentRouter');
+// const messegeReplayRouter = require('./routers/messegeReplayRouter');
+// const messegeSentRouter = require('./routers/messegeSentRouter');
 const scheduleRouter = require('./routers/scheduleRouter');
 const schedulerRouter = require('./routers/schedulerRouter');
 const clientRouter = require('./routers/clientRouter');
@@ -27,9 +29,10 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/login', loginRouter);
 app.use('/appointment', appointmentRouter);
 app.use('/client', clientRouter);
+app.use('/profile',profileRouter);
 app.use('/user', userRouter);
-app.use("/messegeReplay",messegeReplayRouter);
-app.use("/messegeSent",messegeSentRouter);
+// app.use("/messegeReplay",messegeReplayRouter);
+// app.use("/messegeSent",messegeSentRouter);
 app.use("/schedule",scheduleRouter);
 app.use('/scheduler', schedulerRouter);
 /*Mongo connectig*/
