@@ -10,7 +10,7 @@ $(document).ready(() => {
         $.post(`${URL}/login/logIn`, JSONUser)
             .done((userCheckServer) => {
                 if (userCheckServer != "Invalid Data") {
-                    window.location.replace(`../calendar.html`);
+                    window.location.replace(`../appointment.html?userName=${JSONUser.userName}`);
                 } else {
                     alert("User does not exist");
                 }

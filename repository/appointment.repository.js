@@ -18,7 +18,7 @@ class AppointmentRepository extends MongoStorage {
     async updateAppointment(appointmentId, newData) {
         try {
             var appointment = await this.Model.findOne({ appointmentId: appointmentId });
-    
+            
             if (!appointment) {
                 throw new Error(`Appointment with ID ${appointmentId} not found.`);
             }

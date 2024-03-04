@@ -66,6 +66,7 @@ window.onload = () => {
                     var rescheduleAppointment = await getApoinmentFromAppointmentArray(appointmentsArray, currentAppointmentId);
                     const oldDate = rescheduleAppointment.date;
                     const newRescheduleAppointment = await createRescheduleAppointment(rescheduleAppointment);
+                    console.log("newRescheduleAppointment ::::::::::->>>>>>>",newRescheduleAppointment);
                     const query = {newRescheduleAppointment : newRescheduleAppointment, oldDate : oldDate};
                     const isScheduled = await reScheduleNewAppointment(query);
                     if (isScheduled === true) {
@@ -120,7 +121,8 @@ async function scheduleNewAppointment(newAppointment) {
     }
 }
 async function reScheduleNewAppointment(currentAppointment) {
-    console.log("currentAppointment - >>",currentAppointment);
+    console.log("currentAppointment :::::::::",currentAppointment);
+    alert("currentAppointment :::::::::"+currentAppointment);
     return new Promise((resolve, reject) => {
         $.post(`${URL}/scheduler/reScheduleNewAppointment`, currentAppointment)
             .done((update) => {
@@ -138,7 +140,7 @@ async function createRescheduleAppointment() {
     currentAppointment.type = document.getElementById('din').value;
     currentAppointment.date = document.getElementById('nave').value;
     currentAppointment.startTime = document.getElementById('tomer').value;
-    console.log("popopospos",currentAppointment);
+    currentAppointment.appointmentId = currentAppointmentId;    
     return currentAppointment;
 }
 
