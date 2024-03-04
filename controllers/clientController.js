@@ -1,4 +1,3 @@
-// const { client } = require('../frontend/js/APIpath');
 const client = require('../models/client.model');
 const clientRepository = require('../repository/client.repository');
 const clientService = require('../service/clientService');

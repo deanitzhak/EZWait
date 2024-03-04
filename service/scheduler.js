@@ -3,15 +3,14 @@ const Schedule = require('../models/schedule.model');
 const { ObjectId } = require("mongodb");
 const schedRepo = new ScheduleRepository(Schedule);
 let duration;
-const GMT = 2 /*need to be on global data file*/
 const moment = require('moment');
 const currentDate = new Date();
 /*this flag is indicate if a new day is opend or not*/
 let defultCreate; 
 const EnumType = {
-    VALUE1: '1',
-    VALUE2: '2',
-    VALUE3: '3'
+    VALUE1: "1",
+    VALUE2: "2",
+    VALUE3: "3",
 };
 module.exports = {
     async scheduleNewAppointment(req, res) {
@@ -75,32 +74,30 @@ module.exports = {
             const dateStr = newAppointment.date;
             const startTime = newAppointment.startTime;
             const type = newAppointment.type;
-
             const newAppFormattedStartTime = combineDateAndHoursToDate(startTime, dateStr);
             const newAppFormattedEndTime = calculateDuration(startTime, type, dateStr);
             const formattedEndTime = getFormattedDateEndTime(newAppFormattedEndTime);
-    
             const currentDate = new Date();
             const _oldDate = new Date(oldDate);
             const scheduleDate = new Date(dateStr);
-    
             let schedule = await getScheduleByDate(scheduleDate);
-            let updatedAppointments = schedule.takenHours.appointments.filter(appointment => !appointment.appointmentId.equals(appointmentIdToFind));
-            
-            const isSameSchedule = updatedAppointments.length === schedule.takenHours.appointments.length;
+            const isInSchedule = isAppointmentIdInSchedule(appointmentIdToFind, schedule);
             const isPastDate = scheduleDate < currentDate;
-    
-            if (isSameSchedule) {
+            if (isInSchedule) {
                 if (isPastDate) {
                     throw new Error("Can't set appointment for past dates");
                 }
-                const isValidTime = checkValidTime(schedule, newAppFormattedStartTime, formattedEndTime);
-                const isTaken = checkTakenTime(updatedAppointments, newAppFormattedStartTime, newAppFormattedEndTime);
-    
-                if (!isValidTime || !isTaken) {
-                    throw new Error("Appointment time is invalid or already taken");
-                }
-                /*remove from old Schedule */
+            }
+            const isValidTime = checkValidTime(schedule, newAppFormattedStartTime, formattedEndTime);   
+            if (!isValidTime) {
+                throw new Error("Appointment time is invalid or already taken");
+            }
+            let updatedAppointments = schedule.takenHours.appointments;
+            const isTaken = checkTakenTime(updatedAppointments, newAppFormattedStartTime, newAppFormattedEndTime);
+            if (!isTaken) {
+                throw new Error("Appointment is taken");
+            }
+                            /*remove from old Schedule */
                 /*Update appointment*/ 
                 const newRescheduledAppointment = createNewAppointmentScheduleFormat(newAppFormattedStartTime, duration, appointmentIdToFind);
                 schedule.takenHours.appointments = updatedAppointments;
@@ -114,28 +111,7 @@ module.exports = {
                     schedRepo.removeAppointmentFromScheduleByAttributeAppointmentId(appointmentIdToFind, _oldDate);
                     await schedRepo.updateScheduleValueTwoKeys(schedule._id, "takenHours", "appointments", updatedAppointments);
                 }
-    
                 res.status(200).send(true);
-            } else {
-                if (isPastDate) {
-                    throw new Error("Can't set appointment for past dates");
-                }
-                const isValidTime = checkValidTime(schedule, newAppFormattedStartTime, formattedEndTime);
-                const isTaken = checkTakenTime(updatedAppointments, newAppFormattedStartTime, newAppFormattedEndTime);
-    
-                if (!isValidTime || !isTaken) {
-                    throw new Error("Appointment time is invalid or already taken");
-                }
-    
-                // Update appointment
-                const newRescheduledAppointment = createNewAppointmentScheduleFormat(newAppFormattedStartTime, duration, appointmentIdToFind);
-                schedule.takenHours.appointments = updatedAppointments;
-                schedule.takenHours.appointments.push(newRescheduledAppointment);
-                schedule.takenHours.appointments.sort();
-                await schedule.save();
-    
-                res.status(200).send(true);
-            }
         } catch (error) {
             console.error('Error rescheduling appointment:', error);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -152,6 +128,11 @@ module.exports = {
     }
 
 };
+function isAppointmentIdInSchedule(appointmentIdToFind, schedule) {
+    return schedule.takenHours.appointments.some(appointment => appointment.appointmentId.equals(appointmentIdToFind));
+}
+
+
 async function getScheduleByDate (newDate)
 {
     const day = newDate.getDate();
@@ -211,11 +192,18 @@ function calculateDuration(startTime, type, _date) {
     duration = (duration/1000/60/60);
     return endTime;
 }
+function addHoursToDate(dateString, hours) {
+    const date = new Date(dateString);
+    date.setHours(date.getHours() + hours);
+    return date.toISOString();
+}
+
 function getDurationByType(type) {
     switch (type) {
         case EnumType.VALUE1:
             return 2 * 60 * 60 * 1000; // 2 hours in milliseconds
         case EnumType.VALUE2:
+            return 3 * 60 * 60 * 1000;
         case EnumType.VALUE3:
             return 1 * 60 * 60 * 1000; // 1 hour in milliseconds
         default:

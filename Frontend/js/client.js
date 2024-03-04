@@ -65,7 +65,7 @@ window.onload = async () => {
 async function createNewClient(newClient) {
     try {
         console.log(newClient);
-        const response = await $.post(`${URL}/client/submitNewClient`, newClient);
+        const response = await $.post(`${URL}/client/submitNewClient, newClient`);
         console.log("New client created:", response);
         console.log(newClient);
         alert('Client created successfully.');

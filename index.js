@@ -54,7 +54,6 @@ const server = app.listen(port, () => {
     console.log("Server listening on port:", port);
 });
 
-// Create a Mongoose model using the schema
 
 // Now you can use the Schedule model to create new instances
 
