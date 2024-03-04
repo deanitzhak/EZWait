@@ -21,16 +21,25 @@ const URL = window.location.origin;
 
 window.onload = async () => {
     try {
-        my_user = await getUserName();
-        console.log("User data fetched successfully");
 
+        my_user = await getUserName();
+        
+        console.log("User data fetched successfully");
+       
+        // const datas = my_user.userName;
+        // const datas = myuser.email;
+        // document.getElementById('email').value =datas;
+        // console.log(datas);
+      
         console.log("im hereeeeeeeeeeeeeeeee");
 
         $('input[name="submit"]').click(async (e) => {
             e.preventDefault();
             console.log("im hereeeeeeeeeeeeeeeee");
-        
+            
+            
             try {
+                
                 const _newClient = await postSetClient();
 
                 console.log("can create new client",_newClient);
@@ -51,8 +60,7 @@ window.onload = async () => {
 //     // Assuming you have the user's email available in the variable 'userEmail'
     
 //     // Set the value of the email input field
-//     document.getElementById('email').value = client.email;
-//   });
+
 
 async function createNewClient(newClient) {
     try {
@@ -87,4 +95,12 @@ function postSetClient() {
         },
     };
     return formData;
+
+
+
 }
+
+
+// AJAX request to fetch user's email from the backend
+
+
