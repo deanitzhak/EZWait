@@ -97,57 +97,56 @@ window.onload = () => {
             }
         })();
     });
-    $('button[name="cancelled_click"]').click((e) => {
-        e.preventDefault(); 
-        (async () => {
-            try {
-                arrayData = findAppointmentsByStatus("Cancelled");
-                arrayData.then(data => {
-                    appointmentsArray = data;
-                    renderAppointments("cancelledAppointmentsList");        
-                }).catch(error => {
-                    console.error('Error fetching appointments:', error);
-                  });                  
-            } catch (error) {
-                console.error('Error occurred while fetching appointments:', error);
-            }
-        })();
-    });
 
 
-    $(document).on('click', '#Cancel_Appointment', async function(e) {
+    $(document).on('click', '#Cancel_Appointment', function(e) {
         e.preventDefault();
-        try {
-            currentAppointmentId = await getAppointmentId(); 
-            const cancelAppointment = appointmentsArray.find(appointment => appointment.appointmentId === currentAppointmentId);
-            await cancelScheduleAppointmentById(cancelAppointment);
-            statusCancelAppointment(currentAppointmentId, "cancelled");
-            window.location.reload();
-            currentAppointmentId = null;
-        } catch (error) {
-            // Handle errors
-            console.error('Error cancelling appointment:', error);
+        console.log("shircancel");
+        const appointmentId = $(this).closest('li').find('[data-appointment-id]').attr('data-appointment-id');
+        console.log(appointmentId,"shrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+        cancelAppointment(appointmentId); // Call function to cancel appointment
+    });
+    
+
+    
+};
+
+// function deleteAppointment(appointmentId) {
+//     $.ajax({
+//         url: `${URL}/appointment/findAppointmentByIdAndDelete`,
+//         method: 'GET',
+//         data: { _id: appointmentId },
+        
+//         success: function(appointments) {
+//         console.log(appointmentId,"appointmengdeket");
+//             console.log("Appointments: ", appointments);
+//             // If deletion is successful, remove the appointment from the UI
+//             // This step depends on your UI implementation
+//             // You may need to remove the appointment from the appointmentsArray and re-render the appointments list
+//         },
+//         error: function(err) {
+//             alert("Error occurred while deleting the appointment");
+//         }
+//     });
+// }
+function cancelAppointment(appointmentId) {
+    $.ajax({
+        url: `${URL}/appointment/updateAppointmentStatus`, // Assuming this is the endpoint to cancel appointments
+        method: 'PUT', // Use PUT method to update the appointment status
+     
+        data: { _id: appointmentId },
+        success: function(response) {
+            console.log("Appointment cancelled:", response);
+            // If cancellation is successful, you can handle any UI updates here
+            // For example, remove the cancelled appointment from the UI
+        },
+        error: function(err) {
+            console.log (appointmentId);
+            console.error("Error occurred while cancelling the appointment:", err);
+            alert("Error occurred while cancelling the appointment");
         }
     });
-    };
-    function statusCancelAppointment(_appointmentId) {
-        const currentAppointment = {
-            appointmentId: _appointmentId,
-            status: "Cancelled"
-        };
-        alert("Appointment has been cancelled");
-        return new Promise((resolve, reject) => {
-            $.post(`${URL}/appointment/updateAppointmentStatus`, currentAppointment)
-                .done((update) => {
-                    resolve(update); 
-                })
-                .fail((xhr, status, error) => {
-                    console.error("Failed to send to server:", error);
-                    reject(error); 
-                });
-        });
-    
-    }    
+}
 async function findAppointmentsByStatus(status) {
     try {
         const response = await fetch(`${URL}/appointment/findAllAppointmentByStatus?status=${status}`, {
@@ -166,8 +165,8 @@ async function findAppointmentsByStatus(status) {
         throw error;
     }
 }
-/*schedule new appointment*/
-async function scheduleNewAppointment(newAppointment) {
+/*new app*/
+async function getStartAndEndTimeFromUser(newAppointment) {
     try {
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
         const response = await fetch(`${URL}/scheduler/scheduleNewAppointment?newAppointment=${queryParams}`, {

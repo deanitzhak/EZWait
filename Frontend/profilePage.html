@@ -89,7 +89,7 @@
                     </div>
                   </div>
                   <div class="formbold-mb-3">
-                  <button onclick="openInputFields()" class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">+ Add Family Member</button>
+                  <button onclick="openInputFields()" class="btn btn-dark">+ Add Family Member</button>
                   <div id="itemsContainer"></div>
                   </div>
                   <table>
@@ -170,21 +170,6 @@
     }
 </script>
   <script>
-    function openCity(evt, cityName) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(cityName).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-    // Get the element with id="defaultOpen" and click on it
-    document.getElementById("defaultOpen").click();
-  </script>
+     </script>
 </body>
 </html>

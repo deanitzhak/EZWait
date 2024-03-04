@@ -47,12 +47,12 @@ window.onload = async () => {
     }
 };
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Assuming you have the user's email available in the variable 'userEmail'
+// document.addEventListener('DOMContentLoaded', function() {
+//     // Assuming you have the user's email available in the variable 'userEmail'
     
-    // Set the value of the email input field
-    document.getElementById('email').value = client.email;
-  });
+//     // Set the value of the email input field
+//     document.getElementById('email').value = client.email;
+//   });
 
 async function createNewClient(newClient) {
     try {

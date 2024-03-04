@@ -6,6 +6,8 @@ const path = require('path');
 const Schedule = require('./models/schedule.model');
 
 /*APIs*/
+const profileRouter = require('./routers/profileRouter');
+
 const fileLoaderRouter = require('./routers/fileLoaderRouter');
 const loginRouter = require('./routers/logInRouter');
 const appointmentRouter = require('./routers/appointmentRouter');
@@ -29,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/login', loginRouter);
 app.use('/appointment', appointmentRouter);
 app.use('/client', clientRouter);
+app.use('/profile',profileRouter);
 app.use('/user', userRouter);
 app.use("/messegeReplay",messegeReplayRouter);
 app.use("/messegeSent",messegeSentRouter);
