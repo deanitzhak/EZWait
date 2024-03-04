@@ -559,6 +559,9 @@ body {
     .col-md-offset-6 {
       margin-left: 50%;
     }
+    #signupbtn{
+     text-align: center;
+    }
 
     .col-md-offset-5 {
       margin-left: 41.66666667%;
@@ -950,6 +953,16 @@ body {
   input[type="date"] {
     line-height: 34px;
   }
+
+  #addmemberbtn{
+    font-family: 'Poppins';
+    border-radius: 5px;
+    height: 50px;
+    font-weight: 500;
+    margin: 5px;
+    position: relative;
+    box-shadow: none;
+}
 
   .form-group {
     margin-bottom: 15px;
@@ -4752,6 +4765,16 @@ body {
 
   }
 
+  #submitProfile{
+    background-color: #5A1AB7;
+    color: white;
+    height: 50px;
+    width: 20%;
+    box-shadow: none;
+    position: relative;
+    margin-left: 2px;
+}
+
   .navbar-header {
     background: #5A1AB7;
   }
@@ -4993,7 +5016,7 @@ body {
     border-radius: 10px;
     border: 1px solid #dde3ec;
     background: #ffffff;
-    font-weight: 500;
+  
     font-size: 16px;
     color: black;
     outline: none;
@@ -5741,12 +5764,14 @@ body {
 
 
   .modal-box {
-    top: 40%;
-    opacity: 0;
-    visibility: hidden;
+    top: 10%;
+    /* opacity: 0; */
+    /* visibility: hidden; */
+    margin-left: 40%;
     background: white;
     height: auto;
     width: 480px;
+    position: absolute;
     margin-top: 140px;
     padding: 18px 10px;
     border-radius: 5px;
@@ -5828,7 +5853,7 @@ body {
     border-radius: 3px;
   }
 
-  .form_container .btn input[type="submit"] {
+  /* .form_container .btn input[type="submit"] {
     background: #6271f0;
     border: 1px solid #6271f0;
     padding: 10px;
@@ -5836,5 +5861,16 @@ body {
     border-radius: 3px;
     cursor: pointer;
     color: #fff;
-  }
+  } */
+
+  .py-6 {
+    padding-top: 3rem !important; 
+    padding-bottom: 3rem !important;
+}
+
+
+  .py-6 {
+    padding-top: 3rem !important; 
+    padding-bottom: 3rem !important;
+}
 

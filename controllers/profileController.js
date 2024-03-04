@@ -1,8 +1,10 @@
-const { appointment } = require('../frontend/js/APIpath');
-const profile = require('../models/profile.model');
-const ProfileRepository = require('../repository/profile.repository');
+// UserController.js
 
-const appRepo = new ProfileRepository(profile);
+// const { client } = require('../frontend/js/APIpath');
+const profile = require('../models/profile.model');
+const profileRepository = require('../repository/profile.repository');
+const profileService = require('../service/profileService');
+const appRepo = new profileRepository(profile);
 module.exports = {
     getAllprofile: (req, res) => {
       appRepo.find()
@@ -28,7 +30,7 @@ module.exports = {
               if (profile) {
                   res.send(profile);
               } else {
-                  res.status(404).send("Profile not found");
+                  res.status(404).send("profile not found");
               }
           })
           .catch(err => {
@@ -48,9 +50,9 @@ module.exports = {
     }
 },
 
-  async findAllProfileByStatus(req, res) {
+  async findAllProfileByType(req, res) {
     try {
-        const profiles = await appRepo.findByStatus(req.query.status);
+        const profiles = await appRepo.findByType(req.query.status);
         res.status(200).send(profiles);
     } catch (error) {
         console.error(error);
@@ -59,10 +61,11 @@ module.exports = {
 },
     async submitNewProfile(req, res) {
     try {
+      console.log("hey");
       const newApp = await profileService.createNewProfile(req.body);
-      console.log(newApp);
+      console.log("this is my profile : - >",newApp);
       appRepo.create(newApp);
-      res.status(200).send("New profile created successfully");
+      res.status(200).send("New clprofile ient created successfully");
       
     } catch (error) {
       console.error(error);
@@ -70,24 +73,24 @@ module.exports = {
     }
   },
 
-  findProfileByAppIdAndUpdateStatus: (req, res) => {
-    const appointmentId = req.body._id;
-    const newStatus = "block"; // Define the new status, for example, "cancelled"
+//   findClientByAppIdAndUpdateStatus: (req, res) => {
+//     const clientId = req.body._id;
+//     const newStatus = "block"; // Define the new status, for example, "cancelled"
 
-    // Update the appointment status in the database
-    appRepo.updateAppointmentStatus(profileID, newStatus)
-        .then(updatedProfile => {
-            if (updatedProfile) {
-                res.send(updatedProfile);
-            } else {
-                res.status(404).send("profile not found");
-            }
-        })
-        .catch(err => {
-            console.error("Error updating profile status:", err);
-            res.status(500).send("Internal server error");
-        });
-  }
+//     // Update the appointment status in the database
+//     appRepo.updateClientStatus(clientId, newStatus)
+//         .then(updatedClient => {
+//             if (updatedClient) {
+//                 res.send(updatedClient);
+//             } else {
+//                 res.status(404).send("client not found");
+//             }
+//         })
+//         .catch(err => {
+//             console.error("Error updating client status:", err);
+//             res.status(500).send("Internal server error");
+//         });
+//   }
   
 };
 

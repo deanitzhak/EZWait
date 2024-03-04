@@ -1,4 +1,4 @@
-function postSetAppointment() {
+function createNewAppointmentFromUserData() {
     const formData = {
       Appointment: {
         firstname: $("input[name=Type]").val(),
@@ -29,7 +29,7 @@ function postSetAppointment() {
     $(document).on("click", "#submit", function (e) {
       e.preventDefault();
       //alert("herrre");
-      postSetAppointment();
+      createNewAppointmentFromUserData();
     });
   }
   
