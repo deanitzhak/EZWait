@@ -111,6 +111,8 @@ module.exports = {
                     await schedule.save();
                 } else {
                     /*update new Schedule*/
+                    console.log("appointmentId :::::::::::::::::::", schedule._id);
+
                     schedRepo.removeAppointmentFromScheduleByAttributeAppointmentId(appointmentIdToFind, _oldDate);
                     await schedRepo.updateScheduleValueTwoKeys(schedule._id, "takenHours", "appointments", updatedAppointments);
                 }

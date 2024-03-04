@@ -264,11 +264,13 @@ function createNewAppointmentFromUserData(_appointmentId) {
     };
     return formData;
 }
-async function createRescheduleAppointment(currentAppointment)
+async function createRescheduleAppointment()
 {
+    let currentAppointment ;
     currentAppointment.type = document.getElementById('din').value;
     currentAppointment.date = document.getElementById('nave').value;
     currentAppointment.startTime = document.getElementById('tomer').value;
+    console.log("popopospos",currentAppointment);
     return currentAppointment;
 }
 /*Invoke HTML object*/ 

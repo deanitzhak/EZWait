@@ -4,7 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Schedule = require('./models/schedule.model');
-
 /*APIs*/
 const fileLoaderRouter = require('./routers/fileLoaderRouter');
 const loginRouter = require('./routers/logInRouter');
@@ -48,6 +47,4 @@ const server = app.listen(port, () => {
     console.log("Server listening on port:", port);
 });
 
-// Create a Mongoose model using the schema
 
-// Now you can use the Schedule model to create new instances

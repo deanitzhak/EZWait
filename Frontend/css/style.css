@@ -5741,12 +5741,14 @@ body {
 
 
   .modal-box {
-    top: 40%;
-    opacity: 0;
-    visibility: hidden;
+    top: 10%;
+    /* opacity: 0; */
+    /* visibility: hidden; */
+    margin-left: 40%;
     background: white;
     height: auto;
     width: 480px;
+    position: absolute;
     margin-top: 140px;
     padding: 18px 10px;
     border-radius: 5px;
@@ -5837,4 +5839,9 @@ body {
     cursor: pointer;
     color: #fff;
   }
+
+  .py-6 {
+    padding-top: 3rem !important; 
+    padding-bottom: 3rem !important;
+}
 
