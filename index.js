@@ -4,14 +4,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 /*APIs*/
-const profileRouter = require('./routers/profileRouter');
-
 const fileLoaderRouter = require('./routers/fileLoaderRouter');
 const loginRouter = require('./routers/logInRouter');
 const appointmentRouter = require('./routers/appointmentRouter');
 const userRouter = require('./routers/userRouter');
-// const messegeReplayRouter = require('./routers/messegeReplayRouter');
-// const messegeSentRouter = require('./routers/messegeSentRouter');
 const scheduleRouter = require('./routers/scheduleRouter');
 const schedulerRouter = require('./routers/schedulerRouter');
 const clientRouter = require('./routers/clientRouter');
@@ -29,10 +25,7 @@ app.use(express.static(path.join(__dirname, 'frontend')));
 app.use('/login', loginRouter);
 app.use('/appointment', appointmentRouter);
 app.use('/client', clientRouter);
-app.use('/profile',profileRouter);
 app.use('/user', userRouter);
-// app.use("/messegeReplay",messegeReplayRouter);
-// app.use("/messegeSent",messegeSentRouter);
 app.use("/schedule",scheduleRouter);
 app.use('/scheduler', schedulerRouter);
 /*Mongo connectig*/
@@ -48,5 +41,37 @@ mongoStorageInstance.connect()
 const server = app.listen(port, () => {
     console.log("Server listening on port:", port);
 });
+/**/
+/*
+const { ObjectId } = require("mongodb");
+const Profile = require("./models/profile.model");
+const userTypeEnum = ['user', 'admin'];
 
+async function createProfiles() {
+    try {
+        const profilesData = new Profile({
+            userId: new ObjectId(),
+            userName: "NaveM",
+            firstName: "Nave",
+            lastName: "Mayimon",
+            email: "Ezwait@gmail.com",
+            password: "111111",
+            status: true,
+            type: userTypeEnum[2], 
+            createdAt: new Date(),
+            cancelCount: 0
+        });
 
+        const createdProfile = await profilesData.save();
+        console.log("Profile created:", createdProfile);
+    } catch (error) {
+        console.error("Error creating profile:", error);
+    }
+}
+*/
+// Call the function to create a profile
+//createProfiles();
+
+/*{ userId : new ObjectId(),userName: "DeanI", firstName: "Dean", lastName: "Itzhak",email: "Ezwait@gmail.com" , password: "111111", status:true ,type: true, createdAt: new Date(), cancelCount: 0  },
+{ userId : new ObjectId(),userName: "ShirA", firstName: "Shir", lastName: "Amar",email: "Ezwait@gmail.com" , password: "111111", status:true ,type: true, createdAt: new Date(), cancelCount: 0 },
+{ userId : new ObjectId(),userName: "NaveM", firstName: "Nave", lastName: "Mayimon",email: "Ezwait@gmail.com" , password: "111111", status:true ,type: true, createdAt: new Date(), cancelCount: 0  }*/

@@ -31,6 +31,7 @@ async function createNewAppointment(newAppointmentJSON) {
         duration : newAppointmentJSON.Appointment.duration,
         timeStamp: new Date()
     });
+    console.log(newAppointment);
     return newAppointment; 
 }
 async  function updateNewAppointment(newAppointmentJSON) {
