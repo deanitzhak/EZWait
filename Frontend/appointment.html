@@ -82,6 +82,7 @@
       <div>S</div>
     </div>
     <div id="calendarGrid" class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
+      
     </div>
  <div class="start-btn">
                 </div>
@@ -93,6 +94,11 @@
                     background-color: #6b46c1; /* Change this color as needed */
                     color: white;
                   }
+                  @media (min-width: 1024px){
+
+.lg\:grid {
+    display: block;}
+}
                 </style>
                     </div>
                   <!-- <ul class="list list-inline" id="appointmentsList"> -->
@@ -102,7 +108,7 @@
                       </ol>
                       </div>
                       </div>
-                      <div class="center modal-box" id="shir">
+                      <div class="center modal-box hidden" id="shir">
                         <div class="fa fa-close" onclick="toggleModal()"></div>
                         <div class="form_container">
                           <form name="form" >
