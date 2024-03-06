@@ -87,10 +87,10 @@ function postSetClient() {
             email: my_user.email,
             phone: document.getElementById('phone').value,
             address: document.getElementById('address').value,
-            subfirstName: document.getElementById('subfirstName').value,
-            sublastName: document.getElementById('sublastName').value,
-            subgender: document.getElementById('subGender').value,
-            subdateOfBirth: document.getElementById('subDateofBirth').value,
+            // subfirstName: document.getElementById('subfirstName').value,
+            // sublastName: document.getElementById('sublastName').value,
+            // subgender: document.getElementById('subGender').value,
+            // subdateOfBirth: document.getElementById('subDateofBirth').value,
          
         },
     };
