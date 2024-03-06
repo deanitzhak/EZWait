@@ -20,8 +20,10 @@ const userRouter = require('./routers/userRouter');
 const scheduleRouter = require('./routers/scheduleRouter');
 const schedulerRouter = require('./routers/schedulerRouter');
 const clientRouter = require('./routers/clientRouter');
+const {appointmentStatusUpdate} = require("./frontend/js/cron.job");
 const MongoStorage = require('./db/mongo.storage');
 /inintialize environment exucting/
+appointmentStatusUpdate();
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT ;

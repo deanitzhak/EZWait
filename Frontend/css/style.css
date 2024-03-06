@@ -18,9 +18,9 @@ body {
     padding: 0;
   }
 
-  img, video {
+  /* img, video {
     max-width: none!important;
-  }
+  } */
 
   article,
   aside,
