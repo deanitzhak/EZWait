@@ -75,7 +75,6 @@ async function createNewClient(newClient) {
         throw error; // Rethrow the error for further handling
     }
 }
-
 function postSetClient() {
     const formData = {
         Client: {
@@ -87,18 +86,49 @@ function postSetClient() {
             email: my_user.email,
             phone: document.getElementById('phone').value,
             address: document.getElementById('address').value,
-            subfirstName: document.getElementById('subfirstName').value,
-            sublastName: document.getElementById('sublastName').value,
-            subgender: document.getElementById('subGender').value,
-            subdateOfBirth: document.getElementById('subDateofBirth').value,
-         
-        },
+            subClients: [] // Initialize an array for subclients
+        }
+        
+    
     };
+
+    // Loop through the input fields for subclients
+    var index = 1; // Start index for subclients
+    while (true) {
+        // Construct the IDs for subclient input fields
+        var subfirstNameId = 'subfirstName' + index;
+        var sublastNameId = 'sublastName' + index;
+        var subgenderId = 'subGender' + index;
+        var subdateOfBirthId = 'subDateofBirth' + index;
+
+        // Get the values from the input fields
+        var subfirstName = document.getElementById(subfirstNameId);
+        var sublastName = document.getElementById(sublastNameId);
+        var subgender = document.getElementById(subgenderId);
+        var subdateOfBirth = document.getElementById(subdateOfBirthId);
+
+        // Check if the input fields exist
+        if (!subfirstName || !sublastName || !subgender || !subdateOfBirth) {
+            break; // Exit the loop if input fields don't exist
+        }
+
+        // Add subclient data to the formData
+        formData.Client.subClients.push({
+            subfirstName: subfirstName.value,
+            sublastName: sublastName.value,
+            subgender: subgender.value,
+            subdateOfBirth: subdateOfBirth.value
+        });
+
+        index++; // Increment index for the next set of subclients
+    }
+
     return formData;
-
-
-
 }
+
+
+
+
 
 
 // AJAX request to fetch user's email from the backend

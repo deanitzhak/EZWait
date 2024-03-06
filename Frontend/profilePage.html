@@ -177,37 +177,46 @@
             // console.error('Element with ID "firstName" not found in the document');
         
 
+// Define a global variable to keep track of the index
+var index = 1;
 
-    function openInputFields() {
-        var itemsContainer = document.getElementById("itemsContainer");
-        var newItemDiv = document.createElement("div");
-        var newItemDiv = document.createElement("label");
-        newItemDiv.textContent = "memeber client";
-        newItemDiv.className = "formbold-form-input formbold-mb-3";
-       
+function openInputFields() {
+    var itemsContainer = document.getElementById("itemsContainer");
 
-        var fistInput = createInput("text", "subfirstName",);
-        var lastInput = createInput("text", "sublastName",);
-        var dobInput = createInput("date", "subDateofBirth",);
-        var genderInput = createInput("text", "subGender");
+    // Create a new label
+    var newItemDiv = document.createElement("label");
+    newItemDiv.textContent = "Member client";
+    newItemDiv.className = "formbold-form-input formbold-mb-3";
 
-        newItemDiv.appendChild(fistInput);
-        newItemDiv.appendChild(lastInput);
-        newItemDiv.appendChild(dobInput);
-        newItemDiv.appendChild(genderInput);
-        itemsContainer.appendChild(newItemDiv);
-    }
+    // Create input fields dynamically with unique IDs
+    var fistInput = createInput("text", "subfirstName" + index);
+    var lastInput = createInput("text", "sublastName" + index);
+    var dobInput = createInput("date", "subDateofBirth" + index);
+    var genderInput = createInput("text", "subGender" + index);
 
-    function createInput(type, placeholder) {
-    
-        var input = document.createElement("input");
-        input.type = type;
-        input.placeholder = placeholder;
-        input.id = placeholder;
-        input.className = "formbold-form-input";
-      
-        return input;
-    }
+    // Increment the index for the next function call
+    index++;
+
+    // Append input fields to the label
+    newItemDiv.appendChild(fistInput);
+    newItemDiv.appendChild(lastInput);
+    newItemDiv.appendChild(dobInput);
+    newItemDiv.appendChild(genderInput);
+
+    // Append the label to the container
+    itemsContainer.appendChild(newItemDiv);
+}
+
+function createInput(type, placeholder) {
+    var input = document.createElement("input");
+    input.type = type;
+    input.placeholder = placeholder;
+    input.id = placeholder;
+    input.className = "formbold-form-input";
+
+    return input;
+}
+
 
    
 </script>
