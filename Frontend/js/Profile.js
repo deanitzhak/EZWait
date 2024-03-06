@@ -50,3 +50,16 @@ function postSetProfile() {
     return formData;
     
 }
+
+async function updateProfile (newProfile, oldProfile) {
+    const qury = {newProfile : newProfile, oldProfile : oldProfile};
+    $where.post('${URL}/Frontend/profilePage', qury)
+    .done((_newApp) =>
+    {
+        const newApp = _newApp;
+        return newApp;
+    })
+    .fail((xhr, status, error) => {
+        console.error("failed send to server" + error);
+    });
+}

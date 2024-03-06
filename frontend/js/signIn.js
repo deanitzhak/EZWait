@@ -20,3 +20,16 @@ $(document).ready(() => {
             });
     });
 });
+
+async function updateSignIn (newSignIn, oldSignIn) {
+    const qury = {newSignIn : newSignIn, oldSignIn : oldSignIn};
+    $where.post('${URL}/Frontend/signIn', qury)
+    .done((_newApp) =>
+    {
+        const newApp = _newApp;
+        return newApp;
+    })
+    .fail((xhr, status, error) => {
+        console.error("failed send to server" + error);
+    });
+}

@@ -1,3 +1,20 @@
+const domain = 'http://localhost:3000';
+export const APIpaths = {
+    appointment: domain + "Frontend/appointment",
+    conection: domain + "Frontend/conection",
+    CustomerList: domain + "Frontend/CustomerList",
+    profilePage: domain + "Frontend/profilePage",
+    signIn: domain + "Frontend/signIn",
+    signup: domain + "Frontend/signup",
+    // sendMail: domain + "/api/mail/sendMail",
+    // createTemplate: domain + "/api/templates",
+    // editTemplate: domain + "/api/templates",
+    // deleteTemplate: domain + "/api/templates",
+    // numTemplates: domain + "/api/templates/num",
+    // welcomeHTML: domain + "/api/welcomeHTML",
+    domain: domain,
+};
+  
 function createNewAppointmentFromUserData() {
     const formData = {
       Appointment: {
@@ -9,8 +26,7 @@ function createNewAppointmentFromUserData() {
       },
     };
     $.ajax({
-    //   url: APIpaths["appointment"],
-    
+    //   url: paths["appointment"],
       url: ["http://localhost:3000/appointment.html"],
       type: "POST",
       data: formData,
@@ -24,7 +40,6 @@ function createNewAppointmentFromUserData() {
         $("error-handler").html(JSON.stringify(message));
       });
   }
-
   function clickSubmit() {
     $(document).on("click", "#submit", function (e) {
       e.preventDefault();
@@ -32,5 +47,4 @@ function createNewAppointmentFromUserData() {
       createNewAppointmentFromUserData();
     });
   }
-  
   

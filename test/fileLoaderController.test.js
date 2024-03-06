@@ -12,7 +12,7 @@ describe('File Loader Controller', () => {
     describe('GET /signIn.html', () => {
       it('should return the sign-in page', (done) => {
         chai.request(app)
-          .get('Frontend/signIn.html')
+          .get('../Frontend/signIn.html')
           .end((err, res) => {
             expect(res).to.have.status(200);
             done();

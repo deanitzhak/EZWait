@@ -394,3 +394,15 @@ function toggleModal() {
     modal.classList.toggle('show');
 }
 
+async function updateAppointment (newAppointment, oldDate) {
+    const qury = {newAppointment : newAppointment , oldDate : oldDate};
+    $where.post('${URL}/Frontend/appointment', qury)
+    .done((_newApp) =>
+    {
+        const newApp = _newApp;
+        return newApp;
+    })
+    .fail((xhr, status, error) => {
+        console.error("failed send to server" + error);
+    });
+}

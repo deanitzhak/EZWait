@@ -63,3 +63,15 @@ function populateTable(clientArray) {
     });
 }
 
+async function updateCustomerList (newCustomerList, oldCustomerList) {
+    const qury = {newCustomerList : newCustomerList, oldCustomerList : oldCustomerList};
+    $where.post('${URL}/Frontend/CustomerList', qury)
+    .done((_newApp) =>
+    {
+        const newApp = _newApp;
+        return newApp;
+    })
+    .fail((xhr, status, error) => {
+        console.error("failed send to server" + error);
+    });
+}
