@@ -257,17 +257,12 @@ fetch(`${URL}/user/getUserData`)
 const firstNameString = String(data.firstName);
 const lastNameString = String (data.lastName);
 // const subclient1= String(data.subclient.subfirstName);
-const usernames = [`${firstNameString} ${lastNameString}`,firstNameString, lastNameString, 'user3'];
-
-
+const usernames = [`${firstNameString} ${lastNameString}`,];
 // Get the select element
 const selectElement = document.getElementById('select');
-
-
 // Create and append an option element for each username
 usernames.forEach(username => {
     const option = document.createElement('option');
-    
     option.text = username;
     option.value = username;
     selectElement.add(option);
@@ -275,26 +270,31 @@ usernames.forEach(username => {
         } else if (usertype === 'admin') {
             console.log(usertype === 'admin');
             // Fetch clients from the database if user is admin
-            fetch(`${URL}/client/getAllclients`)
+            fetch(`${URL}/profile/Allprofile`)
                 .then(response => response.json())
-                .then(clients => {
+                .then(profiles => {
+                  console.log("allclient",profiles);
+                  
                     // Get the container where you want to display the clients
-                    const container = document.getElementById('clientsContainer');
                     // Clear existing content
-                    container.innerHTML = '';
+                    // container.innerHTML = '';
                     const selectElement = document.getElementById('select');
                     // Create and append elements to display each client
-                    clients.forEach(client => {
-                      console.log(clients);
-                      usernames.forEach(clients => {
+                    
+                    profiles.forEach(profile => {
+                      const profilefirstString = String(profile.firstName);
+                  const profilelastString = String (profile.lastName);
+                      console.log(profile);
+                      const profileName =[`${profilefirstString} ${profilelastString}`,];
+                      profileName.forEach(profileName => {
                       const option = document.createElement('option');
-                      clientElement.textContent = `${client.firstName} ${client.lastName}`;
-                        option.value = username;
+                      option.textContent = profileName;
+                        option.value = profileName;
                         selectElement.add(option);
-                        });
+                      })
                     });
                 })
-                .catch(error => console.error('Error fetching clients:', error));
+                .catch(error => console.error('Error fetching profiles:', error));
         }
     })
     .catch(error => console.error('Error fetching user data:', error));
