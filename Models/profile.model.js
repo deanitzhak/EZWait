@@ -9,7 +9,7 @@ const profileSchema = new Schema(
         email: { type: String },
         password: { type: String },
         status: { type: Boolean },
-        type: { type: Boolean }, /*true = admin , false = client*/
+        type: {type: String, enum: ['user', 'admin'] },
         createdAt: { type: Date, default: Date.now }, 
         cancelCount: { type: Number, default: 0 } 
     },

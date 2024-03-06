@@ -1,442 +1,228 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ezwait - Appointment</title>
-    <!-- <link rel="stylesheet" type="text/css" href="./css/style.css"> -->
-    <link href="https://ezwait.onrender.com/css/style.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Ezwait - calendar</title>
+  <!-- Bootstrap Styles-->
+  <!-- FontAwesome Styles-->
+  <!-- Custom Styles-->
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <!-- Google Fonts-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="./js/appointment.js"></script>
+
 </head>
 <body>
     <div id="wrapper" style="zoom: 67%;">
-        <nav class="navbar navbar-default top-navbar" role="navigation">
-            <!-- <p>Hello, Shir</p> -->
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html"><img src="./img/Group 20.png" alt="Logof" class="logof"></a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                </button>
-            </div>
-            </ul>
-            <button id="userName" class="btn" id="enter" >shir</button>
-        </nav>
-        <!--/. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-                    <li><a href="index.html"><img src="./img/appointment.png" alt="Logo" class="logo"></i></a></li>
-                    <li><a href="CustomerList.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a>
-                    </li>
-                    <li><a href="SendMessege.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a>
+      <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html"><img src="./img/Group 20.png" alt="Logof" class="logof"></a>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        </ul>
+        <button type="button" class="btn btn-primary">Danielle Bernstein</button>
+      </nav>
+      <!--/. NAV TOP  -->
+      <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li><a href="index.html"><img src="./img/appointment.png" alt="Logo" class="logo"></i></a></li>
+                <li id="customersLink"><a href="CustomerList.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a></li>
                 </li>
-                    <li><a href="profilePage.html"><img src="./img/Services.png" alt="Logo" class="logo"></i></a></li>
-                    <li><a href="signIn.html"><img src="./img/Logout.png" alt="Logo" class="logo"></i></a></li>
-                </ul>
-            </div>
-        </nav>
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper">
-            <div id="page-inner">
-                    <!-- Button trigger modal -->
-                    <div class="start-btn">
-                        <a href="#">Add Appointment</a>
-                    </div>
-                    <div class="tab">
-                        <button class="tablinks" onclick="openCity(event, 'Upcoming')" id="defaultOpen" name="upcoming_click">Upcoming</button>
-                        <button class="tablinks" onclick="openCity(event, 'Completed')" name="completed_click">Completed</button>
-                        <button class="tablinks" onclick="openCity(event, 'Cancelled')" name="cancelled_click">Cancelled</button>
-                    </div>
-                    <div id="Upcoming" class="tabcontent">
-                        <div class="mt-3">
-                            <ul class="list list-inline" id="appointmentsList">
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <div class="cd-popup" role="alert">
-                                            <div class="cd-popup-container">
-                                                <p>Are you sure you want to cancel this Appointment?</p>
-                                                <ul class="cd-buttons">
-                                                    <li><a href="#0">Yes</a></li>
-                                                    <li><a href="#0">No</a></li>
-                                                </ul>
-                                                <a href="#0" class="cd-popup-close img-replace">Close</a>
-                                            </div> <!-- cd-popup-container -->
-                                        </div> <!-- cd-popup -->
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <!-- <a href="#0" class="cd-popup-trigger">Cancel Appointment</a>
-                                        <button class="Reschedule">Reschedule</button> -->
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <button a href="#0" class="cd-popup-trigger" id="Cancel_Appointment">Cancel Appointment</a></button>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <a href="#0" class="cd-popup-trigger" name="Cancel_Appointment">Cancel Appointment</a>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <a href="#0" class="cd-popup-trigger"  name="Cancel_Appointment" >Cancel Appointment</a>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <a href="#0" class="cd-popup-trigger" name="Cancel_Appointment">Cancel Appointment</a>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="Completed" class="tabcontent">
-                        <div class="mt-3">
-                            <ul class="list list-inline" id="complitedAppointmentsList">
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2">Monday 08:00-09:00 July 31, 2023 </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"> </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"> </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"> </span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div id="Cancelled" class="tabcontent">
-                        <div class="mt-3">
-                            <ul class="list list-inline" id="cancelledAppointmentsList">
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                                <li class="d-flex justify-content-between">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="ml-2">
-                                            <h1 class="mb-0"></h1>
-                                            <h2></h2>
-                                            <div class="d-flex flex-row mt-1 text-black-50 date-time">
-                                                <div><i class="fa fa-calendar-o"></i><span class="ml-2"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row align-items-center">
-                                        <div class="d-flex flex-column mr-2">
-                                        </div>
-                                        <button class="Reschedule">Reschedule</button>
-                                </li>
-                            </ul>
-                        </div>
-
-            </div>
+                <li><a href="SendMessege.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a>
+            </li>
+                <li><a href="profilePage.html"><img src="./img/Services.png" alt="Logo" class="logo"></i></a></li>
+                <li><a href="signIn.html"><img src="./img/Logout.png" alt="Logo" class="logo"></i></a></li>
+            </ul>
         </div>
+    </nav>
+      <!-- /. NAV SIDE  -->
+      <div id="page-wrapper">
+        <div id="page-inner" style="zoom: 120%;">
+            <div>
+              <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'Upcoming')" id="defaultOpen" name="upcoming_click">Upcoming</button>
+                <button class="tablinks" onclick="openCity(event, 'Completed')" name="completed_click">Completed</button>
+                <button class="tablinks" onclick="openCity(event, 'Cancelled')" name="cancelled_click">Cancelled</button>
+                </div>
+                <div class="lg:grid lg:grid-cols-12 lg:gap-x-16" id="Upcoming" class="tabcontent">
+                   <div class="mt-10 text-center lg:col-start-8 lg:col-end-13 lg:row-start-1 lg:mt-9 xl:col-start-9">
+    <div class="flex items-center text-gray-900">
+      <button type="button" onclick="changeMonth(-1)" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
+        <span class="sr-only">Previous month</span>
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div class="flex-auto text-sm font-semibold" id="currentMonth">March</div>
+      <button type="button" onclick="changeMonth(1)" class="-m-1.5 flex flex-none items-center justify-center p-1.5 text-gray-400 hover:text-gray-500">
+        <span class="sr-only">Next month</span>
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+    <div class="mt-6 grid grid-cols-7 text-xs leading-6 text-gray-500">
+      <div>S</div>
+      <div>M</div>
+      <div>T</div>
+      <div>W</div>
+      <div>T</div>
+      <div>F</div>
+      <div>S</div>
+    </div>
+    <div id="calendarGrid" class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-gray-200 text-sm shadow ring-1 ring-gray-200">
       
+    </div>
+ <!-- <div class="start-btn">
+                    <a href="#" class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onclick="toggleModal()">Add Appointment</a>
+                </div> -->
+                <button type="button" class="mt-8 w-full rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onclick="toggleModal()" href="#">Add Appointment</button>
+           
+                <style>
+                  /* Your CSS styles here */
+                  .selected-date {
+                    background-color: #6b46c1; /* Change this color as needed */
+                    color: white;
+                  }
+                  @media (min-width: 1024px){
 
-        <!-- <script src="js/jquery-3.3.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/appointment.js"></script> -->
-        <script type="module" src="https://ezwait.onrender.com/js/appointment.js"></script>
-        <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8525a0d1c9641890","version":"2024.2.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-</ul>
-</div>
-</div>
-<div class="center modal-box" id="shir">
-    <div class="fa fa-close"></div>
-    <div class="form_container">
-        <form name="form" >
-            <div class="w-full sm:w-half formbold-px-3">
-                <div class="formbold-mb-5 w-full">
-                    <label for="type" class="formbold-form-label">Client full name</label>
-                    <select class="formbold-form-input" name="shir" id="select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                    </label>
-                </div>
-                <div class="formbold-mb-5">
-                    <label for="type" class="formbold-form-label"> Type </label>
-                    <select class="formbold-form-input" name="din" id="din">
-                        <option value="1">value1</option>
-                        <option value="2">value2</option>
-                        <option value="3">value3</option>    
-                    </select>
-                    </label>
-                </div>
-            </div>
-            <div class="form_wrap">
-                <div class="w-full sm:w-half formbold-px-3">
-                    <div class="formbold-mb-5 w-full">
-                        <label for="date" class="formbold-form-label">Date</label>
-                        <input type="date" name="date" id="nave" class="formbold-form-input"  />
+.lg\:grid {
+    display: block;}
+}
+                </style>
                     </div>
-                </div>
-            </div>
-            <div class="w-full sm:w-half formbold-px-3">
-                <div class="formbold-mb-5">
-                    <label for="time" class="formbold-form-label">Time</label>
-                    <input type="time" name="time" id="tomer" class="formbold-form-input"  />
-                </div>
-            </div>
-            
-            <button class="formbold-btn" name="form_submit">Submit</button>
-            </div>
-            </form>
-        </div>
-        </div>
-        <!-- /. ROW  -->
-        </div>
-        <!-- /. PAGE INNER  -->
-        </div>
-        <!-- /. PAGE WRAPPER  -->
-        </div>
-        <!-- /. WRAPPER  -->
-        <!-- JS Scripts-->
-        <!-- jQuery Js -->
-        <script src="assets/js/jquery-1.10.2.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- Bootstrap Js -->
-        <script src="assets/js/bootstrap.min.js"></script>
-        <!-- Metis Menu Js -->
-        <!-- <script src="assets/js/jquery.metisMenu.js"></script> -->
-        <!-- Custom Js -->
-        <!-- <script src="assets/js/custom-scripts.js"></script> -->
-        <script>
-            function openCity(evt, cityName) {
+                  <!-- <ul class="list list-inline" id="appointmentsList"> -->
+                    <ol class="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8" id="appointmentsList">
+                      
+                      
+                      </ol>
+                      </div>
+                      </div>
+                      <div class="center modal-box hidden" id="shir">
+                        <div class="fa fa-close"  onclick="toggleModal()"><img src="./img/close.png"></div>
+                        <div class="form_container">
+                          <form name="form" >
+                            <div class="w-full sm:w-half formbold-px-3">
+                                <div class="formbold-mb-5 w-full">
+                                    <label for="type" class="formbold-form-label">Client full name</label>
+                                    <select class="formbold-form-input" name="shir" id="select">
+                                   
+                                    </select>
+                                    </label>
+                                </div>
+                                <div class="formbold-mb-5">
+                                    <label for="type" class="formbold-form-label"> Type </label>
+                                    <select class="formbold-form-input" name="din" id="din">
+                                        <option value="1">value2</option>
+                                        <option value="2">value2</option>
+                                        <option value="3">value3</option>    
+                                    </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form_wrap">
+                                <div class="w-full sm:w-half formbold-px-3">
+                                    <div class="formbold-mb-5 w-full">
+                                        <label for="date" class="formbold-form-label">Date</label>
+                                        <input type="date" name="date" id="nave" class="formbold-form-input"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full sm:w-half formbold-px-3">
+                                <div class="formbold-mb-5">
+                                    <label for="time" class="formbold-form-label">Time</label>
+                                    <input type="time" name="time" id="tomer" class="formbold-form-input"  />
+                                </div>
+                            </div>
+                            
+                            <button class="formbold-btn" name="form_submit">Submit</button>
+                            </div>
+                            </form>
+                          </div>
+                  </div>
+               
+              <script>
+
+                function openEventModal() {
+                  var formContainer = document.querySelector('.form_container');
+                  formContainer.style.display = 'block';
+                }
+           
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    let currentMonthIndex = months.indexOf(document.getElementById('currentMonth').innerText);
+
+    function updateCalendarGrid(selectedMonthIndex) {
+      const calendarGrid = document.getElementById('calendarGrid');
+      const daysInMonth = new Date(new Date().getFullYear(), selectedMonthIndex + 1, 0).getDate();
+      const firstDayOfMonth = new Date(new Date().getFullYear(), selectedMonthIndex, 1).getDay();
+      calendarGrid.innerHTML = '';
+
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyButton = document.createElement('button');
+        emptyButton.setAttribute('type', 'button');
+        emptyButton.classList.add('bg-gray-50', 'py-1.5', 'text-gray-400', 'focus:z-10');
+        calendarGrid.appendChild(emptyButton);
+      }
+
+      for (let i = 1; i <= daysInMonth; i++) {
+        const dayButton = document.createElement('button');
+        dayButton.setAttribute('type', 'button');
+        dayButton.setAttribute('id', 'dayButton');
+        dayButton.classList.add('bg-white', 'py-1.5', 'text-gray-900', 'hover:bg-purple-600', 'focus:z-10');
+        dayButton.innerHTML = `<time datetime="${new Date().getFullYear()}-${selectedMonthIndex + 1}-${i}" class="mx-auto flex h-7 w-7 items-center justify-center rounded-full">${i}</time>`;
+        
+        // Attach an event listener to each date button
+        dayButton.addEventListener('click', function() {
+          // Remove previously selected date
+          const selectedDateButton = document.querySelector('.selected-date');
+          if (selectedDateButton) {
+            selectedDateButton.classList.remove('selected-date');
+          }
+
+          // Mark the selected date
+          dayButton.classList.add('selected-date');
+
+          const selectedDate = `${new Date().getFullYear()}-${selectedMonthIndex + 1}-${i}`;
+          const value = getValueForDate(selectedDate);
+          console.log(`Value for ${selectedDate}: ${value}`);
+          // Do something with the value, e.g., display it somewhere
+        });
+
+        calendarGrid.appendChild(dayButton);
+      }
+    }
+
+    // Define your date-value mapping here
+    const dateValues = {
+      "2024-03-01": "Value for March 1, 2024",
+      "2024-03-03": "Value for March 3, 2024",
+      // Add more dates and values as needed
+    };
+
+    function getValueForDate(date) {
+      return dateValues[date] || "No value available for selected date.";
+    }
+
+    updateCalendarGrid(currentMonthIndex);
+
+    function changeMonth(offset) {
+      currentMonthIndex = (currentMonthIndex + offset + months.length) % months.length;
+      document.getElementById('currentMonth').innerText = months[currentMonthIndex];
+      updateCalendarGrid(currentMonthIndex);
+    }
+
+                function openCity(evt, cityName) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
                 for (i = 0; i < tabcontent.length; i++) {
@@ -449,45 +235,94 @@
                 document.getElementById(cityName).style.display = "block";
                 evt.currentTarget.className += " active";
             }
-            // Get the element with id="defaultOpen" and click on it
-            document.getElementById("defaultOpen").click();
-            function openForm() {
-                document.getElementById("myForm").style.display = "block";
-            }
-            function closeForm() {
-                document.getElementById("myForm").style.display = "none";
-            }
-            jQuery(document).ready(function ($) {
-                //open popup
-                $('.cd-popup-trigger').on('click', function (event) {
-                    event.preventDefault();
-                    $('.cd-popup').addClass('is-visible');
-                });
-                //close popup
-                $('.cd-popup').on('click', function (event) {
-                    if ($(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup')) {
-                        event.preventDefault();
-                        $(this).removeClass('is-visible');
-                    }
-                });
-                //close popup when clicking the esc keyboard button
-                $(document).keyup(function (event) {
-                    if (event.which == '27') {
-                        $('.cd-popup').removeClass('is-visible');
-                    }
-                });
-            });
-            $(document).ready(function () {
-                $('.start-btn').click(function () {
-                    $('.modal-box').toggleClass("show-modal");
-                    $('.start-btn').toggleClass("show-modal");
-                });
-                $('.fa-close').click(function () {
-                    $('.modal-box').toggleClass("show-modal");
-                    $('.start-btn').toggleClass("show-modal");
-                });
-            });
 
-        </script>
-    </body>
+                // Define the toggleModal function
+function toggleModal() {
+    var modal = document.getElementById('shir');
+    modal.classList.toggle('hidden');
+}
+fetch(`${URL}/user/getUserData`)
+    .then(response => response.json())
+    .then(data => {
+        const usertype = data.type;
+        console.log("printusertype", usertype);
+
+        if (usertype === 'user') {
+            console.log(usertype === 'user');
+            // If user is not admin, hide the Customers link
+            const customersLink = document.getElementById('customersLink');
+            customersLink.style.display = 'none';
+            
+// Assume you have an array of usernames fetched from the database
+const firstNameString = String(data.firstName);
+const lastNameString = String (data.lastName);
+// const subclient1= String(data.subclient.subfirstName);
+const usernames = [`${firstNameString} ${lastNameString}`,];
+// Get the select element
+const selectElement = document.getElementById('select');
+// Create and append an option element for each username
+usernames.forEach(username => {
+    const option = document.createElement('option');
+    option.text = username;
+    option.value = username;
+    selectElement.add(option);
+});
+        } else if (usertype === 'admin') {
+            console.log(usertype === 'admin');
+            // Fetch clients from the database if user is admin
+            fetch(`${URL}/profile/Allprofile`)
+                .then(response => response.json())
+                .then(profiles => {
+                  console.log("allclient",profiles);
+                  
+                    // Get the container where you want to display the clients
+                    // Clear existing content
+                    // container.innerHTML = '';
+                    const selectElement = document.getElementById('select');
+                    // Create and append elements to display each client
+                    
+                    profiles.forEach(profile => {
+                      const profilefirstString = String(profile.firstName);
+                  const profilelastString = String (profile.lastName);
+                      console.log(profile);
+                      const profileName =[`${profilefirstString} ${profilelastString}`,];
+                      profileName.forEach(profileName => {
+                      const option = document.createElement('option');
+                      option.textContent = profileName;
+                        option.value = profileName;
+                        selectElement.add(option);
+                      })
+                    });
+                })
+                .catch(error => console.error('Error fetching profiles:', error));
+        }
+    })
+    .catch(error => console.error('Error fetching user data:', error));
+
+
+
+              // response.forEach(function(data) {
+              //   // Create an <option> element for each user name and append it to the <select> element
+              //   $('#select').append($('<option>', {
+              //       value: data.userName,
+                  
+                //     text: userName
+                // }));
+            // });
+             
+                // Update HTML elements with user details
+             
+
+        // Set the value of the input field with id "inputField"
+
+            // firstNameInput.value = String(data.firstName); // Convert to string and set value
+              // firstNameInput.textContent =String(data.firstName);
+            // console.error('Element with ID "firstName" not found in the document');
+        
+
+
+
+
+              </script>
+        </body>
 </html>

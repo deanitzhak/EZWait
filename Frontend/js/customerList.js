@@ -1,64 +1,65 @@
-function createClientTable(clients) {
-    const table = document.createElement('table');
-    table.classList.add('min-w-full', 'divide-y', 'divide-gray-200');
+let clientArray; 
+const URL = window.location.origin;
 
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    const headers = ['Patient Name', 'Client Id', 'Date of Birth', 'Gender', 'Phone', 'Address', 'Status', 'Action'];
-    headers.forEach(headerText => {
-        const th = document.createElement('th');
-        th.setAttribute('scope', 'col');
-        th.classList.add('px-3', 'py-3.5', 'text-left', 'text-xl', 'font-semibold', 'text-black-900');
-        th.textContent = headerText;
-        headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
+window.onload = async function() {
+    clientArray = await getAllPages(); // Wait for getAllPages() to complete before assigning the result to clientArray
+    console.log("clientArray",clientArray);
+    populateTable(clientArray); // Call createPatientTable with the fetched data
+};
 
-    const tbody = document.createElement('tbody');
-    clients.forEach(client => {
-        const row = document.createElement('tr');
-
-        // Populate client data into table cells
-        const keys = ['userName', 'clientId', 'dateOfBirth', 'gender', 'phone', 'address', 'status'];
-        keys.forEach(key => {
-            const td = document.createElement('td');
-            td.classList.add('whitespace-nowrap', 'px-3', 'py-5', 'text-sm', 'text-gray-900');
-            td.textContent = client[key];
-            row.appendChild(td);
+async function getAllPages() {
+    try{
+        const response = await fetch(`${URL}/client/allClient`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
+        if(!response.ok){
+            throw new Error('Failed to fetch clients');
+        }
+        const clients = await response.json();
+        return clients;
 
-        // Action column (assuming you have buttons or links here)
-        const actionCell = document.createElement('td');
-        actionCell.classList.add('relative', 'py-3.5', 'pl-3', 'pr-4', 'sm:pr-0');
-        // Add action buttons or links here
-        // Example: actionCell.innerHTML = `<button>Edit</button>`;
-        row.appendChild(actionCell);
-
-        tbody.appendChild(row);
-    });
-    table.appendChild(tbody);
-
-    return table;
+    }catch(error){
+        console.error('Error occurred while fetching appointments:', error);
+        throw error;
+    }
 }
 
-const clientsList = document.getElementById('clients');
-$.ajax({
-    url: `${URL}/Client/allClient`,
-    method: 'GET',
-    success: function(clients) {
-        console.log("Received clients data:", clients);
+function populateTable(clientArray) {
+    const tableBody = document.querySelector('.divide-y.divide-gray-200.bg-white');
 
-        // Clear previous content
-        clientsList.innerHTML = "";
+    clientArray.forEach(client => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+            <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
+                <div class="flex items-center">
+                    <div class="ml-4">
+                        <div class="font-medium text-gray-900">${client.userName}</div>
+                    </div>
+                </div>
+            </td>
+            <td class="whitespace-nowrap px-3 py-5 text-me text-gray-900">
+                <div class="text-gray-900">${client.clientId}</div>
+            </td>
+            <td class="whitespace-nowrap px-3 py-5 text-me text-gray-900">${client.dateOfBirth}</td>
+            <td class="whitespace-nowrap px-3 py-5 text-me text-gray-900">${client.gender}</td>
+            <td class="whitespace-nowrap px-3 py-5 text-me text-gray-900">${client.phone}</td>
+            <td class="whitespace-nowrap px-3 py-5 text-me text-gray-900">${client.address}</td>
+            <td class="whitespace-nowrap px-3 py-5 text-me text-gray-900">${client.status}</td>
+            <td class="whitespace-nowrap px-3 py-5 text-me text-gray-900">
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                        <option selected>Member</option>
+                        <option value="1"></option>
+                    </select>
+                </div>
+            </td>
+        `;
+        
+        tableBody.appendChild(row);
+    });
+}
 
-        // Create table for clients
-        const clientTable = createClientTable(clients);
-        clientTable.setAttribute('id', 'clientTable'); // Set an id for future reference
-        clientsList.appendChild(clientTable); // Append the table to the client list container
-    },
-    error: function(xhr, status, error) {
-        console.error("Failed to fetch clients:", error);
-        // Handle error appropriately, e.g., show an error message to the user
-    }
-});
