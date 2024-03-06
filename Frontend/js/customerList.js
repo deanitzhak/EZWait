@@ -29,7 +29,7 @@ async function getAllPages() {
 
 function populateTable(clientArray) {
     const tableBody = document.querySelector('.divide-y.divide-gray-200.bg-white');
-
+    
     clientArray.forEach(client => {
         const row = document.createElement('tr');
         
