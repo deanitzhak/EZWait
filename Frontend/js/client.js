@@ -101,6 +101,4 @@ function postSetClient() {
 }
 
 
-// AJAX request to fetch user's email from the backend
-
-
+// AJAX request to fetch user's email from the backend

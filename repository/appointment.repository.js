@@ -14,6 +14,7 @@ class AppointmentRepository extends MongoStorage {
         this.createNewAppointment = this.createNewAppointment.bind(this);
         this.createNewAppointment = this.updateAppointmentStatus.bind(this);
         this.findByIdAndDeleteByAtributeAppointmentId = this.findByIdAndDeleteByAtributeAppointmentId.bind(this);
+        this.findAppointmentByAppIdAttribute = this.findAppointmentByAppIdAttribute.bind(this);
     }
     async updateAppointment(appointmentId, newData) {
         try {
@@ -73,6 +74,15 @@ class AppointmentRepository extends MongoStorage {
             throw new Error(`Error retrieving appointments: ${error.message}`);
         }
     }
+    async findAppointmentByAppIdAttribute(appointmentId) {
+        try {
+            const appointment = await this.Model.findOne({ "appointmentId": appointmentId });
+            return appointment;
+        } catch (error) {
+            throw new Error(`Error retrieving appointment by appointment ID attribute: ${error.message}`);
+        }
+    
+    }
     async findByStatus(status) {
         try {
             const appointments = await this.findByAttribute('status', status);
@@ -130,6 +140,16 @@ class AppointmentRepository extends MongoStorage {
             return newApp.save();
             } catch (error) {
             throw new Error(`Error deleting appointment: ${error.message}`);
+        }
+    }
+    async findAllAppointmentByDate(date) {
+        try {
+            
+            const appointments = await this.findByDayMonthYear('date', date);
+            console.log("appointments",appointments);
+            return appointments;
+        } catch (error) {
+            throw new Error(`Error retrieving appointments by date: ${error.message}`);
         }
     }
 }

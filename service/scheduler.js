@@ -119,14 +119,17 @@ module.exports = {
     },
     async cancelAppointmentById(req, res) 
     {
-        const appointment =  req.body;
-        const appointmentId = new ObjectId(appointment.appointmentId);
-        const date = new Date(appointment.date);
-     
-        const isDeleted =  await schedRepo.removeAppointmentFromScheduleByAttributeAppointmentId(appointmentId, date);
-        res.status(200).send(isDeleted);
-    }
-
+        try{
+            const appointment =  req.body;
+            const appointmentId = new ObjectId(appointment.appointmentId);
+            const date = new Date(appointment.date);
+            const isDeleted =  await schedRepo.removeAppointmentFromScheduleByAttributeAppointmentId(appointmentId, date);
+            res.status(200).send(isDeleted);
+        }catch (error) {
+            console.error('Error canceling appointment:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
 };
 function isAppointmentIdInSchedule(appointmentIdToFind, schedule) {
     return schedule.takenHours.appointments.some(appointment => appointment.appointmentId.equals(appointmentIdToFind));

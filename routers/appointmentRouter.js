@@ -11,4 +11,5 @@ appointmentRouter.get('/findAppointmentByIdAndDelete', appointmentController.fin
 appointmentRouter.post('/submitNewAppointment', appointmentController.submitNewAppointment);
 appointmentRouter.post('/updateAppointmentStatus', appointmentController.findAppointmentByAppIdAndUpdateStatus);
 appointmentRouter.post('/updateAppointment', appointmentController.updateAppointment);
+appointmentRouter.get('/findAllAppointmentByDate', appointmentController.findAllAppointmentByDate);
 module.exports = appointmentRouter;
