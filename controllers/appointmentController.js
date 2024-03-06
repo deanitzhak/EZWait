@@ -63,7 +63,8 @@ module.exports = {
 
   async findAllAppointmentByStatus(req, res) {
     try {
-      const appointments = await appRepo.findByStatus(req.query.status);
+      const appointments = 
+      await appRepo.findByStatus(req.query.status);
         res.status(200).send(appointments);
     } catch (error) {
         console.error(error);
