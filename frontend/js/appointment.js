@@ -65,9 +65,10 @@ window.onload = () => {
         (async () => {
             try {
                 /*if the currentAppointmentId is null create new appointment if the id is not null so ctreate new appointment*/
-                if(currentAppointmentId === null || currentAppointmentId === undefined){
+                if(currentAppointmentId === null || currentAppointmentId === undefined ){
                     let newAppointment = createNewAppointmentFromUserData(1); // Await the result of postSetAppointment
                     const appointmentId = await scheduleNewAppointment(newAppointment);
+                    console.log ("cancelcount",my_user.cancelCount);
                     if(appointmentId === null){
                         throw new Error('Failed to create new appointment.');
                     }else{
@@ -146,6 +147,7 @@ window.onload = () => {
             const response = await cancelScheduleAppointmentById(cancelAppointmentRes);
             if (response === true) {
                 cancelAppointment(cancelAppointmentRes.appointmentId);
+                
                 window.location.replace(`../appointment.html`);
             }else{
                 throw new Error('Failed to cancel appointment.');

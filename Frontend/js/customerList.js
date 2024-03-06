@@ -53,7 +53,7 @@ function populateTable(clientArray) {
                 <div class="form-floating">
                     <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
                         <option selected>Member</option>
-                        <option value="1">Lia Reynolds</option>
+                        <option value="1"></option>
                     </select>
                 </div>
             </td>

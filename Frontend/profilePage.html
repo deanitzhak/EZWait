@@ -27,8 +27,8 @@
         <div class="sidebar-collapse">
           <ul class="nav" id="main-menu">
             <li><a href="appointment.html"><img src="./img/appointment.png" alt="Logo" class="logo"></i></a></li>
-            <li><a href="CustomerList.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a>
-            </li>
+            <li id="customersLink"><a href="CustomerList.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a></li>
+
             <li><a href="SendMessege.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a>
             </li>
             <li><a href="profilePage.html"><img src="./img/Services.png" alt="Logo" class="logo"></i></a></li>
@@ -151,11 +151,31 @@
                 document.getElementById('password').value = "";
 
         // Set the value of the input field with id "inputField"
+    
+              const usertype = data.type; // Change this based on your logic
+    console.log("printusertype",usertype);
+      if (usertype == 'user') {
+        console.log (usertype == 'user');
+        // If user is not admin, hide the Customers link
+        const customersLink = document.getElementById('customersLink');
+        customersLink.style.display = 'none';
+      }
+
+                // Update HTML elements with user details
+             
+
+        // Set the value of the input field with id "inputField"
 
             // firstNameInput.value = String(data.firstName); // Convert to string and set value
               // firstNameInput.textContent =String(data.firstName);
             // console.error('Element with ID "firstName" not found in the document');
         })
+
+
+            // firstNameInput.value = String(data.firstName); // Convert to string and set value
+              // firstNameInput.textContent =String(data.firstName);
+            // console.error('Element with ID "firstName" not found in the document');
+        
 
 
     function openInputFields() {

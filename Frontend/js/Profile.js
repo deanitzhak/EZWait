@@ -45,6 +45,7 @@ function postSetProfile() {
             lastName: document.getElementById('lastName').value,
             email: document.getElementById('email').value,
             password: document.getElementById('password').value
+            
         }
     };
     return formData;
