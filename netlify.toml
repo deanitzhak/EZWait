@@ -4,5 +4,5 @@
 	base = "/"
 [[redirects]]
 	from = "/*"
-	to = "index.js
+	to = "signIn.html"
 	status = 200
