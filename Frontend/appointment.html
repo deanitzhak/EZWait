@@ -117,16 +117,16 @@
                                 <div class="formbold-mb-5 w-full">
                                     <label for="type" class="formbold-form-label">Client full name</label>
                                     <select class="formbold-form-input" name="shir" id="select">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                      <option value="1">Option 1</option>
+                                      <option value="2">Option 2</option>
+                                      <option value="3">Option 3</option>
                                     </select>
                                     </label>
                                 </div>
                                 <div class="formbold-mb-5">
                                     <label for="type" class="formbold-form-label"> Type </label>
                                     <select class="formbold-form-input" name="din" id="din">
-                                        <option value="1">value1</option>
+                                        <option value="1">value2</option>
                                         <option value="2">value2</option>
                                         <option value="3">value3</option>    
                                     </select>
@@ -243,25 +243,75 @@ function toggleModal() {
     var modal = document.getElementById('shir');
     modal.classList.toggle('hidden');
 }
-  fetch(`${URL}/user/getUserData`)
-            .then(response => response.json())
-            .then(data => {
-              const usertype = data.type; // Change this based on your logic
-    console.log("printusertype",usertype);
-      if (usertype == 'user') {
-        console.log (usertype == 'user');
-        // If user is not admin, hide the Customers link
-        const customersLink = document.getElementById('customersLink');
-        customersLink.style.display = 'none';
-      }
+fetch(`${URL}/user/getUserData`)
+    .then(response => response.json())
+    .then(data => {
+        const usertype = data.type;
+        console.log("printusertype", usertype);
 
-              response.forEach(function(userName) {
-                // Create an <option> element for each user name and append it to the <select> element
-                $('#select').append($('<option>', {
-                    value: userName,
-                    text: userName
-                }));
-            });
+        if (usertype === 'user') {
+            console.log(usertype === 'user');
+            // If user is not admin, hide the Customers link
+            const customersLink = document.getElementById('customersLink');
+            customersLink.style.display = 'none';
+            
+// Assume you have an array of usernames fetched from the database
+const firstNameString = String(data.firstName);
+// const subclient1= String(data.subclient.subfirstName);
+const usernames = [firstNameString, 'user2', 'user3'];
+
+
+// Get the select element
+const selectElement = document.getElementById('select');
+
+
+// Create and append an option element for each username
+usernames.forEach(username => {
+    const option = document.createElement('option');
+    option.text = username;
+    option.value = username;
+    selectElement.add(option);
+});
+        } else if (usertype === 'admin') {
+            console.log(usertype === 'admin');
+            // Fetch clients from the database if user is admin
+            fetch(`${URL}/client/getAllclients`)
+                .then(response => response.json())
+                .then(clients => {
+                    // Get the container where you want to display the clients
+                    const container = document.getElementById('clientsContainer');
+
+                    // Clear existing content
+                    container.innerHTML = '';
+                    const selectElement = document.getElementById('select');
+
+                    // Create and append elements to display each client
+                    clients.forEach(client => {
+                      usernames.forEach(username => {
+    const option = document.createElement('option');
+    clientElement.textContent = `${client.firstName} ${client.lastName}`;
+    container.appendChild(clientElement);
+
+    option.value = username;
+    selectElement.add(option);
+});
+                    });
+                })
+                .catch(error => console.error('Error fetching clients:', error));
+        }
+    })
+    .catch(error => console.error('Error fetching user data:', error));
+
+
+
+              // response.forEach(function(data) {
+              //   // Create an <option> element for each user name and append it to the <select> element
+              //   $('#select').append($('<option>', {
+              //       value: data.userName,
+                  
+                //     text: userName
+                // }));
+            // });
              
                 // Update HTML elements with user details
              
@@ -271,7 +321,7 @@ function toggleModal() {
             // firstNameInput.value = String(data.firstName); // Convert to string and set value
               // firstNameInput.textContent =String(data.firstName);
             // console.error('Element with ID "firstName" not found in the document');
-        })
+        
 
 
 
