@@ -28,8 +28,8 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li><a href="appointment.html"><img src="./img/appointment.png" alt="Logo" class="logo"></i></a></li>
-                    <li><a href="CustomerList.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a>
-                    </li>
+                    <li id="customersLink"><a href="CustomerList.html"><img src="./img/customers2.png" alt="Logo" class="logo"></i></a></li>
+                
                     <li><a href="SendMessege.html"><img src="./img/communication2.png" alt="Logo" class="logo"></i></a>
                     </li>
                     <li><a href="profilePage.html"><img src="./img/Services.png" alt="Logo" class="logo"></i></a></li>
@@ -76,6 +76,19 @@
     <script src="assets/js/jquery.metisMenu.js"></script>
     <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
+    <script>
+         fetch(`${URL}/user/getUserData`)
+            .then(response => response.json())
+            .then(data => {
+              const usertype = data.type; // Change this based on your logic
+    console.log("printusertype",usertype);
+      if (usertype == 'user') {
+        console.log (usertype == 'user');
+        // If user is not admin, hide the Customers link
+        const customersLink = document.getElementById('customersLink');
+        customersLink.style.display = 'none';
+      } })
+    </script>
     </div>
 </body>
 </html>

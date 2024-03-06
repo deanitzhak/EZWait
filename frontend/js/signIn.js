@@ -9,7 +9,10 @@ $(document).ready(() => {
         console.log(JSONUser)
         $.post(`${URL}/login/logIn`, JSONUser)
             .done((userCheckServer) => {
-                if (userCheckServer != "Invalid Data") {
+                if (userCheckServer != "Invalid Data" ) {
+                    
+                    // && my_user.cancelCount>=3
+                    // my_user.status == 'block'
                     window.location.replace(`../appointment.html?userName=${JSONUser.userName}`);
                 } else {
                     alert("User does not exist");
