@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "dev": "nodemon server.js",
-        "test": "nyc mocha 'test/**/*.js' --recursive --check-coverage --lines 70  --timeout 60000 --exit"
+        "test": "nyc mocha 'test/**/*.js' --recursive --check-coverage --lines 70 --timeout 60000 --exit",
+        "build": "webpack --config webpack.config.js"
     },
     "dependencies": {
         "dotenv": "^16.4.1",
