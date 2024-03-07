@@ -6,6 +6,8 @@ module.exports = {
     getAllclient: (req, res) => {
       appRepo.find()
       .then( clients => {
+            res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
         res.send(clients);
       }).catch(err => {
         console.error("Error retrieving client:", err);
@@ -58,6 +60,8 @@ module.exports = {
 },
     async submitNewClient(req, res) {
     try {
+          res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
       console.log("hey");
       const newApp = await clientService.createNewClient(req.body);
       console.log("this is my clint : - >",newApp);
