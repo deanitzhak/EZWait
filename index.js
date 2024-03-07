@@ -22,6 +22,7 @@ const scheduleRouter = require('./routers/scheduleRouter');
 const schedulerRouter = require('./routers/schedulerRouter');
 const clientRouter = require('./routers/clientRouter');
 const {appointmentStatusUpdate} = require("./frontend/js/cron.job");
+
 const MongoStorage = require('./db/mongo.storage');
 /inintialize environment exucting/
 appointmentStatusUpdate();
@@ -33,6 +34,7 @@ app.use('/css', express.static(path.join(__dirname, 'css')));
 app.use('/js', express.static(path.join(__dirname, 'js')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'frontend'))); 
+app.use(express.static(path.join(__dirname, 'public')));
 /inintialize Routers/
 app.use('/login', loginRouter);
 app.use('/appointment', appointmentRouter);
