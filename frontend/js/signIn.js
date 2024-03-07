@@ -1,3 +1,5 @@
+APIpaths = require ("./APIpaths.js");
+
 const URL = window.location.origin;
 
 $(document).ready(() => {
@@ -7,7 +9,7 @@ $(document).ready(() => {
         JSONUser.userName = $('input[name="username"]').val();
         JSONUser.password= $('input[name="password"]').val();
         console.log(JSONUser)
-        $.post(`${URL}/login/logIn`, JSONUser)
+        $.post( APIpaths["logIn"], JSONUser)
             .done((userCheckServer) => {
                 if (userCheckServer != "Invalid Data" ) {
                     

@@ -1,8 +1,10 @@
+APIpaths = require ("./APIpaths.js");
+
 let my_user;
 const monthsCal = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 function getUserName() {
     $.ajax({
-        url: `${URL}/user/getUserData`,
+        url: APIpaths["getUserData"],
         method: 'GET',
         success: function(myUser) {
             console.log("user: ", myUser);
@@ -173,7 +175,7 @@ window.onload = () => {
 }
 function cancelAppointment(appointmentId) {
     $.ajax({
-        url: `${URL}/appointment/updateAppointmentStatus`,
+        url: APIpaths["updateAppointmentStatus"],
         method: 'post', 
         data: { appointmentId: appointmentId ,
                 status: EnumStatus.VALUE3},
@@ -189,7 +191,7 @@ function cancelAppointment(appointmentId) {
 }
 async function findAppointmentsByStatus(status) {
     try {
-        const response = await fetch(`${URL}/appointment/findAllAppointmentByStatus?status=${status}`, {
+        const response = await fetch(APIpaths["findAllAppointmentByStatus"]+"/"+`?status=${status}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -207,7 +209,7 @@ async function findAppointmentsByStatus(status) {
 }
 async function findAllAppointmentByDate(date) {
     try {
-        const response = await fetch(`/appointment/findAllAppointmentByDate?date=${date}`);
+        const response = await fetch(APIpaths["findAllAppointmentByDate"]+"/"+`?date=${date}`);
         if (!response.ok) {
             throw new Error('Failed to fetch appointments');
         }
@@ -225,7 +227,7 @@ async function findAllAppointmentByDate(date) {
 async function getStartAndEndTimeFromUser(newAppointment) {
     try {
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
-        const response = await fetch(`${URL}/scheduler/scheduleNewAppointment?newAppointment=${queryParams}`, {
+        const response = await fetch(APIpaths["scheduleNewAppointment"]+"/"+`?newAppointment=${queryParams}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -244,7 +246,7 @@ async function getStartAndEndTimeFromUser(newAppointment) {
 async function scheduleNewAppointment(newAppointment) {
     try {
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
-        const response = await fetch(`${URL}/scheduler/scheduleNewAppointment?newAppointment=${queryParams}`, {
+        const response = await fetch(APIpaths["scheduleNewAppointment"]+"/"+`?newAppointment=${queryParams}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -263,7 +265,7 @@ async function scheduleNewAppointment(newAppointment) {
 /*reSchedule current appointment*/
 async function reScheduleNewAppointment(currentAppointment) {
     return new Promise((resolve, reject) => {
-        $.post(`${URL}/scheduler/reScheduleNewAppointment`, currentAppointment)
+        $.post(APIpaths["reScheduleNewAppointment"], currentAppointment)
             .done((update) => {
                 resolve(update); 
             })
@@ -275,7 +277,7 @@ async function reScheduleNewAppointment(currentAppointment) {
 }
 /*create new appointment*/
 async function createNewAppointment(newAppointment) {
-        $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
+        $.post(APIpaths["submitNewAppointment"], newAppointment)
         .done((_newApp) =>
         {
             const newApp = _newApp;
@@ -287,7 +289,7 @@ async function createNewAppointment(newAppointment) {
 }
 async function cancelScheduleAppointmentById(appointmentId) {
     return new Promise((resolve, reject) => {
-        $.post(`${URL}/scheduler/cancelAppointmentById`, appointmentId)
+        $.post(APIpaths["cancelAppointmentById"], appointmentId)
         .done((response) => {
             resolve(response);
         })
@@ -298,7 +300,7 @@ async function cancelScheduleAppointmentById(appointmentId) {
 }
 async function updateAppointment(newAppointment,oldDate) {
     const qury = {newAppointment : newAppointment,oldDate : oldDate }
-    $.post(`${URL}/appointment/updateAppointment`, qury)
+    $.post(APIpaths["updateAppointment"], qury)
     .done((_newApp) =>
     {
         const newApp = _newApp;
