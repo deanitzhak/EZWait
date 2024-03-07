@@ -1,6 +1,6 @@
 const domain = `https://ezwait.onrender.com`;
 
-export const APIpaths = {
+ const APIpaths = {
   getUserData: domain + "/user/getUserData",
   updateAppointmentStatus: domain + "/appointment/updateAppointmentStatus",
   findAllAppointmentByStatus: domain + "/appointment/findAllAppointmentByStatus",
@@ -18,3 +18,5 @@ export const APIpaths = {
 
   domain: domain,
 };
+
+moudle.export = 
