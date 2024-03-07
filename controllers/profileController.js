@@ -9,6 +9,8 @@ module.exports = {
     getAllprofile: (req, res) => {
       appRepo.find()
       .then( profiles => {
+            res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
         res.send(profiles);
       }).catch(err => {
         console.error("Error retrieving profile:", err);
@@ -18,6 +20,8 @@ module.exports = {
     findAllByUserName: (req, res) => {
       appRepo.findByUserName(req.body.userName)
       .then(profiles  => {
+            res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
         res.send(profiles);
       }).catch(err => {
         console.error("Error retrieving profile:", err);
@@ -65,6 +69,8 @@ module.exports = {
       const newApp = await profileService.createNewProfile(req.body);
       console.log("this is my profile : - >",newApp);
       appRepo.create(newApp);
+          res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
       res.status(200).send("New clprofile ient created successfully");
       
     } catch (error) {
