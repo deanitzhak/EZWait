@@ -1,9 +1,10 @@
+APIpaths = require ("./APIpaths.js");
 let my_user;
 
 function getUserName() {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: `${URL}/user/getUserData`,
+            url:APIpaths["getUserData"],
             method: 'GET',
             success: function(myUser) {
                 console.log("user: ", myUser);
@@ -65,7 +66,7 @@ window.onload = async () => {
 async function createNewClient(newClient) {
     try {
         console.log(newClient);
-        const response = await $.post(`${URL}/client/submitNewClient`, newClient);
+        const response = await $.post(APIpaths["submitNewClient"], newClient);
         console.log("New client created:", response);
         console.log(newClient);
         alert('Client created successfully.');

@@ -10,6 +10,7 @@ const rateLimit = require("express-rate-limit");
 
 /APIs/
 const profileRouter = require('./routers/profileRouter');
+const APIpaths = require ('./Frontend/js/APIpath');
 
 const fileLoaderRouter = require('./routers/fileLoaderRouter');
 const loginRouter = require('./routers/logInRouter');

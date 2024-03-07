@@ -1,3 +1,4 @@
+APIpaths = require ("./APIpaths.js");
 let clientArray; 
 const URL = window.location.origin;
 
@@ -9,7 +10,7 @@ window.onload = async function() {
 
 async function getAllPages() {
     try{
-        const response = await fetch(`${URL}/client/allClient`, {
+        const response = await fetch(APIpaths["allClient"], {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

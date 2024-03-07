@@ -1,3 +1,6 @@
+
+APIpaths = require ("./APIpaths.js");
+
 const URL = window.location.origin;
 
 window.onload = async () => {
@@ -25,7 +28,7 @@ window.onload = async () => {
 async function createNewProfile(newProfile) {
     try {
         console.log(newProfile);
-        const response = await $.post(`${URL}/profile/submitNewProfile`, newProfile);
+        const response = await $.post(APIpaths["submitNewProfile"], newProfile);
         console.log("New profile created:", response);
         alert('Profile created successfully.');
     } catch (error) {

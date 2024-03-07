@@ -1,36 +1,20 @@
-function createNewAppointmentFromUserData() {
-    const formData = {
-      Appointment: {
-        firstname: $("input[name=Type]").val(),
-        lastName: $("input[name=Type]").val(),
-        type: $("input[name=Type]").val(),
-        time: $("input[name=time]").val(),
-        date: $("input[name=date]").val(),
-      },
-    };
-    $.ajax({
-    //   url: APIpaths["appointment"],
-    
-      url: ["http://localhost:3000/appointment.html"],
-      type: "POST",
-      data: formData,
-      dataType: "json",
-    })
-      .done(function (data) {
-        top.location.href = "appointment.html";
-      })
-      .fail(function (jqXHR, textStatus, message) {
-        alert(`Error - Login - ${textStatus} ,  ${message}`);
-        $("error-handler").html(JSON.stringify(message));
-      });
-  }
+const domain = `https://ezwait.onrender.com`;
 
-  function clickSubmit() {
-    $(document).on("click", "#submit", function (e) {
-      e.preventDefault();
-      //alert("herrre");
-      createNewAppointmentFromUserData();
-    });
-  }
-  
-  
+export const APIpaths = {
+  getUserData: domain + "/user/getUserData",
+  updateAppointmentStatus: domain + "/appointment/updateAppointmentStatus",
+  findAllAppointmentByStatus: domain + "/appointment/findAllAppointmentByStatus",
+  findAllAppointmentByDate: domain + "/appointment/findAllAppointmentByDate",
+  scheduleNewAppointment: domain + "/scheduler/scheduleNewAppointment",
+  scheduleNewAppointment: domain + "/scheduler/scheduleNewAppointment",
+  reScheduleNewAppointment: domain + "/scheduler/reScheduleNewAppointment",
+  submitNewAppointment: domain + "/appointment/submitNewAppointment",
+  cancelAppointmentById: domain + "/scheduler/cancelAppointmentById",
+  updateAppointment: domain + "/appointment/updateAppointment",
+  findAllByUserName: domain + "/client/findAllByUserName",
+  allClient: domain + "/client/allClient",
+  submitNewProfile: domain + "/profile/submitNewProfile",
+  logIn: domain + "/login/logIn",
+
+  domain: domain,
+};
