@@ -13,6 +13,8 @@ module.exports = {
       appRepo.find()
       .then(appointments  => {
         res.send(appointments);
+              res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
       }).catch(err => {
         console.error("Error retrieving appointment:", err);
         res.status(500).send("Internal server error");
@@ -74,6 +76,8 @@ module.exports = {
     try {
       const newApp = await appointmentService.createNewAppointment(req.body);
       appRepo.create(newApp);
+            res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
       res.status(200).send("New appointment created successfully");
       
     } catch (error) {
