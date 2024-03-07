@@ -8,6 +8,8 @@ module.exports = {
         .then(profiles => {
             if( profiles != null){
                 globalData.setData('myUser', profiles);
+                  res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/json");
                 res.send(profiles);
             }else{
                 res.send("Invalid Data");
