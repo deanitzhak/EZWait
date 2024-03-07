@@ -19,4 +19,4 @@ const domain = `https://ezwait.onrender.com`;
   domain: domain,
 };
 
-moudle.export = 
+module.exports = APIpaths;
