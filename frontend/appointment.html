@@ -244,7 +244,7 @@ function toggleModal() {
     var modal = document.getElementById('shir');
     modal.classList.toggle('hidden');
 }
-fetch(`${URL}/user/getUserData`)
+fetch(  APIpaths["getUserData"],)
     .then(response => response.json())
     .then(data => {
         const usertype = data.type;
@@ -273,7 +273,8 @@ usernames.forEach(username => {
         } else if (usertype === 'admin') {
             console.log(usertype === 'admin');
             // Fetch clients from the database if user is admin
-            fetch(`${URL}/profile/Allprofile`)
+        
+            fetch(  APIpaths["Allprofile"],)
                 .then(response => response.json())
                 .then(profiles => {
                   console.log("allclient",profiles);
