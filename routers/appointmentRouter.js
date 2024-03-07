@@ -1,4 +1,3 @@
-
 const express = require('express');
 const appointmentController = require("../controllers/appointmentController");
 const appointmentRouter = express.Router();
@@ -10,6 +9,7 @@ appointmentRouter.get('/findAllAppointmentByStatus', appointmentController.findA
 appointmentRouter.get('/findAppointmentByStartTime', appointmentController.findAppointmentByStartTime);
 appointmentRouter.get('/findAppointmentByIdAndDelete', appointmentController.findAppointmentByIdAndDelete);
 appointmentRouter.post('/submitNewAppointment', appointmentController.submitNewAppointment);
-
-
+appointmentRouter.post('/updateAppointmentStatus', appointmentController.findAppointmentByAppIdAndUpdateStatus);
+appointmentRouter.post('/updateAppointment', appointmentController.updateAppointment);
+appointmentRouter.get('/findAllAppointmentByDate', appointmentController.findAllAppointmentByDate);
 module.exports = appointmentRouter;
