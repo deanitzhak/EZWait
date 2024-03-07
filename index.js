@@ -6,7 +6,7 @@ const path = require('path');
 const Schedule = require('./models/schedule.model');
 const nodemailer = require('nodemailer');
 const rateLimit = require("express-rate-limit");
-
+const cors = require('cors');
 
 /APIs/
 const profileRouter = require('./routers/profileRouter');
