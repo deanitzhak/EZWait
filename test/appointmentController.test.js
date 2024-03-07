@@ -5,10 +5,9 @@
 // const sinon = require('sinon');
 // const { describe, it } = require('mocha');
 
-// const fileLoaderController = require('test/appointmentController.test.js'); // Update the path accordingly
+// const fileLoaderController = require('../test/appointmentController');
 
 // chai.use(chaiHttp);
-
 
 // describe('Appointment Controller', function () {
 
