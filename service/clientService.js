@@ -8,6 +8,7 @@ const EnumStatus = {
 
 async function createNewClient(newClientJSON) {
     const clientId = new mongoose.Types.ObjectId(); // Generate a new ObjectId for clientId
+  
     const newClient = new clientModel({
         clientId: clientId,
         userName: newClientJSON.Client.userName,

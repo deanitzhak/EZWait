@@ -32,6 +32,7 @@ function populateTable(clientArray) {
 
     clientArray.forEach(client => {
         const row = document.createElement('tr');
+
         
         row.innerHTML = `
             <td class="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-0">
@@ -57,6 +58,7 @@ function populateTable(clientArray) {
                     </select>
                 </div>
             </td>
+            
         `;
         
         tableBody.appendChild(row);
