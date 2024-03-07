@@ -1,5 +1,5 @@
 
-APIpaths = require ("./APIpaths.js");
+//APIpaths = require ("./APIpaths.js");
 
 const URL = window.location.origin;
 
