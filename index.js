@@ -26,6 +26,7 @@ const clientRouter = require('./routers/clientRouter');
 const {appointmentStatusUpdate} = require("./frontend/js/cron.job");
 const MongoStorage = require('./db/mongo.storage');
 const { env } = require('process');
+appointmentStatusUpdate();
 /*inintialize environment exucting*/
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));

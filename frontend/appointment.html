@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,7 +108,7 @@
                       </div>
                       </div>
                       <div class="center modal-box hidden" id="shir">
-                        <div class="fa fa-close" onclick="toggleModal()"></div>
+                        <div class="fa fa-close"  onclick="toggleModal()"><img src="./img/close.png"></div>
                         <div class="form_container">
                           <form name="form" >
                             <div class="w-full sm:w-half formbold-px-3">
@@ -256,22 +255,17 @@ fetch(`${URL}/user/getUserData`)
 const firstNameString = String(data.firstName);
 const lastNameString = String (data.lastName);
 // const subclient1= String(data.subclient.subfirstName);
-const usernames = [`${firstNameString} ${lastNameString}`];
-
-
+const usernames = [`${firstNameString} ${lastNameString}`,];
 // Get the select element
 const selectElement = document.getElementById('select');
-
-
 // Create and append an option element for each username
 usernames.forEach(username => {
     const option = document.createElement('option');
-    
     option.text = username;
     option.value = username;
     selectElement.add(option);
 });
-} else if (usertype === 'admin') {
+        } else if (usertype === 'admin') {
             console.log(usertype === 'admin');
             // Fetch clients from the database if user is admin
             fetch(`${URL}/profile/Allprofile`)
@@ -321,10 +315,12 @@ usernames.forEach(username => {
 
             // firstNameInput.value = String(data.firstName); // Convert to string and set value
               // firstNameInput.textContent =String(data.firstName);
-            // console.error('Element with ID "firstName" not found in the document');
+            // console.error('Element with ID "firstName" not found in the document');
         
 
 
+
+
               </script>
-        </body>
+        </body>
 </html>
