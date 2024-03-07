@@ -22,8 +22,8 @@ const schedulerRouter = require('./routers/schedulerRouter');
 const clientRouter = require('./routers/clientRouter');
 const {appointmentStatusUpdate} = require("./frontend/js/cron.job");
 const MongoStorage = require('./db/mongo.storage');
-/inintialize environment exucting/
-appointmentStatusUpdate();
+const { env } = require('process');
+/*inintialize environment exucting*/
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT ;
@@ -56,129 +56,96 @@ const server = app.listen(port, () => {
     console.log("Server listening on port:", port);
 });
 
+app.enable("trust proxy"); 
 
-// Now you can use the Schedule model to create new instances
-
-
-
-// create application/json parser
-
-
-
-
-//  express limiter for limiting the requests
-app.enable("trust proxy"); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
-
+// Create a limiter for limiting requests
 const limiter = rateLimit({
     windowMs: 25 * 60 * 1000, // 20 minutes
     max: 10 // limit each IP to 10 requests per windowMs
 });
 
-// use limiter only for contact route
+// Use limiter only for the contact route
 app.use("/contact", limiter);
-app.use(express.static('public'))
+app.use(express.static('public'));
+app.use(bodyParser.json());
 
-
-
-// middleware for verifying the data posted
+// Middleware for validating the data posted
 const validator = (req, res, next) => {
-    // give error on posting different data
-    if (!req.body) return res.sendStatus(400)
+    if (!req.body) return res.sendStatus(400);
 
-    const emailRex = /(\w+)\@(\w+)\.[a-zA-Z]/g;
-    let parsedObj = req.body; 
+    const emailRegex = /(\w+)\@(\w+)\.[a-zA-Z]/g;
+    const { name, email, message } = req.body;
 
-    // make a function to send status as a json
-    const sendStatus = (status) => {
-        res.json({
-            "status": status
+    if (!name || !email || !message) {
+        return res.json({ status: "Incomplete data" });
+    }
+
+    const isEmailValid = emailRegex.test(email);
+    const nameLength = name.length;
+    const emailLength = email.length;
+    const msgLength = message.length;
+
+    if (!isEmailValid || emailLength >= 50 || nameLength >= 30 || msgLength >= 600) {
+        return res.json({ status: "Invalid data" });
+    }
+
+    next();
+};
+
+// Endpoint for sending emails
+app.post('/send-email', (req, res) => {
+    const { senderName, senderEmail, message, phone } = req.body; // Destructure parameters from the request body
+    sendEmail(senderName, senderEmail, message, phone)
+        .then(() => {
+            res.json({ status: 'success' });
         })
-    }
+        .catch((error) => {
+            console.error('Error sending email:', error);
+            res.status(500).json({ status: 'error', message: 'Failed to send email' });
+        });
+});
 
-    // check if the object has name email & message property
-    if (parsedObj.name && parsedObj.email && parsedObj.message) {
-
-        let testEmail = emailRex.test(parsedObj.email); //will return true or false
-
-        // get length of parsed objects
-        let emailLength = parsedObj.email.length;
-        let nameLength = parsedObj.name.length;
-        let msgLength = parsedObj.message.length;
-
-        // check for email format
-        if (!testEmail) {
-            sendStatus("Incorrect Email")
-
-            // check for the lengths to limit size
-        } else if (testEmail && emailLength < 50 && nameLength < 30 && msgLength < 600) {
-
-            sendEmail(parsedObj, sendStatus);
-
-        } else {
-            // if user is trying something bigger or any other problem
-            sendStatus("something really bad happened 😵");
-
-        }
-
-    } else {
-        // if request is not having 3 objects defined above
-        sendStatus("Don't mess it up 🖕")
-    }
-    console.log("middelware ran");
-
-    next()
-}
-
+// Use the validator middleware for the contact route only
 app.use('/contact', validator);
-// telling express to use the validator on contact route only
 
-
-// just setup route nothing much to add here
+// Route for handling form submissions
 app.post('/contact', (req, res) => {
-    // console.log(req.body);
-    
-})
+    // Handle form submission
+});
 
-// setup get rout for form
+// Route for serving JavaScript file
 app.get('/service/script.js', (req, res) => {
-    // Set the correct MIME type for JavaScript files
     res.set('Content-Type', 'application/javascript');
-    
-    // Send the JavaScript file
     res.sendFile(path.join(__dirname, '/service/script.js'));
 });
 
-const sendEmail = (parsedObj, sendStatus) => {
 
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // true for 465, false for other ports
-        auth: {
-            user: "shiramar0401@gmail.com", // 
-            pass: "ioui dwsl mshd gnal"
+// Function to send email
+const sendEmail = (senderName, senderEmail, message,phone) => {
+    return new Promise((resolve, reject) => {
+        let transporter = nodemailer.createTransport({
+            host: env.HOST_MAIL,
+            port: env.PORT_MAIL,
+            secure: true,
+            auth: {
+                user: env.USER_MAIL,
+                pass: env.USER_PASSWORD
+            }
+        });
 
-        }
-    })
+        let mailOptions = {
+            from: `"CreativeShi" <${senderEmail}>`,
+            to: env.TO_SEND_MAIL,
+            subject: 'Ezwait constact us form',
+            text: `${senderName} (${senderEmail}) is saying: ${message} phone : ${phone}`
+        };
 
-    // setup email data with unicode symbols
-    let mailOptions = {
-        from: '"CreativeShi " <shiramar0401@gmail.com>', // sender address
-        to: 'shiramar0401@gmail.com', // list of receivers
-        subject: 'Msg From Website', // Subject line
-        text: parsedObj.name + " " + parsedObj.email + " is saying " + parsedObj.message, // plain text body
-        // html: '<b>Hello world?</b>' // html body
-    };
-
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        sendStatus("Message Sent");
-        // send status of message sent if email is send
-
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve();
+            }
+        });
     });
-
-}
+};

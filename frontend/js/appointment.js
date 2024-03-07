@@ -158,11 +158,10 @@ window.onload = () => {
             alert('Error occurred while fetching appointments:', error);
         }
     });
-        /*cancle selected appointment*/
+        /*selected date*/
     $(document).on('click', '#dayButton', async function(e) {
         e.preventDefault();
         try {
-            //let currentMonthIndexCal = monthsCal.indexOf(document.getElementById('currentMonth').innerText);
             const selectedDate = await GetCalendarGrid();
             await findAllAppointmentByDate(selectedDate);
         } catch (error) {
@@ -392,7 +391,7 @@ function createAppointmentListItem(appointment, tabContent) {
 
     const h3 = document.createElement('h3');
     h3.classList.add('pr-10', 'font-semibold', 'text-gray-900', 'xl:pr-0');
-    h3.textContent = `${appointment.firstName} ${appointment.lastName}`;
+    h3.textContent = `${appointment.firstName} ${appointment.lastName}, Appointment Type : ${appointment.type},` ;
 
     const dl = document.createElement('dl');
     dl.classList.add('mt-2', 'flex', 'flex-col', 'text-gray-500', 'xl:flex-row');
@@ -402,7 +401,7 @@ function createAppointmentListItem(appointment, tabContent) {
     const dateDt = document.createElement('dt');
     dateDt.innerHTML = `<span class="sr-only">Date</span><svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" /></svg>`;
     const dateDd = document.createElement('dd');
-    dateDd.innerHTML = `<time datetime="${appointment.date}">${appointment.date}</time>`;
+    dateDd.innerHTML = `<time datetime="${appointment.date}">${appointment.date} </time> , Duration : ${appointment.duration} hours`;
     dateDiv.appendChild(dateDt);
     dateDiv.appendChild(dateDd);
 
