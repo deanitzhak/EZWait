@@ -408,14 +408,14 @@ function createAppointmentListItem(appointment, tabContent) {
     const locationDiv = document.createElement('div');
     locationDiv.classList.add('mt-2', 'flex', 'items-start', 'space-x-3', 'xl:ml-3.5', 'xl:mt-0', 'xl:border-l', 'xl:border-gray-400', 'xl:border-opacity-50', 'xl:pl-3.5');
     const locationDt = document.createElement('dt');
-    locationDt.innerHTML = `<span class="sr-only">Location</span><svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg>`;
-    const locationDd = document.createElement('dd');
-    locationDd.textContent = appointment.location;
-    locationDiv.appendChild(locationDt);
-    locationDiv.appendChild(locationDd);
+    // locationDt.innerHTML = `<span class="sr-only">Location</span><svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg>`;
+    // const locationDd = document.createElement('dd');
+    // locationDd.textContent = appointment.location;
+    // locationDiv.appendChild(locationDt);
+    // locationDiv.appendChild(locationDd);
     li.appendChild(idSpan);
     dl.appendChild(dateDiv);
-    dl.appendChild(locationDiv);
+    // dl.appendChild(locationDiv);
 
     div.appendChild(buttonsContainer); // Append the buttons container
     div.appendChild(h3);
