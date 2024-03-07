@@ -271,29 +271,34 @@ usernames.forEach(username => {
     option.value = username;
     selectElement.add(option);
 });
-        } else if (usertype === 'admin') {
+} else if (usertype === 'admin') {
             console.log(usertype === 'admin');
             // Fetch clients from the database if user is admin
-            fetch(`${URL}/client/getAllclients`)
+            fetch(`${URL}/profile/Allprofile`)
                 .then(response => response.json())
-                .then(clients => {
+                .then(profiles => {
+                  console.log("allclient",profiles);
+                  
                     // Get the container where you want to display the clients
-                    const container = document.getElementById('clientsContainer');
                     // Clear existing content
-                    container.innerHTML = '';
+                    // container.innerHTML = '';
                     const selectElement = document.getElementById('select');
                     // Create and append elements to display each client
-                    clients.forEach(client => {
-                      console.log(clients);
-                      usernames.forEach(clients => {
+                    
+                    profiles.forEach(profile => {
+                      const profilefirstString = String(profile.firstName);
+                  const profilelastString = String (profile.lastName);
+                      console.log(profile);
+                      const profileName =[`${profilefirstString} ${profilelastString}`,];
+                      profileName.forEach(profileName => {
                       const option = document.createElement('option');
-                      clientElement.textContent = `${client.firstName} ${client.lastName}`;
-                        option.value = username;
+                      option.textContent = profileName;
+                        option.value = profileName;
                         selectElement.add(option);
-                        });
+                      })
                     });
                 })
-                .catch(error => console.error('Error fetching clients:', error));
+                .catch(error => console.error('Error fetching profiles:', error));
         }
     })
     .catch(error => console.error('Error fetching user data:', error));
@@ -316,7 +321,7 @@ usernames.forEach(username => {
 
             // firstNameInput.value = String(data.firstName); // Convert to string and set value
               // firstNameInput.textContent =String(data.firstName);
-            // console.error('Element with ID "firstName" not found in the document');
+            // console.error('Element with ID "firstName" not found in the document');
         
 
 
