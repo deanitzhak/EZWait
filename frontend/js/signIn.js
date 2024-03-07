@@ -1,4 +1,4 @@
-APIpaths = require ("./APIpaths.js");
+//APIpaths = require ("./APIpaths.js");
 
 const URL = window.location.origin;
 
@@ -9,8 +9,8 @@ $(document).ready(() => {
         JSONUser.userName = $('input[name="username"]').val();
         JSONUser.password= $('input[name="password"]').val();
         console.log(JSONUser)
-        $.post( APIpaths["logIn"], JSONUser)
-            .done((userCheckServer) => {
+        $.post(${URL}/login/logIn, JSONUser)
+        .done((userCheckServer) => {
                 if (userCheckServer != "Invalid Data" ) {
                     
                     // && my_user.cancelCount>=3
