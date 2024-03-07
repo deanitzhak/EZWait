@@ -1,4 +1,7 @@
 /envirment config/
+const URL = process.env.URL;
+const cors = require('cors');
+
 require('dotenv').config({ path: './.env' });
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -38,6 +41,7 @@ app.use('/appointment', appointmentRouter);
 app.use('/client', clientRouter);
 app.use('/profile',profileRouter);
 app.use('/user', userRouter);
+app.use(cors());
 // app.use("/messegeReplay",messegeReplayRouter);
 // app.use("/messegeSent",messegeSentRouter);
 app.use("/schedule",scheduleRouter);

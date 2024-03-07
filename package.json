@@ -8,6 +8,7 @@
         "test": "nyc mocha 'test/**/*.js' --recursive --check-coverage --lines 70  --timeout 60000 --exit"
     },
     "dependencies": {
+        "cors": "^2.8.5",
         "dotenv": "^16.4.1",
         "express": "^4.17.1",
         "express-rate-limit": "^7.2.0",
@@ -26,9 +27,4 @@
         "webpack": "^5.90.1",
         "webpack-cli": "^5.1.4"
     }
-  
-
 }
-
-
-

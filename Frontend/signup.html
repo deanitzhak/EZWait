@@ -8,7 +8,6 @@
   <script src="./js/Profile.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
   <link rel="stylesheet" type="text/css" href="./css/style.css">
-
 </head>  
 <body>
   <div class="h-screen w-screen overflow-hidden">
@@ -81,7 +80,8 @@
 <script>
 $(document).ready(function() {
     $('input[name="signUpSubmit"]').click(function() {
-      window.location.href = 'signIn.html'; // Redirect to sign-in page
+      //window.location.href = 'signIn.html'; // Redirect to sign-in page
+      window.location.replace("/signIn.html");
     });
   });
 </script>
