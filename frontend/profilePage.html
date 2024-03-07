@@ -136,7 +136,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- Metis Menu Js -->
   <script>
-            
+            const URL = window.location.origin;
+
 
       fetch(`${URL}/user/getUserData`)
             .then(response => response.json())
