@@ -72,7 +72,7 @@ window.onload = () => {
                     if(appointmentId === null){
                         throw new Error('Failed to create new appointment.');
                     }else{
-                        alert('secssused.');
+                        alert('success to create appointment');
                         const _newAppointment = createNewAppointmentFromUserData(appointmentId);
                         await createNewAppointment(_newAppointment);
                         currentAppointmentId = null;
