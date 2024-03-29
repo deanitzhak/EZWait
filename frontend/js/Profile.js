@@ -36,8 +36,6 @@ async function createNewProfile(newProfile) {
 }
 
 function postSetProfile() {
-
-
     const formData = {
         Profile: {
             userName: document.getElementById('username').value,

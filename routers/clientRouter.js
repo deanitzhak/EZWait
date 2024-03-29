@@ -9,5 +9,7 @@ clientRouter.get('/findAllClientByStatus', clientController.findAllClientByStatu
 clientRouter.get('/findClientByIdAndDelete', clientController.findClientByIdAndDelete);
 clientRouter.post('/submitNewClient', clientController.submitNewClient);
 clientRouter.put('/updateClientStatus', clientController.findClientByAppIdAndUpdateStatus);
+clientRouter.post('/submitNewSubClient', clientController.submitNewSubClient);
+clientRouter.post('/updateClientData', clientController.updateClientData);
 
 module.exports = clientRouter; 

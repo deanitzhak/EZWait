@@ -95,9 +95,7 @@ class ScheduleRepository extends MongoStorage {
                 console.log("Appointment ID:", appointmentId);
                 throw new Error("Schedule not found");
             }
-            console.log("appointmentId to remove:", appointmentId);
             schedule.takenHours.appointments = schedule.takenHours.appointments.filter(appointment => {
-            console.log("Current appointmentId:", appointment.appointmentId.toString());
                 return appointment.appointmentId.toString() !== appointmentIdSRT;
             });
             console.log("Updated appointments:", schedule.takenHours.appointments);

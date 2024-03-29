@@ -2,6 +2,7 @@ const client = require('../models/client.model');
 const clientRepository = require('../repository/client.repository');
 const clientService = require('../service/clientService');
 const appRepo = new clientRepository(client);
+const globalData = require('../models/myUser.singleton');
 module.exports = {
     getAllclient: (req, res) => {
       appRepo.find()
@@ -13,12 +14,13 @@ module.exports = {
       })
     },
     findAllByUserName: (req, res) => {
-      appRepo.findByUserName(req.body.userName)
+      let my_user_name = req.query.userName
+      appRepo.findByUserName(my_user_name)
       .then(clients  => {
-        res.send(clients);
+        res.send(clients).status(200);
       }).catch(err => {
         console.error("Error retrieving client:", err);
-        res.status(500).send("Internal server error");
+        res.status(404).send("Internal server error");
       })
     },
   findClientByAppId: (req, res) => {
@@ -35,8 +37,6 @@ module.exports = {
               res.status(500).send("Internal server error");
           });
   },
-
- 
   async findClientByIdAndDelete(req, res) {
     try {
         await appRepo.findByIdAndDelete(req.query._id); 
@@ -46,7 +46,6 @@ module.exports = {
         res.status(500).send("Internal server error");
     }
 },
-
   async findAllClientByStatus(req, res) {
     try {
         const clients = await appRepo.findByStatus(req.query.status);
@@ -56,11 +55,9 @@ module.exports = {
         res.status(500).send("Internal server error");
     }
 },
-    async submitNewClient(req, res) {
+async submitNewClient(req, res) {
     try {
-      console.log("hey");
       const newApp = await clientService.createNewClient(req.body);
-      console.log("this is my clint : - >",newApp);
       appRepo.create(newApp);
       res.status(200).send("New client created successfully");
       
@@ -69,12 +66,9 @@ module.exports = {
       res.status(500).send("Internal server error");
     }
   },
-
   findClientByAppIdAndUpdateStatus: (req, res) => {
     const clientId = req.body._id;
-    const newStatus = "block"; // Define the new status, for example, "cancelled"
-
-    // Update the appointment status in the database
+    const newStatus = "block"; 
     appRepo.updateClientStatus(clientId, newStatus)
         .then(updatedClient => {
             if (updatedClient) {
@@ -87,7 +81,30 @@ module.exports = {
             console.error("Error updating client status:", err);
             res.status(500).send("Internal server error");
         });
+  },async submitNewSubClient(req, res) {
+    try {
+      const myUser = globalData.getData("myUser");
+      const myClient = await appRepo.findByUserName(myUser.userName);
+      const newSubClientS = req.body.subClient;
+      myClient.subClients.push(newSubClientS);
+      console.log(myClient.subClients);
+      myClient.save();
+      res.status(200).send("New client created successfully");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
+    }
+  },async updateClientData(req, res) {
+    try {
+      const myClient = req.body.Client;
+      const myClientEdit = await clientService.createUpdateClientData(myClient);
+      await appRepo.updateClientData(myClientEdit);
+      res.status(200).send("New client created successfully");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal server error");
+    }
   }
-  
 };
+
 

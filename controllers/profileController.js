@@ -1,9 +1,10 @@
-// UserController.js
-
-// const { client } = require('../frontend/js/APIpath');
+const clientRepository = require('../repository/client.repository');
+const client = require('../models/client.model');
 const profile = require('../models/profile.model');
 const profileRepository = require('../repository/profile.repository');
 const profileService = require('../service/profileService');
+const clientService = require('../service/clientService');
+const clientRepo = new clientRepository(client);
 const appRepo = new profileRepository(profile);
 module.exports = {
     getAllprofile: (req, res) => {
@@ -61,9 +62,10 @@ module.exports = {
 },
     async submitNewProfile(req, res) {
     try {
-      console.log("hey");
       const newApp = await profileService.createNewProfile(req.body);
-      console.log("this is my profile : - >",newApp);
+      const newClient = await clientService.SignUpcreateNewClient(newApp);
+      console.log("this is my clint : <><><><>- >",newClient);
+      clientRepo.create(newClient);
       appRepo.create(newApp);
       res.status(200).send("New clprofile ient created successfully");
       
@@ -72,25 +74,5 @@ module.exports = {
       res.status(500).send("Internal server error");
     }
   },
-
-//   findClientByAppIdAndUpdateStatus: (req, res) => {
-//     const clientId = req.body._id;
-//     const newStatus = "block"; // Define the new status, for example, "cancelled"
-
-//     // Update the appointment status in the database
-//     appRepo.updateClientStatus(clientId, newStatus)
-//         .then(updatedClient => {
-//             if (updatedClient) {
-//                 res.send(updatedClient);
-//             } else {
-//                 res.status(404).send("client not found");
-//             }
-//         })
-//         .catch(err => {
-//             console.error("Error updating client status:", err);
-//             res.status(500).send("Internal server error");
-//         });
-//   }
-  
 };
 

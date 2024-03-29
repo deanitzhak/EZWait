@@ -1,21 +1,21 @@
-const { ObjectId } = require("mongodb");
 const { Schema, model } = require("mongoose");
 
+// Define the client schema
 const clientSchema = new Schema(
     {
-        clientId: { type: ObjectId, index: true },
+        clientId: { type: Schema.Types.ObjectId, index: true },
         userName: { type: String },
         dateOfBirth: { type: Date },
         gender: { type: String }, 
         phone: { type: String },
         address: { type: String },
         status: { type: String, enum: ['block', 'active'] },
-        subClient: {
+        subClients: [{
             subfirstName: { type: String },
-            sublastName: { type: String },
-            subgender: { type: String },
-            subdateOfBirth: { type: Date }, 
-        }
+            sublastName: { type: String },       
+            subgender: { type: String },    
+            subdateOfBirth: { type: Date }
+        }] // Array of embedded subclient schemas
     },
     { collection: "Client" }
 );

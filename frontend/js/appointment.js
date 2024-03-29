@@ -1,17 +1,17 @@
 let my_user;
 const monthsCal = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-function getUserName() {
-    $.ajax({
-        url: `${URL}/user/getUserData`,
-        method: 'GET',
-        success: function(myUser) {
-            console.log("user: ", myUser);
-            my_user = myUser;
-            return my_user;
-        },
-        error: function(err) {
-            alert("Error occurred while fetching appointments");
-        }
+async function getUserName() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `${URL}/user/getUserData`,
+            method: 'GET',
+            success: function(myUser) {
+                resolve(myUser); // Resolve the promise with user data
+            },
+            error: function(err) {
+                reject(err); // Reject the promise with the error
+            }
+        });
     });
 }
 const EnumType = {
@@ -27,6 +27,7 @@ const EnumStatus = {
 var appointmentsArray ;
 /*after Reschedule or cancel assign needed to be null*/
 var currentAppointmentId = null;
+var myClient;
 const URL = window.location.origin;
 $(document).ready(function () {
     $('.start-btn').click(function () {
@@ -39,12 +40,25 @@ $(document).ready(function () {
     });
 });
 window.onload = () => {
-    my_user = getUserName ();
     (async () => {
         try {
-            appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE1);
-            console.log(appointmentsArray);
-            renderAppointments("appointmentsList");
+            my_user = await getUserName();
+            if (!my_user || !my_user.userName || !my_user.firstName || !my_user.lastName || !my_user.email) {
+                window.location.replace(`../signIn.html`);
+                return;
+            }else{
+                myClient = await getClientData(my_user.userName);
+                appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE1);
+                await isComplete();
+                renderAppointments("appointmentsList");            
+            }
+        } catch (error) {
+            console.error('Error occurred while fetching appointments:', error);
+        }
+    })();
+    (async () => {
+        try {
+
         } catch (error) {
             console.error('Error occurred while fetching appointments:', error);
         }
@@ -52,7 +66,9 @@ window.onload = () => {
     $(document).on('click', '#Reschedule', async function(e) {
         e.preventDefault();
         try {
-            currentAppointmentId = await getAppointmentId(); 
+            //currentAppointmentId = await getAppointmentId(); 
+            currentAppointmentId = $(this).attr('data-appointment-id');
+            console.log("currentAppointmentId:" + currentAppointmentId);
             toggleModal();
         } catch (error) {
             alert('Failed to reschedule appointment.');
@@ -142,8 +158,10 @@ window.onload = () => {
     $(document).on('click', '#Cancel_Appointment', async function(e) {
         e.preventDefault();
         try {
-            currentAppointmentId = await getAppointmentId();
-            const cancelAppointmentRes = await getApoinmentFromAppointmentArray(appointmentsArray, currentAppointmentId);
+            const appointmentId = $(this).attr('data-appointment-id');
+            const cancelAppointmentRes = await getApoinmentFromAppointmentArray(appointmentsArray, appointmentId);
+            console.log("appointmentId:", appointmentId);
+            console.log(cancelAppointmentRes);
             const response = await cancelScheduleAppointmentById(cancelAppointmentRes);
             if (response === true) {
                 cancelAppointment(cancelAppointmentRes.appointmentId);
@@ -186,6 +204,22 @@ function cancelAppointment(appointmentId) {
         }
     });
 }
+function ComplitAppointment(appointmentId) {
+    $.ajax({
+        url: `${URL}/appointment/updateAppointmentStatus`,
+        method: 'post', 
+        data: { appointmentId: appointmentId ,
+                status: EnumStatus.VALUE2},
+        success: function(response) {
+            console.log("Appointment Complited:", response);
+            alert("Appointment Complited");
+        },
+        error: function(err) {
+            console.error("Error occurred while cancelling the appointment:", err);
+            alert("Error occurred while cancelling the appointment");
+        }
+    });
+}
 async function findAppointmentsByStatus(status) {
     try {
         const response = await fetch(`${URL}/appointment/findAllAppointmentByStatus?status=${status}`, {
@@ -219,7 +253,6 @@ async function findAllAppointmentByDate(date) {
         throw error;
     }
 }
-
 /*new app*/
 async function getStartAndEndTimeFromUser(newAppointment) {
     try {
@@ -308,7 +341,15 @@ async function updateAppointment(newAppointment,oldDate) {
     });
 }
 function createNewAppointmentFromUserData(_appointmentId) {
+    const selectElement = document.getElementById('select');
+    const selectedValue = selectElement.value;
     const input = document.getElementById('din').value;
+    var firstName = my_user.firstName;
+    var lastName = my_user.lastName;
+    if (selectedValue != my_user.userName){
+        firstName = selectedValue;
+        lastName = selectedValue;
+    }
     let _duration;
     switch (input) {
         case '1':
@@ -326,9 +367,9 @@ function createNewAppointmentFromUserData(_appointmentId) {
     const formData = {
       Appointment: {
         appointmentId : _appointmentId,
-        userName: my_user.userName,
-        firstName:  my_user.firstName,
-        lastName: my_user.lastName,
+        userName: selectedValue,
+        firstName: firstName,
+        lastName: lastName,
         type: input,
         date: document.getElementById('nave').value,
         startTime: document.getElementById('tomer').value,
@@ -370,29 +411,39 @@ function createAppointmentListItem(appointment, tabContent) {
     editButton.setAttribute('role', 'menuitem');
     editButton.setAttribute(`id`,`Reschedule`);
     editButton.textContent = 'Rschedule';
+    editButton.setAttribute('data-appointment-id', appointment.appointmentId);
+
 
     const cancelButton = document.createElement('button');
     cancelButton.classList.add('bg-red-500', 'text-white', 'px-4', 'py-2', 'rounded-md', 'hover:bg-red-600', 'focus:outline-none');
     cancelButton.setAttribute('id', 'Cancel_Appointment');
     cancelButton.setAttribute('role', 'menuitem');
+    cancelButton.setAttribute('id', 'Cancel_Appointment');
+    cancelButton.setAttribute('data-appointment-id', appointment.appointmentId);
     cancelButton.textContent = 'Cancel';
     
+
     const idSpan = document.createElement("span");
     idSpan.setAttribute("data-appointment-id", appointment.appointmentId); 
     idSpan.style.display = "none"; 
-    
-
+    const h3 = document.createElement('h3');
+    h3.classList.add('pr-10', 'font-semibold', 'text-gray-900', 'xl:pr-0');
+    if(appointment.userName === my_user.userName || my_user.type === "admin"
+    || processSubClients(appointment.userName) )
+    {
+        if(appointment.status === EnumStatus.VALUE1)
+        {
+            buttonsInnerDiv.appendChild(editButton);
+            buttonsInnerDiv.appendChild(cancelButton);    
+        }
+        h3.textContent = `${appointment.firstName} ${appointment.lastName}, Appointment Type : ${appointment.type},` ;
+    }else{
+        h3.textContent = "The appointment is busy"; ;
+    }
     editButton.classList.add('bg-blue-500', 'text-white', 'px-4', 'py-2', 'rounded-md', 'hover:bg-blue-600', 'focus:outline-none');
-    buttonsInnerDiv.appendChild(editButton);
-    buttonsInnerDiv.appendChild(cancelButton);
     buttonsDiv.appendChild(buttonsInnerDiv);
 
     buttonsContainer.appendChild(buttonsDiv);
-
-    const h3 = document.createElement('h3');
-    h3.classList.add('pr-10', 'font-semibold', 'text-gray-900', 'xl:pr-0');
-    h3.textContent = `${appointment.firstName} ${appointment.lastName}, Appointment Type : ${appointment.type},` ;
-
     const dl = document.createElement('dl');
     dl.classList.add('mt-2', 'flex', 'flex-col', 'text-gray-500', 'xl:flex-row');
 
@@ -408,14 +459,9 @@ function createAppointmentListItem(appointment, tabContent) {
     const locationDiv = document.createElement('div');
     locationDiv.classList.add('mt-2', 'flex', 'items-start', 'space-x-3', 'xl:ml-3.5', 'xl:mt-0', 'xl:border-l', 'xl:border-gray-400', 'xl:border-opacity-50', 'xl:pl-3.5');
     const locationDt = document.createElement('dt');
-    // locationDt.innerHTML = `<span class="sr-only">Location</span><svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd" /></svg>`;
-    // const locationDd = document.createElement('dd');
-    // locationDd.textContent = appointment.location;
-    // locationDiv.appendChild(locationDt);
-    // locationDiv.appendChild(locationDd);
+
     li.appendChild(idSpan);
     dl.appendChild(dateDiv);
-    // dl.appendChild(locationDiv);
 
     div.appendChild(buttonsContainer); // Append the buttons container
     div.appendChild(h3);
@@ -437,6 +483,7 @@ function renderAppointments(listType) {
     });
 }
 async function getAppointmentId(){
+
     const spanElement = document.querySelector('span[data-appointment-id]');
     const appointmentId = spanElement.getAttribute('data-appointment-id');
     return appointmentId;
@@ -477,3 +524,49 @@ function toggleModalHiden() {
     var modal = document.getElementById('shir');
     modal.classList.toggle('hidden');
 }
+async function getClientData() {
+    try {
+        const response = await fetch(`${URL}/client/findAllByUserName?userName=${my_user.userName}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to get client data');
+        }
+        const clientData = await response.json();
+        return clientData;
+    } catch (error) {
+        console.error('Error occurred while fetching client data:', error);
+        throw error;
+    }
+}
+function processSubClients(appointmentUserName) {
+    for (const subClient of myClient.subClients) {
+        try {
+            if(subClient.subfirstName === appointmentUserName){
+                return true;
+            }
+        } catch (error) {
+            console.error('Error processing subClient:', error);
+        }
+    }
+    return false;
+}
+async function isComplete() {
+    const today = new Date();
+    console.log("today:", today); // Log today's date and time
+    appointmentsArray = appointmentsArray.filter(appointment => {
+        const appointmentDate = new Date(appointment.date);
+        console.log("appointmentDate:", appointmentDate); // Log each appointment's date and time
+
+        if (appointmentDate < today) {
+            // If the appointment date is before today's date, complete the appointment
+            ComplitAppointment(appointment.appointmentId);
+            return false; // Exclude appointment from the filtered array
+        }
+        return true; // Include appointment in the filtered array
+    });
+}
+
