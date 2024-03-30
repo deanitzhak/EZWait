@@ -6,7 +6,6 @@ const fileLoaderRouter = require("../../routers/fileLoaderRouter"); // Corrected
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-// Create a mock Express app
 const app = express();
 
 app.use('/fileLoader', fileLoaderRouter);
@@ -27,7 +26,6 @@ describe('File Loader Router', () => {
       .get('/fileLoader/signIn.html')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
@@ -37,10 +35,8 @@ describe('File Loader Router', () => {
       .get('/fileLoader/appointmentPage.html')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
 
-  // Add more test cases for other routes similarly
 });
