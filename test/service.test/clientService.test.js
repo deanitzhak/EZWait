@@ -13,7 +13,6 @@ describe('Client Service', () => {
     });
 
     it('should create a new client with valid input', async () => {
-      // Mock client data
       const newClientJSON = {
         Client: {
           userName: 'testUser',
@@ -28,31 +27,23 @@ describe('Client Service', () => {
         }
       };
 
-      // Stub mongoose.Types.ObjectId to return a predefined value
       const stubObjectId = sinon.stub(mongoose.Types, 'ObjectId').returns('mockedObjectId');
 
-      // Call the function
       const newClient = await clientService.createNewClient(newClientJSON);
 
-      // Assertions
       expect(newClient).to.be.an.instanceOf(clientModel);
       expect(newClient.clientId).to.equal('mockedObjectId');
       expect(newClient.userName).to.equal('testUser');
 
-      // Restore the stub
       stubObjectId.restore();
     });
 
     it('should handle missing required fields gracefully', async () => {
-      // Mock client data with missing required fields
       const invalidClientJSON = {
-        // Missing required fields
       };
 
-      // Call the function with invalid input
       const newClient = await clientService.createNewClient(invalidClientJSON);
 
-      // Assertions
       expect(newClient).to.be.an('error');
     });
 
