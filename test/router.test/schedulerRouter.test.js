@@ -6,10 +6,8 @@ const schedulerRouter = require("../../routers/schedulerRouter");
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-// Create a mock Express app
 const app = express();
 
-// Use the scheduler router
 app.use('/scheduler', schedulerRouter);
 
 describe('Scheduler Router', () => {
@@ -38,10 +36,8 @@ describe('Scheduler Router', () => {
       .post('/scheduler/cancelAppointmentById')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
 
-  // Add more test cases for other scenarios
 });
