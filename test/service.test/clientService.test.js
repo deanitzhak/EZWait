@@ -38,7 +38,6 @@ describe('Client Service', () => {
       expect(newClient).to.be.an.instanceOf(clientModel);
       expect(newClient.clientId).to.equal('mockedObjectId');
       expect(newClient.userName).to.equal('testUser');
-      // Add more assertions based on expected client properties
 
       // Restore the stub
       stubObjectId.restore();
@@ -55,11 +54,8 @@ describe('Client Service', () => {
 
       // Assertions
       expect(newClient).to.be.an('error');
-      // Add more assertions based on expected error handling
     });
 
-    // Add more test cases for other scenarios
   });
 
-  // Add more describe blocks for additional test scenarios
 });
