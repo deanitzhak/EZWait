@@ -110,7 +110,6 @@ describe('Appointment Service', () => {
 
       // Assertions
       expect(updatedAppointment.type).to.equal('value2');
-      // Add more assertions based on expected behavior for other appointment types
     });
 
   });
