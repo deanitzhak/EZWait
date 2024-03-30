@@ -6,10 +6,8 @@ const userRouter = require("../../routers/userRouter");
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-// Create a mock Express app
 const app = express();
 
-// Use the user router
 app.use('/user', userRouter);
 
 describe('User Router', () => {
@@ -18,10 +16,8 @@ describe('User Router', () => {
       .get('/user/getUserData')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
 
-  // Add more test cases for other scenarios
 });
