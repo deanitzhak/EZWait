@@ -113,8 +113,6 @@ describe('Appointment Service', () => {
       // Add more assertions based on expected behavior for other appointment types
     });
 
-    // Add more test cases for other scenarios
   });
 
-  // Add more describe blocks for additional test scenarios such as Date and Time Handling, Mocking Dependencies, Database Interaction, Concurrency and Performance, Security, etc.
 });
