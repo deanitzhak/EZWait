@@ -27,7 +27,7 @@ describe('Appointment Service', () => {
       };
 
       // Stub combineDateAndHoursToDate function
-      sinon.stub(appointmentService, 'combinDateAndHoursToDate').returns(new Date('2024-03-25T10:00:00'));
+      sinon.stub(appointmentService, 'combainDateAndHoursToDate').returns(new Date('2024-03-25T10:00:00'));
 
       // Call the function
       const newAppointment = await appointmentService.createNewAppointment(newAppointmentJSON);
