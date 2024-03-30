@@ -24,5 +24,4 @@ describe('Appointment API Routes', () => {
       });
   });
 
-  // Add more test cases for other routes similarly
 });
