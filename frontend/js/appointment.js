@@ -503,18 +503,15 @@ function toggleModalHiden() {
     var modal = document.getElementById('shir');
     modal.classList.toggle('hidden');
 }
-async function getClientData() {
+async function getClientData(userName) {
     try {
-        const response = await fetch(`${URL}/client/findAllByUserName?userName=${my_user.userName}`, {
+        const response = await fetch(`${URL}/client/findAllByUserName?userName=${userName}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         });
-        if (!response.ok) {
-            throw new Error('Failed geting client data');
-        }
-        const clientData = await response.json();
+        const clientData =  response.json();
         return clientData;
     } catch (error) {
         throw error;
