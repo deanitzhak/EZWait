@@ -29,9 +29,7 @@ describe('appointmentSchedluer Service', () => {
         status: sinon.stub().returnsThis()
       };
 
-      // Stub external dependencies or repository calls if needed
 
-      // Call the function
       await appointmentSchedluer.scheduleNewAppointment(req, res);
 
       // Assertions
@@ -39,7 +37,6 @@ describe('appointmentSchedluer Service', () => {
       expect(res.send.calledOnce).to.be.true;
     });
 
-    // Add more test cases for different scenarios
   });
 
   describe('reScheduleNewAppointment', () => {
@@ -71,7 +68,6 @@ describe('appointmentSchedluer Service', () => {
       expect(res.send.calledOnce).to.be.true;
     });
 
-    // Add more test cases for different scenarios
   });
 
   describe('cancelAppointmentById', () => {
@@ -84,21 +80,16 @@ describe('appointmentSchedluer Service', () => {
         }
       };
   
-      // Create a mock response object with necessary functions
       const res = {
         status: sinon.stub().returnsThis(), // Stub the status function
         send: sinon.spy() // Spy on the send function
       };
   
-      // Call the function
       await appointmentSchedluer.cancelAppointmentById(req, res);
   
-      // Assertions
       expect(res.status.calledWith(200)).to.be.true;
       expect(res.send.calledOnce).to.be.true;
-      // Add more assertions based on expected behavior
     });
   
-    // Add more test cases for different scenarios
   });
 });
