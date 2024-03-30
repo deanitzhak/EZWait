@@ -6,10 +6,8 @@ const profileRouter = require("../../routers/profileRouter");
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-// Create a mock Express app
 const app = express();
 
-// Mount the profileRouter on the app
 app.use('/profile', profileRouter);
 
 describe('Profile Router', () => {
@@ -18,7 +16,6 @@ describe('Profile Router', () => {
       .get('/profile/allProfile')
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
@@ -29,7 +26,6 @@ describe('Profile Router', () => {
       .query({ username: 'testuser' }) // Assuming 'testuser' exists
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
@@ -40,7 +36,6 @@ describe('Profile Router', () => {
       .query({ appId: '123456' }) // Replace '123456' with a valid app ID
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
@@ -51,7 +46,6 @@ describe('Profile Router', () => {
       .query({ profileId: '123456' }) // Replace '123456' with a valid profile ID
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
@@ -60,7 +54,6 @@ describe('Profile Router', () => {
     const newProfile = {
       name: 'John Doe',
       email: 'johndoe@example.com',
-      // Add other required fields for a new profile
     };
 
     chai.request(app)
@@ -68,10 +61,8 @@ describe('Profile Router', () => {
       .send(newProfile)
       .end((err, res) => {
         expect(res).to.have.status(200);
-        // Add more assertions based on expected response data
         done();
       });
   });
 
-  // Add more test cases for other routes similarly
 });
