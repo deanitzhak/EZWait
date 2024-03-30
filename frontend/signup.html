@@ -6,7 +6,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <title>EZWAit - Signup</title>
   <script src="./js/Profile.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>  
 <body>
@@ -15,7 +15,7 @@
       <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div class="mx-auto max-w-sm lg:w-96">
           <div>
-            <img class="h-10 w-auto" src="./img/img1.png" style="width: 200px; height: 50px;">
+            <img class="h-10 w-auto" src="./img/img1.png" style="width: 200px; height: 50px;" >
             <h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign Up - Create an account</h2>
           </div>
           <div class="mt-10">
@@ -52,8 +52,6 @@
               </div>
               <div>
                 <input class="formbold-btn"  value="Sign Up" name="signUpSubmit" id = signupbtn >
-
-                <!-- <button type="submit" name="signUpSubmit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign Up</button> -->
               </div>
             </form>
           </div>
@@ -77,12 +75,4 @@
 </body>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script>
-$(document).ready(function() {
-    $('input[name="signUpSubmit"]').click(function() {
-      //window.location.href = 'signIn.html'; // Redirect to sign-in page
-      window.location.replace("/signIn.html");
-    });
-  });
-</script>
 </html>

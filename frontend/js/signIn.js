@@ -16,7 +16,6 @@ $(document).ready(() => {
                 }
             })
             .fail((xhr, status, error) => {
-                console.error("Failed to send to server:", error);
             });
     });
 });

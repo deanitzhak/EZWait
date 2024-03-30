@@ -11,7 +11,7 @@ function getUserName() {
                 resolve(my_user);
             },
             error: function(err) {
-                reject("Error occurred while fetching user data");
+                window.location.replace(`../signIn.html`);
             }
         });
     });
@@ -102,3 +102,4 @@ function populateTable(clientArray) {
     
         tableBody.appendChild(row);
     });}
+    

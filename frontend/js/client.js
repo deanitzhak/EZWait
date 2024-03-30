@@ -10,12 +10,12 @@ function getUserName() {
             url: `${URL}/user/getUserData`,
             method: 'GET',
             success: function(myUser) {
-                console.log("user: ", myUser);
                 my_user = myUser;
                 resolve(my_user);
+                fetchClientData(my_user);
             },
             error: function(err) {
-                reject("Error occurred while fetching user data");
+                window.location.replace(`../signIn.html`);
             }
         });
     });
@@ -63,8 +63,6 @@ window.onload = async () => {
                 }
                 
             } catch (error) {
-                console.error('Failed to create new client.', error);
-                alert('Failed to create new client.');
             }
         });
         $('button[name="addmemberbtn"]').click(async (e) => {
@@ -78,16 +76,12 @@ window.onload = async () => {
             }
         });
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error occurred while fetching user data');
     }
 };
 async function createNewSubClient(newClient) {
     try {
         const response = await $.post(`${URL}/client/submitNewSubClient`, newClient);
     } catch (error) {
-        console.error('Failed to send data to server:', error);
-        alert('Failed to create new client.');
         throw error; // Rethrow the error for further handling
     }
 }
@@ -283,13 +277,11 @@ async function createNewClientDemo() {
 async function postNewClient() 
 {
     const newClinetData = await getNewClinetData();
-    console.log("newClinetData-><><><><><><>",newClinetData);
     try {
         const response = await $.post(`${URL}/client/submitNewClient`, newClinetData);
     } catch (error) {
-        console.error('Failed to send data to server:', error);
         alert('Failed to create new client.');
-        throw error; // Rethrow the error for further handling
+        throw error; 
     }
 }
 async function getNewClinetData(){
@@ -325,4 +317,24 @@ function generateRandomId() {
         randomId += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return randomId;
+}
+function fetchClientData(data) {
+    try {
+        const firstNameString = String(data.firstName);
+        const lastNameString = String(data.lastName);
+        const emailString = String(data.email);
+
+        document.getElementById('firstname').value = firstNameString;
+        document.getElementById('lastname').value = lastNameString;
+        document.getElementById('email').value = emailString;
+        document.getElementById('password').value = "";
+
+        const usertype = data.type; 
+        if (usertype === 'user') {
+            const customersLink = document.getElementById('customersLink');
+            customersLink.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error fetching client data:', error);
+    }
 }

@@ -151,25 +151,6 @@
                   </div>
                
               <script>
-async function getClientData(userName) {
-    try {
-        const response = await fetch(`${URL}/client/findAllByUserName?userName=${userName}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error('Failed to get client data');
-        }
-        const clientData = await response.json();
-        return clientData;
-    } catch (error) {
-        console.error('Error occurred while fetching client data:', error);
-        throw error;
-    }
-}
-
                 function openEventModal() {
                   var formContainer = document.querySelector('.form_container');
                   formContainer.style.display = 'block';
@@ -198,31 +179,25 @@ async function getClientData(userName) {
         dayButton.classList.add('bg-white', 'py-1.5', 'text-gray-900', 'hover:bg-purple-600', 'focus:z-10');
         dayButton.innerHTML = `<time datetime="${new Date().getFullYear()}-${selectedMonthIndex + 1}-${i}" class="mx-auto flex h-7 w-7 items-center justify-center rounded-full">${i}</time>`;
         
-        // Attach an event listener to each date button
         dayButton.addEventListener('click', function() {
-          // Remove previously selected date
           const selectedDateButton = document.querySelector('.selected-date');
           if (selectedDateButton) {
             selectedDateButton.classList.remove('selected-date');
           }
 
-          // Mark the selected date
           dayButton.classList.add('selected-date');
 
           const selectedDate = `${new Date().getFullYear()}-${selectedMonthIndex + 1}-${i}`;
           const value = getValueForDate(selectedDate);
-          // Do something with the value, e.g., display it somewhere
         });
 
         calendarGrid.appendChild(dayButton);
       }
     }
 
-    // Define your date-value mapping here
     const dateValues = {
       "2024-03-01": "Value for March 1, 2024",
       "2024-03-03": "Value for March 3, 2024",
-      // Add more dates and values as needed
     };
 
     function getValueForDate(date) {
@@ -250,54 +225,10 @@ async function getClientData(userName) {
                 document.getElementById(cityName).style.display = "block";
                 evt.currentTarget.className += " active";
             }
-
-                // Define the toggleModal function
 function toggleModal() {
     var modal = document.getElementById('shir');
     modal.classList.toggle('hidden');
 }
-fetch(`${URL}/user/getUserData`)
-    .then(response => response.json())
-    .then(data => {
-        const usertype = data.type;
-        if (usertype === 'user') {
-            // If user is not admin, hide the Customers link
-            const customersLink = document.getElementById('customersLink');
-            customersLink.style.display = 'none';
-            const firstNameString = String(data.firstName);
-            const lastNameString = String (data.lastName);
-            const selectElement = document.getElementById('select');
-              getClientData(data.userName).
-              then(client => {
-                const option = document.createElement('option');
-                option.textContent = client.userName;
-                option.value = client.userName; // You may want to use the client ID as the option value
-                selectElement.appendChild(option); 
-                  client.subClients.forEach(subClient => {
-                  const option = document.createElement('option');
-                  option.textContent = subClient.subfirstName;
-                  option.value = subClient.subfirstName;
-                  selectElement.appendChild(option); 
-                 });
-              })
-              .catch(error => console.error('Error fetching client data:', error));
-        } else if (usertype === 'admin') {
-            fetch(`${URL}/client/allClient`)
-            .then(response => response.json())
-            .then(clients => {
-            const selectElement = document.getElementById('select');
-            selectElement.innerHTML = '';
-            clients.forEach(client => {
-            const option = document.createElement('option');
-            option.textContent = client.userName;
-            option.value = client.userName; // You may want to use the client ID as the option value
-            selectElement.appendChild(option);
-        });
-    })
-    .catch(error => console.error('Error fetching clients:', error));
-        }
-    })
-    .catch(error => console.error('Error fetching user data:', error));
     </script>
         </body>
 </html>

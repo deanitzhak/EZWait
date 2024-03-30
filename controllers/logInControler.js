@@ -1,6 +1,7 @@
 const ProfileRepository = require('../repository/profile.repository');
 const User = require('../models/profile.model');
 const globalData = require('../models/myUser.singleton');
+const {PropertyNotFound} = require("../errors/NotFound.errors");
 module.exports = {
     checkUserExist: (req, res) => {
         proRepo = new ProfileRepository(User);
@@ -10,13 +11,14 @@ module.exports = {
             if( profiles != null){
                 globalData.setData('myUser', profiles);
                 globalData.setData('token', token);
-                res.send(profiles);
+                if(!profiles) throw new PropertyNotFound("checkUserExist");
+                res.status(200).send(profiles);
             }else{
-                res.send("Invalid Data");
+                res.status(404).send("User not found");
             }
         })
         .catch(error => {
-            console.log("Error : ",error);
+            res.status(404).send(error.message);
         });
     },
 };

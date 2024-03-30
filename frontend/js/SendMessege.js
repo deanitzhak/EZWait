@@ -2,21 +2,22 @@ const URL = window.location.origin;
 var myUser;
 
 async function getUserName() {
-    try {
-        const response = await fetch(`${URL}/user/getUserData`);
-        myUser = await response.json(); // Assign to the global variable
-        return myUser;
-    } catch (error) {
-        console.error("Error occurred while fetching user data:", error);
-        throw error; // Re-throw the error to handle it outside
-    }
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `${URL}/user/getUserData`,
+            method: 'GET',
+            success: function(myUser) {
+                fetchClientData(myUser);
+                resolve(myUser);
+            },
+            error: function(err) {
+                window.location.replace(`../signIn.html`);
+            }
+        });
+    });
 }
 const sendEmail = async (senderName, senderEmail, message,phone) => {
     try {
-        console.log("senderName",senderName);
-        console.log("senderEmail",senderEmail); 
-        console.log("message",message); 
-        console.log("phone",phone); 
         const response = await fetch('/send-email', {
             method: 'POST',
             headers: {
@@ -27,7 +28,6 @@ const sendEmail = async (senderName, senderEmail, message,phone) => {
         const data = await response.json();
         return data.status;
     } catch (error) {
-        console.error('Error sending email:', error);
         throw error;
     }
 };
@@ -41,11 +41,7 @@ window.onload = async () => {
         nameInput.value = `${myUser.firstName} ${myUser.lastName}`;
 
         document.querySelector('form').addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent the default form submission behavior
-        
-            // Get form input values
-
-        
+            event.preventDefault(); 
             try {
                 const emailInput = document.getElementById('email').value;
                 const fullNameInput = document.getElementById('fullName').value;
@@ -55,14 +51,25 @@ window.onload = async () => {
                 emailInput.value = '';
                 fullNameInput.value = '';
                 messageInput.value = '';
-                alert('Email sent successfully');
             } catch (error) {
-                console.error('Error sending email:', error);
-                alert('Failed to send email. Please try again later.');
             }
         });
-                
     } catch (error) {
-        console.error("Error:", error);
     }
 };
+function fetchClientData(data) {
+    try {
+        console.log('usertype:', data);
+        const firstNameString = data.firstName + '' + data.lastName;
+        const emailString = data.email;
+        document.getElementById('fullName').value = firstNameString;
+        document.getElementById('email').value = emailString;
+        const usertype = data.type; 
+        if (usertype === 'user') {
+            const customersLink = document.getElementById('customersLink');
+            customersLink.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error fetching client data:', error);
+    }
+}

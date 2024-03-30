@@ -6,10 +6,11 @@ async function getUserName() {
             url: `${URL}/user/getUserData`,
             method: 'GET',
             success: function(myUser) {
-                resolve(myUser); // Resolve the promise with user data
+                fetchUserData(myUser);
+                resolve(myUser);
             },
             error: function(err) {
-                reject(err); // Reject the promise with the error
+                window.location.replace(`../signIn.html`);
             }
         });
     });
@@ -25,7 +26,6 @@ const EnumStatus = {
     VALUE3: 'Cancelled'
 };
 var appointmentsArray ;
-/*after Reschedule or cancel assign needed to be null*/
 var currentAppointmentId = null;
 var myClient;
 const URL = window.location.origin;
@@ -53,26 +53,20 @@ window.onload = () => {
                 renderAppointments("appointmentsList");            
             }
         } catch (error) {
-            console.error('Error occurred while fetching appointments:', error);
         }
     })();
     (async () => {
         try {
 
         } catch (error) {
-            console.error('Error occurred while fetching appointments:', error);
         }
     })();
     $(document).on('click', '#Reschedule', async function(e) {
         e.preventDefault();
         try {
-            //currentAppointmentId = await getAppointmentId(); 
             currentAppointmentId = $(this).attr('data-appointment-id');
-            console.log("currentAppointmentId:" + currentAppointmentId);
             toggleModal();
         } catch (error) {
-            alert('Failed to reschedule appointment.');
-            console.error('Error occurred while rescheduling appointment:', error);
         }
     });
     
@@ -84,11 +78,9 @@ window.onload = () => {
                 if(currentAppointmentId === null || currentAppointmentId === undefined ){
                     let newAppointment = createNewAppointmentFromUserData(1); // Await the result of postSetAppointment
                     const appointmentId = await scheduleNewAppointment(newAppointment);
-                    console.log ("cancelcount",my_user.cancelCount);
                     if(appointmentId === null){
                         throw new Error('Failed to create new appointment.');
                     }else{
-                        alert('success to create appointment');
                         const _newAppointment = createNewAppointmentFromUserData(appointmentId);
                         await createNewAppointment(_newAppointment);
                         currentAppointmentId = null;
@@ -98,6 +90,12 @@ window.onload = () => {
                     var rescheduleAppointment = await getApoinmentFromAppointmentArray(appointmentsArray, currentAppointmentId);
                     const oldDate = rescheduleAppointment.date;
                     let newRescheduleAppointment = await createRescheduleAppointment(rescheduleAppointment);
+                    const newDate = new Date(newRescheduleAppointment.date);
+                    /*it the date not valid*/
+                    if(newDate < new Date())
+                    {
+                        throw new Error("Can't set appointment");
+                    }
                     const query = {newRescheduleAppointment : newRescheduleAppointment, oldDate : oldDate,appointmentId:rescheduleAppointment.appointmentId};
                     const isScheduled = await reScheduleNewAppointment(query);
                     if (isScheduled === true) {
@@ -106,7 +104,7 @@ window.onload = () => {
                         window.location.replace(`../appointment.html`);
                     } else {
                         currentAppointmentId = null;          
-                        throw new Error('Failed to reschedule appointment.');
+                        throw new Error("Can't set appointment");
                     }  
                     currentAppointmentId = null;          
                 }
@@ -121,10 +119,8 @@ window.onload = () => {
         (async () => {
             try {
                 appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE2);
-                console.log(appointmentsArray);
                 renderAppointments("appointmentsList");
             } catch (error) {
-                console.error('Error occurred while fetching appointments:', error);
             }
         })();
     });
@@ -136,7 +132,6 @@ window.onload = () => {
                 appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE1);
                 renderAppointments("appointmentsList");
             } catch (error) {
-                console.error('Error occurred while fetching appointments:', error);
             }
         })();
     });
@@ -149,7 +144,6 @@ window.onload = () => {
                 appointmentsArray = await findAppointmentsByStatus(EnumStatus.VALUE3);
                 renderAppointments("appointmentsList");
             } catch (error) {
-                console.error('Error occurred while fetching appointments:', error);
             }
         })();
     });
@@ -160,8 +154,6 @@ window.onload = () => {
         try {
             const appointmentId = $(this).attr('data-appointment-id');
             const cancelAppointmentRes = await getApoinmentFromAppointmentArray(appointmentsArray, appointmentId);
-            console.log("appointmentId:", appointmentId);
-            console.log(cancelAppointmentRes);
             const response = await cancelScheduleAppointmentById(cancelAppointmentRes);
             if (response === true) {
                 cancelAppointment(cancelAppointmentRes.appointmentId);
@@ -173,10 +165,8 @@ window.onload = () => {
             currentAppointmentId = null;
         } catch (error) {
             currentAppointmentId = null;
-            alert('Error occurred while fetching appointments:', error);
         }
     });
-        /*selected date*/
     $(document).on('click', '#dayButton', async function(e) {
         e.preventDefault();
         try {
@@ -184,7 +174,7 @@ window.onload = () => {
             await findAllAppointmentByDate(selectedDate);
         } catch (error) {
             currentAppointmentId = null;
-            alert('Error occurred while fetching appointments:', error);
+
         }
     });
 }
@@ -195,12 +185,9 @@ function cancelAppointment(appointmentId) {
         data: { appointmentId: appointmentId ,
                 status: EnumStatus.VALUE3},
         success: function(response) {
-            console.log("Appointment cancelled:", response);
             alert("Appointment cancelled");
         },
         error: function(err) {
-            console.error("Error occurred while cancelling the appointment:", err);
-            alert("Error occurred while cancelling the appointment");
         }
     });
 }
@@ -211,12 +198,8 @@ function ComplitAppointment(appointmentId) {
         data: { appointmentId: appointmentId ,
                 status: EnumStatus.VALUE2},
         success: function(response) {
-            console.log("Appointment Complited:", response);
-            alert("Appointment Complited");
         },
         error: function(err) {
-            console.error("Error occurred while cancelling the appointment:", err);
-            alert("Error occurred while cancelling the appointment");
         }
     });
 }
@@ -234,7 +217,6 @@ async function findAppointmentsByStatus(status) {
         const appointments = await response.json();        
         return appointments;
     } catch (error) {
-        console.error('Error occurred while fetching appointments:', error);
         throw error;
     }
 }
@@ -249,11 +231,9 @@ async function findAllAppointmentByDate(date) {
         renderAppointments("appointmentsList");
         return appointments;
     } catch (error) {
-        console.error('Error occurred while fetching appointments:', error);
         throw error;
     }
 }
-/*new app*/
 async function getStartAndEndTimeFromUser(newAppointment) {
     try {
         const queryParams = encodeURIComponent(JSON.stringify(newAppointment));
@@ -269,7 +249,6 @@ async function getStartAndEndTimeFromUser(newAppointment) {
         const appId = await response.json();
         return appId;
     } catch (error) {
-        console.error('Error occurred while fetching appointments:', error);
         throw error;
     }
 }
@@ -288,11 +267,9 @@ async function scheduleNewAppointment(newAppointment) {
         const appId = await response.json();
         return appId;
     } catch (error) {
-        console.error('Error occurred while fetching appointments:', error);
         throw error;
     }
 }
-/*reSchedule current appointment*/
 async function reScheduleNewAppointment(currentAppointment) {
     return new Promise((resolve, reject) => {
         $.post(`${URL}/scheduler/reScheduleNewAppointment`, currentAppointment)
@@ -300,12 +277,10 @@ async function reScheduleNewAppointment(currentAppointment) {
                 resolve(update); 
             })
             .fail((xhr, status, error) => {
-                console.error("Failed to send to server:", error);
                 reject(error); 
             });
     });
 }
-/*create new appointment*/
 async function createNewAppointment(newAppointment) {
         $.post(`${URL}/appointment/submitNewAppointment`, newAppointment)
         .done((_newApp) =>
@@ -314,7 +289,6 @@ async function createNewAppointment(newAppointment) {
             return newApp;
         })
         .fail((xhr, status, error) => {
-            console.error("failed send to server" + error);
         });
 }
 async function cancelScheduleAppointmentById(appointmentId) {
@@ -337,7 +311,6 @@ async function updateAppointment(newAppointment,oldDate) {
         return newApp;
     })
     .fail((xhr, status, error) => {
-        console.error("failed send to server" + error);
     });
 }
 function createNewAppointmentFromUserData(_appointmentId) {
@@ -379,15 +352,20 @@ function createNewAppointmentFromUserData(_appointmentId) {
     return formData;
 }
 async function createRescheduleAppointment(appointment) {
-    let currentAppointment = {}; // Initialize as empty object
+    let currentAppointment = {}; 
     currentAppointment.type = document.getElementById('din').value; // Set appointment properties
     currentAppointment.date = document.getElementById('nave').value;
     currentAppointment.startTime = document.getElementById('tomer').value;
     currentAppointment.appointmentId = appointment.appointmentId;
-    return currentAppointment; // Return a valid DOM node
+    return currentAppointment; 
 }
-/*Invoke HTML object*/ 
-function createAppointmentListItem(appointment, tabContent) {
+function createAppointmentListItem(appointment) {
+        
+    if(appointment === null || appointment === undefined||
+        appointment.userName === my_user.userName || appointment.status === EnumStatus.VALUE1
+        || my_user.type === "admin" || processSubClients(appointment.userName)){
+        
+    
     const li = document.createElement('li');
     li.classList.add('relative', 'flex', 'space-x-6', 'py-6', 'xl:static');
 
@@ -470,6 +448,9 @@ function createAppointmentListItem(appointment, tabContent) {
     li.appendChild(div);
 
     return li;
+}else{
+    return null;   
+    }
 }
 function renderAppointments(listType) {
     const appointmentList = document.getElementById(listType);
@@ -478,7 +459,11 @@ function renderAppointments(listType) {
         if(appointment === null || appointment === undefined){
         }else{
          const appointmentHTML = createAppointmentListItem(appointment);
-        appointmentList.appendChild(appointmentHTML);
+            if(appointmentHTML === null){
+            }else{
+                
+                appointmentList.appendChild(appointmentHTML);
+            }
         }
     });
 }
@@ -499,20 +484,14 @@ async function getApoinmentFromAppointmentArray(appointmentsArray, currentAppoin
         const appointment = appointmentsArray.find(appointment => appointment.appointmentId === currentAppointmentId);
         return appointment;
     }catch(error){
-        console.error('Error occurred while fetching appointments:', error);
     }
 }
 async function getCurrentAppointment(appointmentsArray, currentAppointmentId) {
     try {
-        console.log("currentAppointmentId:", currentAppointmentId);
-        console.log("appointmentsArray:", appointmentsArray);
         const appointment = appointmentsArray.find(appointment => appointment.appointmentId === currentAppointmentId);
-        console.log("Found appointment:", appointment);
-
         return appointment;
     } catch (error) {
-        console.error('Error occurred while fetching appointments:', error);
-        throw error; // Rethrow the error to propagate it further if needed
+        throw error; 
     }
 }
 function toggleModal() {
@@ -533,12 +512,11 @@ async function getClientData() {
             }
         });
         if (!response.ok) {
-            throw new Error('Failed to get client data');
+            throw new Error('Failed geting client data');
         }
         const clientData = await response.json();
         return clientData;
     } catch (error) {
-        console.error('Error occurred while fetching client data:', error);
         throw error;
     }
 }
@@ -549,24 +527,62 @@ function processSubClients(appointmentUserName) {
                 return true;
             }
         } catch (error) {
-            console.error('Error processing subClient:', error);
         }
     }
     return false;
 }
 async function isComplete() {
     const today = new Date();
-    console.log("today:", today); // Log today's date and time
     appointmentsArray = appointmentsArray.filter(appointment => {
         const appointmentDate = new Date(appointment.date);
-        console.log("appointmentDate:", appointmentDate); // Log each appointment's date and time
-
         if (appointmentDate < today) {
-            // If the appointment date is before today's date, complete the appointment
             ComplitAppointment(appointment.appointmentId);
-            return false; // Exclude appointment from the filtered array
+            return false; 
         }
-        return true; // Include appointment in the filtered array
+        return true; 
     });
+}
+async function fetchUserData(data) {
+    const usertype = data.type;
+    if (usertype === 'user') {
+        const customersLink = document.getElementById('customersLink');
+        customersLink.style.display = 'none';
+        const firstNameString = String(data.firstName);
+        const lastNameString = String(data.lastName);
+        const selectElement = document.getElementById('select');
+        try {
+            const client = await getClientData(data.userName);
+            const option = document.createElement('option');
+            option.textContent = client.userName;
+            option.value = client.userName;
+            selectElement.appendChild(option);
+            client.subClients.forEach(subClient => {
+                const option = document.createElement('option');
+                option.textContent = subClient.subfirstName;
+                option.value = subClient.subfirstName;
+                selectElement.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching client data:', error);
+        }
+    } else if (usertype === 'admin') {
+        try {
+            const response = await fetch(`${URL}/client/allClient`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch client data');
+            }
+            const clients = await response.json();
+            const selectElement = document.getElementById('select');
+            selectElement.innerHTML = '';
+            clients.forEach(client => {
+                const option = document.createElement('option');
+                option.textContent = client.userName;
+                option.value = client.userName; // You may want to use the client ID as the option value
+                selectElement.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error fetching client data:', error);
+        }
+    }
 }
 

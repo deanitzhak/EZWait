@@ -130,32 +130,10 @@
   <!-- Metis Menu Js -->
   <script>
             
-
-      fetch(`${URL}/user/getUserData`)
-            .then(response => response.json())
-            .then(data => {
-              console.log ("lastname",data.lastName);
-              const firstNameString = String(data.firstName);
-              const lastNameString = String(data.lastName);
-              const emailString = String(data.email);
-              console.log("here2",emailString);
-                // Update HTML elements with user details
-                document.getElementById('firstname').value = firstNameString;
-                document.getElementById('lastname').value = lastNameString;
-                document.getElementById('email').value = emailString;
-                document.getElementById('password').value = "";
-
-        // Set the value of the input field with id "inputField"
-    
-              const usertype = data.type; // Change this based on your logic
-    console.log("printusertype",usertype);
-      if (usertype == 'user') {
-        console.log (usertype == 'user');
-        // If user is not admin, hide the Customers link
-        const customersLink = document.getElementById('customersLink');
-        customersLink.style.display = 'none';
+try{
+      } catch (error) {
+        window.location.replace(`../signIn.html`);
       }
-        })
 </script>
   <script>
      </script>

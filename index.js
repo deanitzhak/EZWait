@@ -1,6 +1,5 @@
 /envirment config/
 const URL = process.env.URL;
-const cors = require('cors');
 
 require('dotenv').config({ path: './.env' });
 const express = require('express');
@@ -23,10 +22,8 @@ const userRouter = require('./routers/userRouter');
 const scheduleRouter = require('./routers/scheduleRouter');
 const schedulerRouter = require('./routers/schedulerRouter');
 const clientRouter = require('./routers/clientRouter');
-const {appointmentStatusUpdate} = require("./frontend/js/cron.job");
 const MongoStorage = require('./db/mongo.storage');
 const { env } = require('process');
-appointmentStatusUpdate();
 /*inintialize environment exucting*/
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,7 +39,6 @@ app.use('/appointment', appointmentRouter);
 app.use('/client', clientRouter);
 app.use('/profile',profileRouter);
 app.use('/user', userRouter);
-app.use(cors());
 // app.use("/messegeReplay",messegeReplayRouter);
 // app.use("/messegeSent",messegeSentRouter);
 app.use("/schedule",scheduleRouter);

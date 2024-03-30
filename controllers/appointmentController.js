@@ -1,5 +1,4 @@
-const { schedule } = require('node-cron');
-const { appointment } = require('../frontend/js/APIpath');
+
 const Appointment = require('../models/appointment.model');
 const Schedule = require('../models/schedule.model');
 const scheduleRepository = require('../repository/schedule.repository');
@@ -7,78 +6,75 @@ const AppointmentRepository = require('../repository/appointment.repository');
 const appointmentService = require('../service/appoinmentService');
 const appRepo = new AppointmentRepository(Appointment);
 const scheduleRepo = new scheduleRepository(Schedule);
-
+const {PropertyNotFound} = require("../errors/NotFound.errors");
+const {ServerUnableError} = require("../errors/internal.errors");
 module.exports = {
     getAllAppointment: (req, res) => {
       appRepo.find()
       .then(appointments  => {
-        res.send(appointments);
+        if(!appointments) throw new PropertyNotFound("getAllAppointment")
+        res.status(200).send(appointments);
       }).catch(err => {
-        console.error("Error retrieving appointment:", err);
-        res.status(500).send("Internal server error");
+        res.status(404).send(err.message);
       })
     },
     findAllByUserName: (req, res) => {
       appRepo.findByUserName(req.body.userName)
       .then(appointments  => {
-        res.send(appointments);
+        if(!appointments) throw new PropertyNotFound("findAllByUserName")
+        res.status(200).send(appointments);
       }).catch(err => {
-        console.error("Error retrieving appointment:", err);
-        res.status(500).send("Internal server error");
+        res.status(404).send(err.message);
       })
     },
   findAppointmentByAppId: (req, res) => {
       appRepo.findAppointmentByAppId(req.body._id)
           .then(appointment => {
-              if (appointment) {
-                  res.send(appointment);
-              } else {
-                  res.status(404).send("Appointment not found");
-              }
+              if(!appointment) throw new PropertyNotFound("findAppointmentByAppId")
+              res.status(200).send(appointment);      
           })
           .catch(err => {
-              console.error("Error retrieving appointment:", err);
-              res.status(500).send("Internal server error");
+              res.status(404).send(err.message);
           });
   },
   findAppointmentByStartTime:(req,res) => {
     appRepo.findByStartTime(req.body.startTime)
     .then(appointments => {
-      res.send(appointments);
+      if(!appointments) throw new PropertyNotFound("findAppointmentByStartTime")
+      res.status(200).send(appointments);      
     })
     .catch(err =>{
-      console.error("Error retrieving appointment:", err);
-      res.status(500).send("Internal server error");
+      res.status(404).send(err.message);
     });
   },
   async findAppointmentByIdAndDelete(req, res) {
     try {
-        await appRepo.findByIdAndDelete(req.query._id); 
-        res.status(200).send("Deleted");
+        const response = await appRepo.findByIdAndDelete(req.query._id); 
+        if(!response) throw new ServerUnableError("findAppointmentByIdAndDelete")
+        res.status(200).send(response);
     } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal server error");
+        res.status(500).send(error.message);
     }
 },
 
   async findAllAppointmentByStatus(req, res) {
     try {
       const appointments = await appRepo.findByStatus(req.query.status);
-        res.status(200).send(appointments);
+      if(!appointments) throw new PropertyNotFound("findAllAppointmentByStatus")
+      res.status(200).send(appointments);
     } catch (error) {
         console.error(error);
-        res.status(500).send("Internal server error");
+        res.status(404).send(error.message);
     }
 },
     async submitNewAppointment(req, res) {
     try {
       const newApp = await appointmentService.createNewAppointment(req.body);
-      appRepo.create(newApp);
-      res.status(200).send("New appointment created successfully");
-      
+      const response = appRepo.create(newApp);
+      if(!response) throw new ServerUnableError("submitNewAppointment")
+      res.status(200).send(response);
     } catch (error) {
-      console.error(error);
-      res.status(500).send("Internal server error");
+      res.status(500).send(error.message);
     }
   },
   findAppointmentByAppIdAndUpdateStatus: (req, res) => {
@@ -86,28 +82,22 @@ module.exports = {
     const newStatus = req.body.status; 
     appRepo.updateAppointmentStatus(appointmentId, newStatus)
         .then(updatedAppointment => {
-            if (updatedAppointment) {
-                res.send(updatedAppointment);
-            } else {
-                res.status(404).send("Appointment not found");
-            }
+            if(!updatedAppointment) throw new PropertyNotFound("findAppointmentByAppIdAndUpdateStatus")
+            res.status(200).send(updatedAppointment);
         })
         .catch(err => {
-            console.error("Error updating appointment status:", err);
-            res.status(500).send("Internal server error");
+            res.status(404).send(err.message);
         });
   },
   async updateAppointment(req, res) {
     try {
       let newApp = req.body.newAppointment;
       newApp = await appointmentService.updateNewAppointment(newApp);
-      console.log('newApp',newApp);
       const appointmentId = newApp.appointmentId;
-      console.log('appointmentId',appointmentId);
-
       await appRepo.findByIdAndDeleteByAtributeAppointmentId(appointmentId,newApp);
-      await appRepo.create(newApp);
-      res.send(true);
+      const response = await appRepo.create(newApp);
+      if(!response) throw new ServerUnableError("updateAppointment")
+      res.status(200).send(true);
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal server error");
@@ -120,20 +110,18 @@ module.exports = {
       const year = dateObject.getFullYear();
       const month = String(dateObject.getMonth() + 1).padStart(2, '0'); 
       const day = String(dateObject.getDate()).padStart(2, '0');
-      const formattedDate = `${year}-${month}-${day}`;
       const sc = await scheduleRepo.findByDayMonthYear(day, month, year);
       const appointmentsIds = sc.takenHours.appointments.map(appointment => appointment.appointmentId);
       const appointmentArray = [];
-
       for (let i = 0; i < appointmentsIds.length; i++) {
           const appointmentId = appointmentsIds[i];
           let appointment = await appRepo.findAppointmentByAppIdAttribute(appointmentId);
           appointmentArray.push(appointment);
       }
-      res.send(appointmentArray);
+      if(!appointmentArray) throw new PropertyNotFound("findAllAppointmentByDate")
+      res.status(200).send(appointmentArray);
     } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal server error");
+        res.status(500).send(error.message);
     }
   },
 };
