@@ -26,8 +26,8 @@ describe('Appointment Service', () => {
         }
       };
 
-      // Stub combainDateAndHoursToDate function
-      sinon.stub(appointmentService, 'combainDateAndHoursToDate').returns(new Date('2024-03-25T10:00:00'));
+      // Stub combineDateAndHoursToDate function
+      sinon.stub(appointmentService, 'combinDateAndHoursToDate').returns(new Date('2024-03-25T10:00:00'));
 
       // Call the function
       const newAppointment = await appointmentService.createNewAppointment(newAppointmentJSON);
@@ -57,8 +57,7 @@ describe('Appointment Service', () => {
 
     // Add more test cases for other scenarios
   });
-
-  describe('updateNewAppointment', () => {
+    describe('updateNewAppointment', () => {
     afterEach(() => {
       sinon.restore(); // Restore sinon stubs after each test
     });
