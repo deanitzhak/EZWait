@@ -6,7 +6,6 @@ const loginController = require("../../controllers/logInControler"); // Correcte
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-// Create a mock Express app
 const app = express();
 const loginRouter = express.Router();
 
@@ -32,5 +31,4 @@ describe('Login Router', () => {
       });
   });
 
-  // Add more test cases for other scenarios, such as invalid credentials, error handling, etc.
 });
